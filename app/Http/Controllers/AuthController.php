@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -21,7 +22,7 @@ class AuthController extends Controller
         $user = User::create([
             'name'=>$attrs['name'],
             'email'=>$attrs['email'],
-            'password'=>bcrypt($attrs['name'])
+            'password'=>bcrypt($attrs['password'])
         ]);
 
         return response([
@@ -33,19 +34,19 @@ class AuthController extends Controller
     public function login(Request $request){
 
         $attrs= $request->validate([
-            'email'=>'required|email|unique:users,email',
-            'password'=>'required|min:6|confirmed'
+            'email'=>'required|email',
+            'password'=>'required|min:6'
 
         ]);
 
-        if(!Auth::attemp($attrs)){
+        if(!Auth::attempt($attrs)){
             return response([
                 'message' => 'Invalid Credentials'
             ], 403);
         }
 
         return response([
-            'user'  => $user,
+            'user'  => auth()->user(),
             'token' => auth()->user()->createToken('secret')->plainTextToken
         ],200);
     }
