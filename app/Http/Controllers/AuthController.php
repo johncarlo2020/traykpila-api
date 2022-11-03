@@ -16,13 +16,16 @@ class AuthController extends Controller
             'name'=>'required|string',
             'email'=>'required|email|unique:users,email',
             'password'=>'required|min:6|confirmed',
+            'role' => 'required'
 
         ]);
 
         $user = User::create([
             'name'=>$attrs['name'],
             'email'=>$attrs['email'],
-            'password'=>bcrypt($attrs['password'])
+            'password'=>bcrypt($attrs['password']),
+            'role'=> $attrs['role']
+
         ]);
 
         return response([
@@ -36,7 +39,6 @@ class AuthController extends Controller
         $attrs= $request->validate([
             'email'=>'required|email',
             'password'=>'required|min:6'
-
         ]);
 
         if(!Auth::attempt($attrs)){
@@ -47,6 +49,7 @@ class AuthController extends Controller
 
         return response([
             'user'  => auth()->user(),
+            'role' => auth()->user()->role,
             'token' => auth()->user()->createToken('secret')->plainTextToken
         ],200);
     }
