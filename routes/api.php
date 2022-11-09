@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TerminalController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +20,20 @@ use App\Http\Controllers\AuthController;
 
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
+Route::post('/terminal/create',[TerminalController::class,'create']);
+Route::post('/terminal',[TerminalController::class,'index']);
+Route::post('/terminal/show',[TerminalController::class,'show']);
+Route::post('/terminal/delete',[TerminalController::class,'destroy']);
+Route::post('/terminal/update',[TerminalController::class,'edit']);
+
+
+
+
 
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/logout',[AuthController::class,'logout']);
     Route::post('/user',[AuthController::class,'user']);
+   
+
 });
 
