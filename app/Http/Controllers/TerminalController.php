@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Terminal;
+use App\Models\User;
+
 use Auth;
 
 class TerminalController extends Controller
@@ -15,10 +17,14 @@ class TerminalController extends Controller
      */
     public function index()
     {
-        $terminal = Terminal::get();
+        $terminals = Terminal::get();
+        $terminal = Terminal::count();
+
 
         return response([
-            'terminals'  => $terminal
+            'terminals'  => $terminals,
+            'count'  => $terminal
+
         ],200);
     }
 
@@ -60,6 +66,34 @@ class TerminalController extends Controller
     {
         //
     }
+
+    public function TerminalCount(){
+        $terminal = Terminal::count();
+
+        return response([
+            'count'  => $terminal
+        ],200);
+
+    }
+
+    public function UserCount(){
+        $user = user::where('role','=','0')->count();
+
+        return response([
+            'count'  => $user
+        ],200);
+
+    }
+
+    public function DriverCount(){
+        $driver= user::where('role','=','1')->count();
+
+        return response([
+            'count'  => $driver
+        ],200);
+
+    }
+
 
     /**
      * Display the specified resource.

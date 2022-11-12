@@ -25,6 +25,12 @@ Route::post('/terminal',[TerminalController::class,'index']);
 Route::post('/terminal/show',[TerminalController::class,'show']);
 Route::post('/terminal/delete',[TerminalController::class,'destroy']);
 Route::post('/terminal/update',[TerminalController::class,'edit']);
+Route::post('/terminal/count',[TerminalController::class,'TerminalCount']);
+Route::post('/user/count',[TerminalController::class,'UserCount']);
+Route::post('/driver/count',[TerminalController::class,'DriverCount']);
+
+
+
 
 
 
