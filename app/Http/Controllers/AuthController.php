@@ -17,21 +17,29 @@ class AuthController extends Controller
             'address'=>'String',
             'email'=>'required|email|unique:users,email',
             'password'=>'required|min:6|confirmed',
-            'role' => 'required'
+            'role' => 'required',
 
         ]);
+
+          if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images');
+           }else{
+            $path='';
+           }
 
         $user = User::create([
             'name'=>$attrs['name'],
             'email'=>$attrs['email'],
             'password'=>bcrypt($attrs['password']),
             'role'=> $attrs['role'],
-            'address' =>$attrs['address']
+            'address' =>$attrs['address'],
+            'image'=>$path
         ]);
 
         return response([
             'user'  => $user,
-            'token' => $user->createToken('secret')->plainTextToken
+            'token' => $user->createToken('secret')->plainTextToken,
+            'path' => $path
         ],200);
     }
 

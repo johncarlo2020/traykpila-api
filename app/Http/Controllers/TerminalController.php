@@ -113,7 +113,6 @@ class TerminalController extends Controller
     {
         $attrs= $request->validate([
             'id'=>'required',
-
         ]);
         $terminal = Terminal::where('id','=',$attrs['id'])->get();
         
