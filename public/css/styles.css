@@ -1,0 +1,148 @@
+body{
+    background-color: #ffffff;   
+   }
+
+   .navbar{
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+
+   .navbar #navbg{
+       overflow: hidden;
+       position: fixed; /* Set the navbar to fixed position */
+       top: 0; /* Position the navbar at the top of the page */
+       width: 100%; /* Full width */
+   }
+
+
+
+   #imgcenter{
+               display: block;
+               margin-left: auto;
+               margin-right: auto;
+               width: 50%;
+               border-radius: 50px;
+           }
+
+           .logo{
+
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+           }
+
+
+          #carouselExampleIndicators{
+            position: relative;
+
+          }
+
+          #motto{
+            padding: .5em 1.5em;
+               background:#25C36B;
+               color: rgb(255, 255, 255);
+               margin-left: 10px;
+               margin-right:10px ;
+               border-radius: 20px;
+          }
+
+
+           #dl{
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items:flex-end;
+            justify-content: center;
+            flex-direction: row;
+            padding-bottom: 100px;
+               }
+               
+           
+               #dl section{
+               padding: 1em 1.5em;
+               background:#25C36B;
+               color: rgb(255, 255, 255);
+               margin-left: 10px;
+               margin-right:10px ;
+               border-radius: 20px;
+               }
+               #dl section h1{
+               width: 100%;
+               font-size: 1.5em;
+               text-align: center;
+               padding-bottom: 0.5em;
+               border-bottom: 2px dotted #fff;
+               }
+               #dl section p{
+               padding: 1.5em 0;
+               text-align: center;
+               line-height: 1.5;
+               }
+               #dl section button{
+               background: #252525;
+               padding: 1em;
+               width: 100%;
+               border: 0;
+               color: #25C36B;
+               text-transform: uppercase;
+               cursor: pointer;
+               box-shadow: inset 0 0 5px #aaa;
+               border-radius: 10px; 
+
+               }
+               
+               #dl section button:Hover {
+                   color: #F7F163;
+                   background: #444444;
+               }
+
+               #services{
+                display: flex;
+                flex-direction: row;
+              
+              }
+              #services section{
+                padding: 1em 1.5em;
+                background:#25C36B;
+                color: rgb(255, 255, 255);
+                margin-left: 10px;
+                margin-right:10px ;
+                border-radius: 20px;
+              }
+              #services section h1{
+                width: 100%;
+                font-size: 1.5em;
+                text-align: center;
+                padding-bottom: 0.5em;
+                border-bottom: 2px dotted #fff;
+              }
+              #services section p{
+                padding: 1.5em 0;
+                text-align: center;
+                line-height: 1.5;
+              }
+
+               
+               .carousel-inner>.carousel-item{
+                 width: 100%; 
+                 /* z-index: -9; */
+
+               }
+
+
+               footer{
+                   background-color: #25C36B;
+               }
