@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Terminal;
+use App\Http\Requests\ImageStoreRequest;
 use App\Models\User;
 
 use Auth;
@@ -33,27 +34,34 @@ class TerminalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(request $request)
+    public function create(Request $request)
     {
-        $attrs= $request->validate([
-            'name'=>'required|string',
-            'image'=>'String',
-            'lat'=>'String',
-            'lng' => 'String'
+        $attrs= $request->validated();
+        $attrs['image'] = $request->file('image')->store('image');
 
-        ]);
-
-        $terminal = Terminal::create([
-            'name'=>$attrs['name'],
-            'image'=>$attrs['image'],
-            'lat'=>$attrs['lat'],
-            'lng'=>$attrs['lng'],
-
-        ]);
+        $terminal = Terminal::create($attrs);
 
         return response([
             'terminals'  => $terminal
         ],200);
+    }
+
+    public function addimage(Request $request)
+    {
+        $image = new Terminal;
+        $image->name = $request->name;
+        $image->address = $request->address;
+        $image->lat = $request->lat;
+        $image->lng = $request->lng;
+
+        
+            if ($request->hasFile('image')) {
+            
+            $path = $request->file('image')->store('images');
+            $image->image = $path;
+           }
+        $image->save();
+        return $image;
     }
 
     /**

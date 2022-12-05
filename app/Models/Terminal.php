@@ -14,6 +14,7 @@ class Terminal extends Model
         'image',
         'lat',
         'lng',
+        'address'
 
     ];
 }
