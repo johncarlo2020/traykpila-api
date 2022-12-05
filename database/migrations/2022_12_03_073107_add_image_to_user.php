@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTerminalsTable extends Migration
+class AddImageToUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateTerminalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('terminals', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->string('image');
-            $table->string('lat');
-            $table->string('lng');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->String('image')->nullable();
         });
     }
 
@@ -30,6 +25,8 @@ class CreateTerminalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('terminals');
+        Schema::table('user', function (Blueprint $table) {
+            //
+        });
     }
 }
