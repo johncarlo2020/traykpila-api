@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TerminalController;
+use App\Http\Controllers\TricycleController;
+
 
 
 /*
@@ -26,6 +28,10 @@ Route::post('/terminal/show',[TerminalController::class,'show']);
 Route::post('/terminal/delete',[TerminalController::class,'destroy']);
 Route::post('/terminal/update',[TerminalController::class,'edit']);
 Route::post('/terminal/count',[TerminalController::class,'TerminalCount']);
+Route::post('/tricyle/create',[TricycleController::class,'create']);
+Route::post('/tricyle/{id}',[TricycleController::class,'show']);
+
+
 Route::post('/user/count',[TerminalController::class,'UserCount']);
 Route::post('/driver/count',[TerminalController::class,'DriverCount']);
 
