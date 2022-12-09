@@ -43,6 +43,36 @@ class AuthController extends Controller
         ],200);
     }
 
+    public function register_new(Request $request)
+    {
+        $attrs= $request->validate([
+            'name'=>'required|string',
+            'address'=>'String',
+            'email'=>'required|email|unique:users,email',
+            'password'=>'required|min:6|confirmed',
+            'role' => 'required',
+
+        ]);
+
+        $image = new User;
+        $image->name = $request->name;
+        $image->email = $attrs['email'];
+        $image->password = bcrypt($attrs['password']);
+        $image->address = $request->address;
+        $image->role = $request->role;
+            if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images');
+            $image->image = $path;
+           }
+        $image->save();
+
+        return response([
+            'user'  => $image,
+            'token' => $image->createToken('secret')->plainTextToken,
+        ],200);
+        
+    }
+
     public function login(Request $request){
 
         $attrs= $request->validate([
