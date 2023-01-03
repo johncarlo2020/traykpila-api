@@ -81,7 +81,7 @@ class TerminalController extends Controller
 
         ]);
 
-        $image = $this->saveImage($request->image, 'terminal');
+        $image = $request->file('image')->store('images');
 
         $post = Terminal::create([
             'name' => $attrs['name'],
