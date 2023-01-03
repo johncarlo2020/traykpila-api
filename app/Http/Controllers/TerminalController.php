@@ -70,9 +70,33 @@ class TerminalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+   public function store(Request $request)
     {
-        //
+        //validate fields
+        $attrs = $request->validate([
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'lat' => 'required|string',
+            'lng' => 'required|string',
+
+        ]);
+
+        $image = $this->saveImage($request->image, 'terminal');
+
+        $post = Terminal::create([
+            'name' => $attrs['name'],
+            'address' => $attrs['address'],
+            'lat' => $attrs['lat'],
+            'lng' => $attrs['lng'],
+            'image' => $image
+        ]);
+
+        // for now skip for post image
+
+        return response([
+            'message' => 'Post created.',
+            'post' => $post,
+        ], 200);
     }
 
     public function TerminalCount(){

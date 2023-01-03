@@ -25,6 +25,8 @@ Route::post('/register_new',[AuthController::class,'register_new']);
 
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/terminal/create',[TerminalController::class,'addimage']);
+Route::post('/terminal/createNew',[TerminalController::class,'store']);
+
 Route::post('/terminal',[TerminalController::class,'index']);
 Route::post('/terminal/show',[TerminalController::class,'show']);
 Route::post('/terminal/delete',[TerminalController::class,'destroy']);
