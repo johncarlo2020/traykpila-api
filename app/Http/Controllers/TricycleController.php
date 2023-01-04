@@ -92,7 +92,9 @@ class TricycleController extends Controller
         $id=$attrs['user_id'];
         $tricycle = Tricycle::where('user_id',$id)->get();
 
-        return $tricycle;
+        return response([
+            'tricycle'  => $tricycle
+        ],200);
     }
 
     /**
