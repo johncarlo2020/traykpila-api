@@ -84,8 +84,12 @@ class TricycleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(request $request)
     {
+          $attrs = $request->validate([
+            'user_id' => 'required',
+        ]);
+        $id=$attrs['user_id'];
         $tricycle = Tricycle::where('user_id',$id)->get();
 
         return $tricycle;

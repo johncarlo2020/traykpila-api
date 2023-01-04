@@ -36,7 +36,7 @@ Route::post('/terminal/count',[TerminalController::class,'TerminalCount']);
 Route::post('/tricyle/create',[TricycleController::class,'create']);
 Route::post('/tricyle/createNew',[TricycleController::class,'store']);
 
-Route::post('/tricyle/{id}',[TricycleController::class,'show']);
+Route::post('/tricyle',[TricycleController::class,'show']);
 
 
 Route::post('/user/count',[TerminalController::class,'UserCount']);
