@@ -59,6 +59,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'tricycle' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/tricycle'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
 
     ],
 

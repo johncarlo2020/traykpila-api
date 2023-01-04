@@ -47,7 +47,35 @@ class TricycleController extends Controller
      */
     public function store(Request $request)
     {
-        
+         //validate fields
+        $attrs = $request->validate([
+            'name' => 'required|string',
+            'plate_number' => 'required|string',
+            'body_number' => 'required|string',
+            'max_passenger' => 'required|string',
+            'user_id'=>'required'
+
+        ]);
+
+        $image = $this->saveImage($request->image, 'tricycle');
+
+
+        $post = tricycle::create([
+            'name' => $attrs['name'],
+            'plate_number' => $attrs['plate_number'],
+            'body_number' => $attrs['body_number'],
+            'max_passenger' => $attrs['max_passenger'],
+            'user_id' => $attrs['user_id'],
+
+            'image' => $image
+        ]);
+
+        // for now skip for post image
+
+        return response([
+            'message' => 'Post created.',
+            'post' => $post,
+        ], 200);
     }
 
     /**

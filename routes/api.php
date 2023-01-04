@@ -32,7 +32,10 @@ Route::post('/terminal/show',[TerminalController::class,'show']);
 Route::post('/terminal/delete',[TerminalController::class,'destroy']);
 Route::post('/terminal/update',[TerminalController::class,'edit']);
 Route::post('/terminal/count',[TerminalController::class,'TerminalCount']);
+
 Route::post('/tricyle/create',[TricycleController::class,'create']);
+Route::post('/tricyle/createNew',[TricycleController::class,'store']);
+
 Route::post('/tricyle/{id}',[TricycleController::class,'show']);
 
 
