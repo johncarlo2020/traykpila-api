@@ -51,7 +51,6 @@ class AuthController extends Controller
             'email'=>'required|email|unique:users,email',
             'password'=>'required|min:6|confirmed',
             'role' => 'required',
-
         ]);
 
         $image = new User;
@@ -90,6 +89,29 @@ class AuthController extends Controller
             'user'  => auth()->user(),
             'role' => auth()->user()->role,
             'token' => auth()->user()->createToken('secret')->plainTextToken
+        ],200);
+    }
+
+    public function active_driver(Request $request){
+        $attrs= $request->validate([
+            'terminal_id'=>'required',
+            'tricycle_id'=>'required',
+            'user_id'=>'required',
+            'active'=>'required'
+        ]);
+
+        $update=[
+            'terminal_id'=>$attrs['terminal_id'],
+            'tricycle_id'=>$attrs['tricycle_id'],
+            'active'=>$attrs['active'],
+        ];
+
+        $id=$attrs['user_id'];
+
+        $user=User::where('id',$id)->update($update);
+
+        return response([
+            'active'  => $attrs['active'],
         ],200);
     }
 

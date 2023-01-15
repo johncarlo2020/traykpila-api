@@ -22,6 +22,8 @@ use App\Http\Controllers\TricycleController;
 
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/register_new',[AuthController::class,'register_new']);
+Route::post('/active_driver',[AuthController::class,'active_driver']);
+
 
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/terminal/create',[TerminalController::class,'addimage']);
