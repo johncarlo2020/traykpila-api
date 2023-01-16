@@ -29,6 +29,22 @@ class TerminalController extends Controller
         ],200);
     }
 
+    public function TerminalDriver()
+    {
+        $terminals = Terminal::get();
+        $activeTerminal=[];
+        foreach ($terminals as $key => $terminal) {
+            $user_terminal=User::where('active',1)->where('terminal_id',$terminal->id)->count();
+            $terminal['count']=$user_terminal;
+            if($terminal['count']>0){
+                array_push($activeTerminal,$terminal);
+            }
+        }
+        return response([
+            'terminals'  => $activeTerminal,
+        ],200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

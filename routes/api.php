@@ -30,6 +30,8 @@ Route::post('/terminal/create',[TerminalController::class,'addimage']);
 Route::post('/terminal/createNew',[TerminalController::class,'store']);
 
 Route::post('/terminal',[TerminalController::class,'index']);
+Route::post('/terminalDriver',[TerminalController::class,'TerminalDriver']);
+
 Route::post('/terminal/show',[TerminalController::class,'show']);
 Route::post('/terminal/delete',[TerminalController::class,'destroy']);
 Route::post('/terminal/update',[TerminalController::class,'edit']);
