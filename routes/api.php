@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TerminalController;
 use App\Http\Controllers\TricycleController;
+use App\Http\Controllers\BookingController;
+
 
 
 
@@ -23,6 +25,7 @@ use App\Http\Controllers\TricycleController;
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/register_new',[AuthController::class,'register_new']);
 Route::post('/active_driver',[AuthController::class,'active_driver']);
+
 
 
 Route::post('/login',[AuthController::class,'login']);
@@ -45,6 +48,11 @@ Route::post('/tricyle',[TricycleController::class,'show']);
 
 Route::post('/user/count',[TerminalController::class,'UserCount']);
 Route::post('/driver/count',[TerminalController::class,'DriverCount']);
+
+Route::post('/booking',[BookingController::class,'index']);
+Route::post('/booking/passenger',[BookingController::class,'create']);
+
+
 
 
 
