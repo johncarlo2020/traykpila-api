@@ -17,6 +17,7 @@ class booking extends Model
         'tricycle_id',
         'passenger_lat',
         'passenger_lng',
+        'passenger_location',
         'driver_lng',
         'driver_lng',
         'passenger_count',

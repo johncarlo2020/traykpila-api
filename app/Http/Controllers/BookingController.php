@@ -38,8 +38,8 @@ class BookingController extends Controller
             'passenger_lat'=>'String',
             'passenger_lng'=>'required',
             'passenger_count'=>'required',
+            'passenger_location'=>'required',
             'terminal_id'=>'required',
-
             'status' => 'required',
         ]);
 
@@ -49,6 +49,7 @@ class BookingController extends Controller
             'passenger_lat'=>$attrs['passenger_lat'],
             'passenger_lng'=>$attrs['passenger_lng'],
             'passenger_count'=> $attrs['passenger_count'],
+            'passenger_location'=> $attrs['passenger_location'],
             'terminal_id'=> $attrs['terminal_id'],
             'status' =>$attrs['status'],
         ]);
