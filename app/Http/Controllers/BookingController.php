@@ -19,7 +19,7 @@ class BookingController extends Controller
             'terminal_id'=>'required',
         ]);
         $terminal_id=$attrs['terminal_id'];
-        $booking=booking::where('status',0)->where('terminal_id',$terminal_id)->get();
+        $booking=booking::select('bookings.*','users.name')->join('users', 'users.id', '=', 'bookings.passenger_id')->where('status',0)->where('bookings.terminal_id',$terminal_id)->get();
 
         return response([
             'booking' => $booking,
