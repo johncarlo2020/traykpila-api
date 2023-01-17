@@ -13,9 +13,13 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(request $request)
     {
-        $booking=booking::where('status',0)->get();
+         $attrs= $request->validate([
+            'terminal_id'=>'required',
+        ]);
+        $terminal_id=$attrs['terminal_id'];
+        $booking=booking::where('status',0)->where('terminal_id',$terminal_id)->get();
 
         return response([
             'booking' => $booking,
@@ -34,6 +38,8 @@ class BookingController extends Controller
             'passenger_lat'=>'String',
             'passenger_lng'=>'required',
             'passenger_count'=>'required',
+            'terminal_id'=>'required',
+
             'status' => 'required',
         ]);
 
@@ -43,6 +49,7 @@ class BookingController extends Controller
             'passenger_lat'=>$attrs['passenger_lat'],
             'passenger_lng'=>$attrs['passenger_lng'],
             'passenger_count'=> $attrs['passenger_count'],
+            'terminal_id'=> $attrs['terminal_id'],
             'status' =>$attrs['status'],
         ]);
 
