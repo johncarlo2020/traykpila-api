@@ -18,7 +18,7 @@ class booking extends Model
         'passenger_lat',
         'passenger_lng',
         'passenger_location',
-        'driver_lng',
+        'driver_lat',
         'driver_lng',
         'passenger_count',
         'status', 

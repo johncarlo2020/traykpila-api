@@ -59,6 +59,30 @@ class BookingController extends Controller
         ], 200);
     }
 
+    public function approved(request $request)
+    {
+          $attrs= $request->validate([
+            'driver_id'=>'required',
+            'driver_lat'=>'String',
+            'driver_lng'=>'required',
+            'tricycle_id'=>'required',
+            'status' => 'required',
+        ]);
+
+
+        $passenger = booking::update([
+            'driver_id'=>$attrs['driver_id'],
+            'driver_lat'=>$attrs['driver_lat'],
+            'driver_lng'=>$attrs['driver_lng'],
+            'tricycle_id'=> $attrs['tricycle_id'],
+            'status' =>$attrs['status'],
+        ]);
+
+        return response([
+            'booking' => $passenger,
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
