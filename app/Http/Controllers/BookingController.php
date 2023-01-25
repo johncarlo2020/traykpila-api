@@ -89,7 +89,7 @@ class BookingController extends Controller
             'id'=>'required',
         ]);
 
-        $booking = Booking::where('id',$attrs['id'])->get();
+        $booking = Booking::select('bookings.*','users.passenger_name')->join('users', 'users.id', '=', 'bookings.passenger_id')->where('id',$attrs['id'])->get();
 
         return response([
             'booking' => $booking,
