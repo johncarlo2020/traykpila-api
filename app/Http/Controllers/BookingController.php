@@ -84,6 +84,18 @@ class BookingController extends Controller
         ], 200);
     }
 
+    public function details(request $request){
+        $attrs= $request->validate([
+            'id'=>'required',
+        ]);
+
+        $booking = Booking::where('id',$attrs['id'])->get();
+
+        return response([
+            'booking' => $booking,
+        ], 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
