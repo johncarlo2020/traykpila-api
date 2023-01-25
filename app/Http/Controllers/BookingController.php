@@ -62,6 +62,7 @@ class BookingController extends Controller
     public function approved(request $request)
     {
           $attrs= $request->validate([
+            'id'=>'required',
             'driver_id'=>'required',
             'driver_lat'=>'String',
             'driver_lng'=>'required',
@@ -70,7 +71,7 @@ class BookingController extends Controller
         ]);
 
 
-        $passenger = booking::update([
+        $passenger = booking::where('id',$attrs['id'])->update([
             'driver_id'=>$attrs['driver_id'],
             'driver_lat'=>$attrs['driver_lat'],
             'driver_lng'=>$attrs['driver_lng'],
