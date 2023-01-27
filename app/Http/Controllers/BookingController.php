@@ -113,9 +113,17 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(request $request)
     {
-        //
+        $attrs= $request->validate([
+            'id'=>'required',
+        ]);
+        $booking = Booking::where('bookings.id',$attrs['id'])->get();
+
+        return response([
+            'booking' => $booking,
+        ], 200);
+
     }
 
     /**

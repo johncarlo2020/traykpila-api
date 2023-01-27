@@ -51,6 +51,7 @@ Route::post('/driver/count',[TerminalController::class,'DriverCount']);
 
 Route::post('/booking',[BookingController::class,'index']);
 Route::post('/booking/passenger',[BookingController::class,'create']);
+Route::post('/booking/show',[BookingController::class,'show']);
 Route::post('/booking/approve',[BookingController::class,'approved']);
 Route::post('/booking/details',[BookingController::class,'details']);
 
