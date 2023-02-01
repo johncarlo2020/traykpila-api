@@ -16,3 +16,37 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+
+
+
+Route::get('/admin', function () {
+    return view('admin_dashboard');
+});
+
+Route::get('/admin/tricycle_drivers', function () {
+    return view('driver_list');
+});
+
+Route::get('/admin/tricycle_drivers/details', function () {
+    return view('driver_details');
+});
+
+
+
+Route::get('/admin/passenger_list', function () {
+    return view('passenger_list');
+});
+
+
+Route::get('/admin/travel_records', function () {
+    return view('travel_records');
+});
+
+
+Route::get('/admin/passenger_list/details', function () {
+    return view('passenger_details');
+});
+
+
+

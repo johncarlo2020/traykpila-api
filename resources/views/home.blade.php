@@ -5,7 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TraykPila</title>
+
     <link rel="stylesheet" href="css/home.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -91,7 +94,7 @@
 
 
 <!-- Body -->
-<div class="pt-5 text-center text-white col-md-12 border-bottom">
+<div data-aos="fade-up " data-aos-delay="500" class="pt-5 text-center text-white col-md-12 border-bottom">
     <div class=" mx-6 container col-md-12">
         <div class="row md-8 col-md-12 md-flex" >
             <div class="mx-auto col-md-6 text-dark mt-5 pt-5">
@@ -105,21 +108,21 @@
     </div>
 </div>
 
-<div class="text-center text-white col-md-12 border-bottom">
+<div data-aos="fade-right" data-aos-delay="500" class="text-center text-white col-md-12 border-bottom">
     <div class=" mx-6 container col-md-12">
         <div class="row md-8 col-md-12 md-flex" >
             <div class="wrapper col-md-6">
                 <img src="images/driver.png" width="100%" alt="">
             </div>
             <div class="mx-auto col-md-6 text-dark mt-5 pt-5">
-                <h1 class="text-start">How to secure with the drivers?</h1>
+                <h1  class="text-start">How to secure with the drivers?</h1>
                 <p class="lead text-start">All the tricycle drivers go to the background checking before being verified as TraykPila drivers. All their information can be found in their profile.</p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="text-center text-white col-md-12 border-bottom">
+<div data-aos="zoom-in-up" data-aos-delay="500" class="text-center text-white col-md-12 border-bottom">
     <div class=" mx-6 container col-md-12">
         <div class="row md-8 col-md-12 md-flex" >
             <div class="mx-auto col-md-12 text-dark mt-5 pt-5">
@@ -158,6 +161,9 @@
 
 
 
+    <script>
+  AOS.init();
+</script>
 
 
 
