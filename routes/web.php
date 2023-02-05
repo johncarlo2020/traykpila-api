@@ -28,24 +28,27 @@ Route::get('/admin/tricycle_drivers', function () {
     return view('driver_list');
 });
 
-Route::get('/admin/tricycle_drivers/details', function () {
+Route::get('/admin/tricycle_driver_details', function () {
     return view('driver_details');
 });
-
-
 
 Route::get('/admin/passenger_list', function () {
     return view('passenger_list');
 });
 
-
 Route::get('/admin/travel_records', function () {
     return view('travel_records');
 });
 
-
-Route::get('/admin/passenger_list/details', function () {
+Route::get('/admin/passenger_details', function () {
     return view('passenger_details');
+});
+
+
+
+
+Route::get('/admin/terminal_list', function () {
+    return view('terminal_list');
 });
 
 
