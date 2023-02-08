@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\booking;
 use App\Models\User;
 
 class adminController extends Controller
@@ -21,6 +22,24 @@ class adminController extends Controller
         $users=User::where('role',1)->get();
         return view('driver_list',compact('users'));
     }
+
+    public function bookingdetails($id){
+        $users=User::where('id',$id)->get();
+        $bookings=booking::select('bookings.*','users.name AS passenger')
+        ->join('users', 'users.id', '=', 'bookings.passenger_id')
+        ->get();
+
+        return view('driver_details',compact('users','bookings'));
+    }
+
+    public function passengers(){
+        $users=User::where('role',2)->get();
+        return view('passenger_list',compact('users'));
+    }
+ 
+    
+
+    
 
     /**
      * Show the form for creating a new resource.

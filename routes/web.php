@@ -20,7 +20,6 @@ Route::get('/', function () {
 
 
 
-
 Route::get('/admin', function () {
     return view('admin_dashboard');
 });
@@ -28,19 +27,9 @@ Route::get('/admin', function () {
 
 
 Route::get('/admin/tricycle_drivers',[adminController::class,'drivers'])->name('tryk_drivers');
+Route::get('/admin/tricycle_drivers/details/{id}',[adminController::class,'bookingdetails'])->name('driver_details');
+Route::get('/admin/tricycle_drivers/passenger_list',[adminController::class,'passengers'])->name('passenger_details');
 
-
-
-Route::get('/admin/tricycle_drivers/details', function () {
-    return view('driver_details');
-});
-
-
-
-
-Route::get('/admin/passenger_list', function () {
-    return view('passenger_list');
-});
 
 
 Route::get('/admin/travel_records', function () {
@@ -59,3 +48,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
