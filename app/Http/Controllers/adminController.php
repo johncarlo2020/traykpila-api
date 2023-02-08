@@ -20,15 +20,34 @@ class adminController extends Controller
 
     public function drivers(){
         $users=User::where('role',1)->get();
+
         return view('driver_list',compact('users'));
     }
 
+    public function accounts(){
+        $users=User::where('role',1)
+        ->where('Verified',1)
+        ->get();
+        
+        return view('driver_accounts',compact('users'));
+    }
+
+    public function notverified(){
+        $users=User::where('role',1)
+        ->where('Verified',0)
+        ->get();
+        
+        return view('driver_accounts_notverified',compact('users'));
+    }
+    
+    
+
     public function bookingdetails($id){
         $users=User::where('id',$id)->get();
-        $bookings=booking::select('bookings.*','users.name AS passenger')
+        $bookings=booking::select('bookings.*','users.name AS passenger','tricycles.body_number AS Body_number')
         ->join('users', 'users.id', '=', 'bookings.passenger_id')
+        ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
         ->get();
-
         return view('driver_details',compact('users','bookings'));
     }
 
@@ -37,6 +56,14 @@ class adminController extends Controller
         return view('passenger_list',compact('users'));
     }
  
+    public function passenger_accounts(){
+        $users=User::where('role',2)
+        ->where('Verified',1)
+        ->get();
+        return view('passenger_accounts',compact('users'));
+    }
+
+    
     
 
     

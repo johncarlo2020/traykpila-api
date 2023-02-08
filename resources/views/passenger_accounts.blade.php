@@ -8,8 +8,7 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="/css/adminstyle.css" rel="stylesheet" />
-       
+     
     </head>
     <body class="sb-nav-fixed">
     @extends('layouts.navbar')
@@ -18,15 +17,15 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Driver Lists</h1>
+                        <h1 class="mt-4">Passenger Lists</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Driver Lists</li>
+                            <li class="breadcrumb-item active">Passenger Lists</li>
                         </ol>
-                  
+                     
                          <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable 
+                                Verified Passengers 
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -35,23 +34,23 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
-                                            <th>Gender</th>    
+                                            <th>TPC</th>  
                                             <th></th>                                 
                                         </tr>
                                     </thead>
-                                
                                     <tbody>
-                                        @foreach($users as $user)
+
+                                    @foreach ($users as $user)
                                         <tr>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->PhoneNumber }}</td>
-                                            <td>Male</td>
+                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->email}}</td>
+                                            <td>{{$user->PhoneNumber}}</td>
+                                            <td>{{$user->TPC}}</td>
                                
-                                              <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$user->id}}">ViewDetails</a></td>
+                                            <td><a href="#">ViewDetails</a></td>
                                         </tr>
-                                        @endforeach
-                                                                    
+                                   @endforeach
+                                                            
                                     </tbody>
                                 </table>
                             </div>
@@ -72,6 +71,6 @@
                 </footer>
             </div>
         </div>
-      
+  
     </body>
 </html>

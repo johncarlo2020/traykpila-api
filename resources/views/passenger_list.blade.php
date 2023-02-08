@@ -38,16 +38,6 @@
                                             <th></th>                                 
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Cp Number</th>
-                                            <th>Address</th>
-                                            <th>Age</th>
-                                            <th></th> 
-
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
 
                                     @foreach ($users as $user)
@@ -55,7 +45,7 @@
                                             <td>{{$user->name}}</td>
                                             <td>+639984092871</td>
                                             <td>Edinburgh</td>
-                                            <td>61</td>
+                                            <td>62</td>
                                
                                             <td><a href="#">ViewDetails</a></td>
                                         </tr>

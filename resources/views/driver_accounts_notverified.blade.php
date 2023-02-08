@@ -26,27 +26,26 @@
                          <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable 
+                                Not Verified Accounts
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                            <table id="datatablesSimple">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Email</th>
+                                            <th>email</th>
                                             <th>Phone Number</th>
-                                            <th>Gender</th>    
+                                            <th>TraykPila Coins</th>    
                                             <th></th>                                 
                                         </tr>
                                     </thead>
-                                
                                     <tbody>
                                         @foreach($users as $user)
                                         <tr>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->PhoneNumber }}</td>
-                                            <td>Male</td>
+                                            <td>{{ $user->TPC }}</td>
                                
                                               <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$user->id}}">ViewDetails</a></td>
                                         </tr>
