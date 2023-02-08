@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\adminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,13 +25,16 @@ Route::get('/admin', function () {
     return view('admin_dashboard');
 });
 
-Route::get('/admin/tricycle_drivers', function () {
-    return view('driver_list');
-});
+
+
+Route::get('/admin/tricycle_drivers',[adminController::class,'drivers'])->name('tryk_drivers');
+
+
 
 Route::get('/admin/tricycle_drivers/details', function () {
     return view('driver_details');
 });
+
 
 
 
@@ -49,4 +53,9 @@ Route::get('/admin/passenger_list/details', function () {
 });
 
 
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
