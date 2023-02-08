@@ -11,7 +11,11 @@
         <link href="{{url('/css/adminstyle.css')}}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
-  
+  <style>
+    .active{
+        color: rgb(20, 168, 70) !important;
+    }
+  </style>
      
         <div id="layoutSidenav">
     
@@ -20,62 +24,44 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="{{url('admin')}}">
+                            <a class="nav-link {{ (request()->routeIs('admin') ? 'active' : '') }}" href="{{url('admin')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Records</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Travel Records
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <div class="sb-sidenav-menu-heading">List of Records</div>
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Passenger Records </a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Driver Records</a>
+                                    <a class="nav-link {{ (request()->routeIs('tryk_drivers') || request()->routeIs('driver_details') ? 'active' : '') }}" href="{{route('tryk_drivers')}}">Tricycle Drivers </a>
+                                    <a class="nav-link {{ (request()->routeIs('passenger_details') ? 'active' : '') }}" href="{{route('passenger_details')}}">Passengers</a>
+                                    <a class="nav-link " href="#">Reports</a>
                                 </nav>
-                            </div>
-                            <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
+
+                            <div class="sb-sidenav-menu-heading">Accounts</div>
+                            <!-- Drivers -->
+                            <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts') ? '' : 'collapsed') }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="{{ (request()->routeIs('tryk_drivers_accounts') ? 'true' : 'false') }}" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Driver Accounts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
+                            <div class="collapsed {{ (request()->routeIs('tryk_drivers_accounts') ? 'show' : '') }} || {{ (request()->routeIs('tryk_drivers_accounts') ? 'show' : '') }}" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts') ? 'active' : '') }}" href="{{route('tryk_drivers_accounts')}}">Verified Drivers</a>
+                                    <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts_notverified') ? 'active' : '') }}" href="{{route('tryk_drivers_accounts_notverified')}}">Not Verified Drivers</a>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
+
+                            <!-- Passenger -->
+                            <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts') ? '' : 'collapsed1') }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Passenger Accounts
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a> -->
+                            <div class="collapsed1" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link {{ (request()->routeIs('passenger_details_accounts') ? 'active' : '') }}" href="{{route('passenger_details_accounts')}}">Verified Passengers</a>
+                                    <a class="nav-link {{ (request()->routeIs('passenger_details_accounts_notverified') ? 'active' : '') }}" href="{{route('passenger_details_accounts_notverified')}}">Not Verified Passengers</a>
+                                </nav>
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

@@ -10,6 +10,11 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
      
     </head>
+    <style>
+        .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+            background-color: #d6ffe9;  
+        }
+    </style>
     <body class="sb-nav-fixed">
     @extends('layouts.navbar')
         <div id="layoutSidenav">
@@ -22,13 +27,13 @@
                             <li class="breadcrumb-item active">Passenger Lists</li>
                         </ol>
                      
-                         <div class="card mb-4">
-                            <div class="card-header">
+                         <div class="card mb-4 shadow round">
+                            <div class="card-header" style="background-color: #25C36B;">
                                 <i class="fas fa-table me-1"></i>
-                                Verified Passengers 
+                               Not Verified Passengers 
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th>Name</th>

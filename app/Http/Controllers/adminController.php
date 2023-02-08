@@ -47,6 +47,7 @@ class adminController extends Controller
         $bookings=booking::select('bookings.*','users.name AS passenger','tricycles.body_number AS Body_number')
         ->join('users', 'users.id', '=', 'bookings.passenger_id')
         ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
+        ->where('driver_id',$id)
         ->get();
         return view('driver_details',compact('users','bookings'));
     }
@@ -63,9 +64,14 @@ class adminController extends Controller
         return view('passenger_accounts',compact('users'));
     }
 
+    public function passenger_accounts_notverified(){
+        $users=User::where('role',2)
+        ->where('Verified',0)
+        ->get();
+        return view('passenger_accounts_notverified',compact('users'));
+    }
     
     
-
     
 
     /**
