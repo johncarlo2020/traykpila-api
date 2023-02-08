@@ -26,7 +26,7 @@
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">Tricylce Drivers</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="{{url('admin/tricycle_drivers')}}">View Details</a>
+                                        <a class="small text-white stretched-link" href="{{route('tryk_drivers')}}">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                                 <div class="card bg-warning text-white mb-4">
                                     <div class="card-body">Passengers </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="{{url('admin/passenger_list')}}">View Details</a>
+                                        <a class="small text-white stretched-link" href="{{route('passenger_details')}}">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
