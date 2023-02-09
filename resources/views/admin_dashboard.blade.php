@@ -51,7 +51,7 @@
                                             <td>March 9, 2023 5:35pm</td>
                                             <th>5 mins</th>
                                             <td>Purok 2</td>
-                                            <td>Purok 3</td>
+                                            <td>{{$booking->Destination}}</td>
                                             <td>{{$booking->body_number}}</td>
                                             @if($booking->status==0)
                                             <td>Failed</td>
