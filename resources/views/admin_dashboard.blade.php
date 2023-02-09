@@ -10,6 +10,11 @@
     
  
     </head>
+    <style>
+        body{
+            background-color:#e4fff9 !important;
+        }
+    </style>
     <body class="sb-nav-fixed">
         @extends('layouts.navbar')
         <div id="layoutSidenav">
@@ -17,8 +22,61 @@
             <div id="layoutSidenav_content">
                
             <main>
+                <!-- GENERAL BOOKING NUMBER -->
+                <div class="container-fluid px-4">
+                        <h3 class="mt-4">Total Booking</h3>
+                  
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-4 shadow round">
+                                    <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Month of March</p>
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4 shadow round">
+                                    <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Total Revenue This Week</p>
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+
+
+                <!-- GENERAL REGISTERED USERS-->
+                <div class="container-fluid px-4">
+                        <h3 class="mt-4">New Registered</h3>
+                  
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-4 shadow round">
+                                    <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Passengers in month of March</p>
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart2" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4 shadow round">
+                                    <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Drivers in month of March</p>
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart2" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+
+
+
+
+            <!-- GENERAL BOOKING LISTS -->
                     <div class="container-fluid px-4">
-                        <h2 class="mt-4">General History Booking Lists  </h2>
+                        <h3 class="mt-4">General History Booking Lists  </h3>
                          <div class="card mb-4 shadow round">
                             <div class="card-header font-weight-bold" style="background-color: #25C36B;">
                                 <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Booking Lists</p>

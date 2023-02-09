@@ -15,6 +15,9 @@
         .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
             background-color: #d6ffe9;  
         }
+        body{
+            background-color:#e4fff9 !important;
+        }
     </style>
     <body class="sb-nav-fixed">
     @extends('layouts.navbar')
@@ -23,10 +26,14 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Driver Lists</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Driver Lists</li>
-                        </ol>
+                    <div class="row justify-content-between">
+                            <div class="col-xl-3">
+                                <h1 class="mt-4">Driver Lists</h1>
+                            </div>
+                            <div class="col-xl-5">
+                                <h3 class="mt-4">Total Not Verified Drivers: 38</h3>
+                            </div>
+                        </div>
                   
                          <div class="card mb-4 shadow round">
                          <div class="card-header font-weight-bold" style="background-color: #25C36B;">

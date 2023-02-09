@@ -15,6 +15,9 @@
         .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
             background-color: #d6ffe9!important;
         }
+        body{
+            background-color:#e4fff9 !important;
+        }
     </style>
     <body class="sb-nav-fixed">
     @extends('layouts.navbar')
