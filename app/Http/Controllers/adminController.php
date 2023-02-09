@@ -65,15 +65,16 @@ class adminController extends Controller
     }
 
 
-    // public function generaldetails(){
-    //     $users=User::where('name')->get();
-    //     $bookings=booking::select('bookings.*','users.name AS driver','users.name AS passenger','tricycles.body_number AS Body_number')
-    //     ->join('users', 'users.id', '=', 'bookings.passenger_id')
-    //     ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
-        
-    //     ->get();
-    //     return view('driver_details',compact('users','bookings'));
-    // }
+// ADMIN DASHBOARD
+    public function generaldetails(){
+        $bookings = booking::select('bookings.*','u1.name AS driver','u2.name AS passenger', 'tricycles.body_number')
+        ->join('users As u1', 'u1.id', '=', 'bookings.driver_id')
+        ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
+        ->join('tricycles', 'tricycles.id', '=', 'bookings.passenger_id')
+        ->get();
+
+        return view('admin_dashboard',compact('bookings'));
+    }
     
 
     public function passengers(){

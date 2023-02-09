@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin_dashboard');
 });
+Route::get('/admin',[adminController::class,'generaldetails'])->name('admin_dashboard');
 
 
 
