@@ -120,6 +120,53 @@
                     </div>    
 
                 </main>  -->
+
+                <!-- <main>
+                <div class="container-fluid py-3 px-3">
+                <div class="card mb-4 shadow round">
+                            <div class="card-header font-weight-bold" style="background-color: #25C36B;">
+                                <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Booking History</p>
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple" class="table table-striped table-hover ">
+                                    <thead>
+                                        <tr>
+                                            <th>Passenger Name:</th>
+                                            <th>Booking Date/Time:</th>
+                                            <th>Arrival Date/Time:</th>
+                                            <th>Total Pickup time:</th>
+                                            <th>Pickup Location:</th>    
+                                            <th>Destination</th>
+                                            <th>Body Number</th>   
+                                            <th>Status</th>    
+                                            <th>Fare Received</th>
+                                            <th>Rating</th>                       
+                                        </tr>
+                                    </thead>
+                                    
+                                    
+                                    <tbody>
+                                
+                                        <tr>
+                                            <td>{{}}</td>
+                                            <td>March 9, 2023 5:30pm</td>
+                                            <td>March 9, 2023 5:35pm</td>
+                                            <th>5 mins</th>
+                                            <td>Purok 2</td>
+                                            <td>Purok 3</td>
+                                            <td>2209</td>
+                                            <td>Success</td>
+                                            <td>₱15</td>
+                                            <td>5.00</td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>    
+                </main> -->
+
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

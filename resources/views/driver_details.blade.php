@@ -90,16 +90,17 @@
                                 <table id="datatablesSimple" class="table table-striped table-hover ">
                                     <thead>
                                         <tr>
+                                            
                                             <th>Passenger Name:</th>
                                             <th>Booking Date/Time:</th>
                                             <th>Arrival Date/Time:</th>
                                             <th>Total Pickup time:</th>
                                             <th>Pickup Location:</th>    
-                                            <th>Destination</th>
-                                            <th>Body Number</th>   
-                                            <th>Status</th>    
-                                            <th>Fare Received</th>
-                                            <th>Rating</th>                       
+                                            <th>Destination:</th>
+                                            <th>Body Number:</th>   
+                                            <th>Status:</th>    
+                                            <th>Fare Received:</th>
+                                            <th>Rating:</th>                       
                                         </tr>
                                     </thead>
                                     
@@ -107,6 +108,7 @@
                                     <tbody>
                                     @foreach ($bookings as $booking)
                                         <tr>
+                                        
                                             <td>{{$booking->passenger}}</td>
                                             <td>March 9, 2023 5:30pm</td>
                                             <td>March 9, 2023 5:35pm</td>

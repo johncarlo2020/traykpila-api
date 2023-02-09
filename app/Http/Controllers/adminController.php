@@ -46,11 +46,35 @@ class adminController extends Controller
         $users=User::where('id',$id)->get();
         $bookings=booking::select('bookings.*','users.name AS passenger','tricycles.body_number AS Body_number')
         ->join('users', 'users.id', '=', 'bookings.passenger_id')
+
         ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
         ->where('driver_id',$id)
         ->get();
         return view('driver_details',compact('users','bookings'));
     }
+
+    public function passengerdetails($id){
+        $users=User::where('id',$id)->get();
+        $bookings=booking::select('bookings.*','users.name AS driver','tricycles.body_number AS Body_number')
+        ->join('users', 'users.id', '=', 'bookings.driver_id')
+
+        ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
+        ->where('driver_id',$id)
+        ->get();
+        return view('passenger_details',compact('users','bookings'));
+    }
+
+
+    // public function generaldetails(){
+    //     $users=User::where('name')->get();
+    //     $bookings=booking::select('bookings.*','users.name AS driver','users.name AS passenger','tricycles.body_number AS Body_number')
+    //     ->join('users', 'users.id', '=', 'bookings.passenger_id')
+    //     ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
+        
+    //     ->get();
+    //     return view('driver_details',compact('users','bookings'));
+    // }
+    
 
     public function passengers(){
         $users=User::where('role',2)->get();

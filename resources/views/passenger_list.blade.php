@@ -51,7 +51,7 @@
                                             <td>Edinburgh</td>
                                             <td>62</td>
                                
-                                            <td><a href="#">ViewDetails</a></td>
+                                            <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$user->id}}">ViewDetails</a></td>
                                         </tr>
                                    @endforeach
                                                             
