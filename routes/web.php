@@ -14,15 +14,10 @@ use App\Http\Controllers\adminController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
 
 
 
-Route::get('/admin', function () {
-    return view('admin_dashboard');
-});
+
 Route::get('/admin',[adminController::class,'generaldetails'])->name('admin_dashboard');
 
 
@@ -40,6 +35,7 @@ Route::get('/admin/tricycle_drivers/passenger_list',[adminController::class,'pas
 
 
 
+
 Route::get('/admin/travel_records', function () {
     return view('travel_records');
 });
@@ -50,11 +46,16 @@ Route::get('/admin/passenger_list/details', function () {
 });
 
 
+Route::get('login', function () {
+    return view('admin_dashboard');
+});
+
+
 
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+// Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
 
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');

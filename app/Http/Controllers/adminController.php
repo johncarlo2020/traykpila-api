@@ -101,10 +101,7 @@ class adminController extends Controller
         return view('passenger_accounts_notverified',compact('users'));
     }
     
-    public function update_tpc(Request $request){
-
-        $tpc = $request->input('');
-    }
+    
     
     
 

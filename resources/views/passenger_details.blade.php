@@ -31,20 +31,31 @@
                                 @else 
                                     <h5 class="">Account Status: Verified</h5> 
                                 @endif
-                                <h5 class="">TraykPila Coins: {{$users[0]->TPC}} 
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <div class="row">
+                                <h5 class="col-md-6">TraykPila Coins: {{$users[0]->TPC}} 
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TPC">
                                         <p class="mb-0">Top-up TPC</p> 
                                     </button>
                                 </h5>  
+                                <h5 class="col-md-6">Report This User: 
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#REPORT">
+                                        <p class="mb-0">Report</p> 
+                                    </button>
+                                </h5>  
+                                </div>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                
+
+                    <!-- Modal TPC -->
+                    <div class="modal fade" id="TPC" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header bg-success text-white">
                             <h5 class="modal-title" id="exampleModalLabel">Top-up TraykPila Coins</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button name="top-up" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+
+                        
                         <div class="modal-body">
                         <form>
                             <div class="mb-3">
@@ -65,6 +76,47 @@
                         </div>
                     </div>
                     </div>
+
+                     <!-- Modal Report -->
+                     <div class="modal fade" id="REPORT" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="exampleModalLabel">Report This User:</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <form>
+                        <div class="col-md-6">
+                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                             <label class="form-check-label" for="flexCheckDefault">Temporary Restrict</label>
+                             <hr class="hr" />
+                        </div>
+                        <div class="col-md-6">
+                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                             <label class="form-check-label" for="flexCheckDefault">Temporary Block </label>
+                             <hr class="hr" />
+                        </div>
+                        <div class="col-md-6">
+                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                             <label class="form-check-label" for="flexCheckDefault">Permanent Bann </label>
+                            
+                        </div>
+                      
+                       
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary">Send Report</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    
+
+                    
                                     
                         <div class="row">
                             <div class="col-xl-6">
@@ -94,7 +146,7 @@
                                     <thead>
                                         <tr>
                                             
-                                            <th>driver Name:</th>
+                                            <th>Driver Name:</th>
                                             <th>Booking Date/Time:</th>
                                             <th>Arrival Date/Time:</th>
                                             <th>Total Pickup time:</th>
