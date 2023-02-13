@@ -90,11 +90,11 @@
                                 <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Booking History</p>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-striped table-hover ">
+                            <table id="datatablesSimple" class="table table-striped table-hover ">
                                     <thead>
                                         <tr>
                                             
-                                            <th>Driver Name:</th>
+                                            <th>driver Name:</th>
                                             <th>Booking Date/Time:</th>
                                             <th>Arrival Date/Time:</th>
                                             <th>Total Pickup time:</th>

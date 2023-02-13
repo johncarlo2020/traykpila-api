@@ -18,6 +18,8 @@ class adminController extends Controller
         //
     }
 
+    
+
     public function drivers(){
         $users=User::where('role',1)->get();
 
@@ -59,9 +61,12 @@ class adminController extends Controller
         ->join('users', 'users.id', '=', 'bookings.driver_id')
 
         ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
-        ->where('driver_id',$id)
+        ->where('passenger_id',$id)
         ->get();
+        
         return view('passenger_details',compact('users','bookings'));
+        
+      
     }
 
 
@@ -96,6 +101,10 @@ class adminController extends Controller
         return view('passenger_accounts_notverified',compact('users'));
     }
     
+    public function update_tpc(Request $request){
+
+        $tpc = $request->input('');
+    }
     
     
 
