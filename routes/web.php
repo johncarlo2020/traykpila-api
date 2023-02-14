@@ -20,7 +20,9 @@ use App\Http\Controllers\adminController;
 
 Route::get('/admin',[adminController::class,'generaldetails'])->name('admin_dashboard');
 
+Route::get('/admin/reported_drivers',[adminController::class,'reported_drivers'])->name('reported_drivers');
 
+Route::get('/admin/reported_passengers',[adminController::class,'reported_passengers'])->name('reported_passengers');
 
 Route::get('/admin/tricycle_drivers',[adminController::class,'drivers'])->name('tryk_drivers');
 Route::get('/admin/drivers_accounts',[adminController::class,'accounts'])->name('tryk_drivers_accounts');
@@ -32,6 +34,8 @@ Route::get('/admin/tricycle_drivers/passenger_list/details/{id}',[adminControlle
 Route::get('/admin/tricycle_drivers/passenger_accounts',[adminController::class,'passenger_accounts'])->name('passenger_details_accounts');
 Route::get('/admin/tricycle_drivers/passenger_accounts_notverified',[adminController::class,'passenger_accounts_notverified'])->name('passenger_details_accounts_notverified');
 Route::get('/admin/tricycle_drivers/passenger_list',[adminController::class,'passengers'])->name('passenger_details');
+
+
 
 
 

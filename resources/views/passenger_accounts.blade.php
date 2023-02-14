@@ -30,7 +30,7 @@
                                 <h1 class="mt-4">Passenger Lists</h1>
                             </div>
                             <div class="col-xl-5">
-                                <h3 class="mt-4">Total Verified Passenger: 103</h3>
+                                <h3 class="mt-4">Total Verified Passenger: {{$count}}</h3>
                             </div>
                         </div>
                      
@@ -59,7 +59,7 @@
                                             <td>{{$user->PhoneNumber}}</td>
                                             <td>{{$user->TPC}}</td>
                                
-                                            <td><a href="#">ViewDetails</a></td>
+                                            <td><a href="{{url('/admin/tricycle_drivers/passenger_list/details/')}}/{{$user->id}}">ViewDetails</a></td>
                                         </tr>
                                    @endforeach
                                                             

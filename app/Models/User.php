@@ -27,7 +27,11 @@ class User extends Authenticatable
         'image',
         'TPC',
         'Verified',
-        'PhoneNumber'
+        'PhoneNumber',
+        'ReportStatus',
+        'ReportDesc',
+        'ReviewDesc'
+
     ];
 
     /**

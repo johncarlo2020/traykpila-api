@@ -22,6 +22,7 @@ class booking extends Model
         'driver_lng',
         'passenger_count',
         'status',
+        'created_at',
         'Destination'
     ];
 }

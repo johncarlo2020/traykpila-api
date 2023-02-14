@@ -199,7 +199,7 @@
                               
                                         <tr>
                                         
-                                            <td>{{$booking->passenger}}</td>
+                                            <td></td>
                                             <td>March 9, 2023 5:30pm</td>
                                             <td>Speeding</td>
                                             <td>March 9, 2023 5:35pm</td>
@@ -207,7 +207,7 @@
                                         </tr>
                                       <tr>
                                         
-                                        <td>{{$booking->passenger}}</td>
+                                        <td></td>
                                         <td>March 9, 2023 5:30pm</td>
                                         <td>Good driver</td>
                                         <td>March 9, 2023 5:35pm</td>
@@ -218,6 +218,7 @@
                                 </table>
                             </div>
                         </div> 
+                        <!-- report table -->
                         <div class="card mb-4 shadow round">
                             <div class="card-header font-weight-bold" style="background-color: red;">
                                 <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Report</p>
@@ -237,10 +238,11 @@
                                     
                                     
                                     <tbody>
-                              
+                           
                                         <tr>
                                         
-                                            <td>{{$booking->passenger}}</td>
+                                    
+                                            <td></td>
                                             <td>March 9, 2023 5:30pm</td>
                                             <td>Speeding</td>
                                             <td>March 9, 2023 5:35pm</td>
@@ -248,7 +250,7 @@
                                         </tr>
                                       <tr>
                                         
-                                        <td>{{$booking->passenger}}</td>
+                                        <td></td>
                                         <td>March 9, 2023 5:30pm</td>
                                         <td>Good driver</td>
                                         <td>March 9, 2023 5:35pm</td>

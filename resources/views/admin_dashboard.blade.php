@@ -15,6 +15,7 @@
             background-color:#e4fff9 !important;
         }
     </style>
+    
     <body class="sb-nav-fixed">
         @extends('layouts.navbar')
         <div id="layoutSidenav">
@@ -70,7 +71,7 @@
                             </div>
                         </div> 
                     </div>
-
+         
 
 
 

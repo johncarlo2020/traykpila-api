@@ -178,6 +178,52 @@
                                      @endforeach                     
                                     </tbody>
                                 </table>
+
+                                
+                            </div>
+                        </div> 
+
+                          <!-- report table -->
+                          <div class="card mb-4 shadow round">
+                            <div class="card-header font-weight-bold" style="background-color: red;">
+                                <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Report</p>
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple" class="table table-striped table-hover ">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>Passenger Name:</th>
+                                            <th>Tricyce Body Number</th>
+                                            <th>Review Description</th>
+                                            <th>Date</th>
+                                                        
+                                        </tr>
+                                    </thead>
+                                    
+                                    
+                                    <tbody>
+                           
+                                        <tr>
+                                        
+                                    
+                                            <td></td>
+                                            <td>March 9, 2023 5:30pm</td>
+                                            <td>Speeding</td>
+                                            <td>March 9, 2023 5:35pm</td>
+                                          
+                                        </tr>
+                                      <tr>
+                                        
+                                        <td></td>
+                                        <td>March 9, 2023 5:30pm</td>
+                                        <td>Good driver</td>
+                                        <td>March 9, 2023 5:35pm</td>
+                                      
+                                    </tr>
+                                                      
+                                    </tbody>
+                                </table>
                             </div>
                         </div> 
                     </div>

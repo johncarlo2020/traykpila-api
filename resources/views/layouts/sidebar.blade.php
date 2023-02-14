@@ -32,7 +32,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link {{ (request()->routeIs('tryk_drivers') || request()->routeIs('driver_details') ? 'active' : '') }}" href="{{route('tryk_drivers')}}">Tricycle Drivers </a>
                                     <a class="nav-link {{ (request()->routeIs('passenger_details') ? 'active' : '') }}" href="{{route('passenger_details')}}">Passengers</a>
-                                    <a class="nav-link " href="#">Reports</a>
+                                    
                                 </nav>
 
                             <div class="sb-sidenav-menu-heading">Accounts</div>
@@ -50,7 +50,7 @@
                             </div>
 
                             <!-- Passenger -->
-                            <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts') ? '' : 'collapsed1') }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
+                            <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts') ? '' : 'collapsed') }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Passenger Accounts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -59,6 +59,19 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link {{ (request()->routeIs('passenger_details_accounts') ? 'active' : '') }}" href="{{route('passenger_details_accounts')}}">Verified Passengers</a>
                                     <a class="nav-link {{ (request()->routeIs('passenger_details_accounts_notverified') ? 'active' : '') }}" href="{{route('passenger_details_accounts_notverified')}}">Not Verified Passengers</a>
+                                </nav>
+                            </div>
+
+                                <!-- Reports -->
+                            <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts') ? '' : 'collapsed') }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts3" aria-expanded="{{ (request()->routeIs('tryk_drivers_accounts') ? 'true' : 'false') }}" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Reports
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapsed {{ (request()->routeIs('tryk_drivers_accounts') ? 'show' : '') }} || {{ (request()->routeIs('tryk_drivers_accounts') ? 'show' : '') }}" id="collapseLayouts3" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts') ? 'active' : '') }}" href="{{route('reported_drivers')}}">Reported Drivers</a>
+                                    <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts_notverified') ? 'active' : '') }}" href="{{route('reported_passengers')}}">Reported Passengers</a>
                                 </nav>
                             </div>
                             

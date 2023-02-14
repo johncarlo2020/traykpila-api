@@ -31,7 +31,7 @@
                                 <h1 class="mt-4">Driver Lists</h1>
                             </div>
                             <div class="col-xl-5">
-                                <h3 class="mt-4">Total Not Verified Drivers: 38</h3>
+                                <h3 class="mt-4">Total Not Verified Drivers: {{$count}}</h3>
                             </div>
                         </div>
                   
