@@ -93,6 +93,7 @@ class adminController extends Controller
         ->where('passenger_id',$id)
         ->get();
         
+        
         return view('passenger_details',compact('users','bookings'));
         
       
@@ -199,7 +200,21 @@ class adminController extends Controller
     public function update_tpc(Request $request, $id)
     {
 
+        $users = User::where('id',$id)->get();
+        $tpc = $request->input('tpc');
 
+        $data = User::find($id);
+ 
+        $data->TPC = $request;
+        
+        $data->save();
+        
+        
+      
+
+        
+
+        // dd($tpc);
     }
 
     /**

@@ -39,7 +39,7 @@
                             <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
-                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Total Revenue This Week</p>
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Total TPC Circculating supply</p>
                                     </div>
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
@@ -145,3 +145,4 @@
       
     </body>
 </html>
+

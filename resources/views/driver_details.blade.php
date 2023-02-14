@@ -55,23 +55,24 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                        <form>
+                            
+                        <form action="{{ 'update_tpc' }}/{{$users[0]->id}}" method="POST">
+                        @csrf
                             <div class="mb-3">
                                 <p>Current TraykPila Coins: <h3>₱2</h3></p>
-                                
-                                
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Load amount:</label>
-                                <input type="number" class="form-control" min="0" max="300" id="recipient-name" onkeyup=imposeMinMax(this)">
+                                <input type="number" name="tpc"class="form-control" min="0" max="300" id="recipient-name" onkeyup=imposeMinMax(this)>
                             </div>
-                            </form>
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <a href="{{route('update')}}"><button type="button" class="btn btn-primary">Send Amount</button></a>
+                            <button type="submit" class="btn btn-primary">Send Amount</button>
                         </div>
                         </div>
+                        </form>
                     </div>
                     </div>
                     <!-- Modal Report -->

@@ -14,7 +14,7 @@ class AddTpcToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->String('TPC');
+            $table->Integer('TPC');
         });
     }
 
