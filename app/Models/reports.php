@@ -13,6 +13,7 @@ class reports extends Model
         'driver_id',
         'passenger_id',
         'ReportStatus',
-        'ReportDesc'
+        'ReportDesc',
+        'ReportAction'
     ];
 }

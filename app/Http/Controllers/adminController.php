@@ -49,7 +49,7 @@ class adminController extends Controller
 
     public function drivers(){
         $users=User::where('role',1)->get();
-
+        
         return view('driver_list',compact('users'));
     }
 
@@ -196,15 +196,10 @@ class adminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update_tpc(Request $request, $id)
     {
 
 
-        $users = User::find($id);
- 
-        $users->input = $request;
- 
-        $users->save();
     }
 
     /**
