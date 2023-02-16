@@ -205,9 +205,11 @@ class adminController extends Controller
 
         $data = User::find($id);
  
-        $data->TPC = $request;
+        $data->TPC =  $data->TPC + $request->tpc;
         
         $data->save();
+        
+
         
         
       

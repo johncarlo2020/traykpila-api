@@ -59,7 +59,7 @@
                         <form action="{{ 'update_tpc' }}/{{$users[0]->id}}" method="POST">
                         @csrf
                             <div class="mb-3">
-                                <p>Current TraykPila Coins: <h3>₱2</h3></p>
+                                <p>Current TraykPila Coins: <h3>{{$users[0]->TPC}}</h3></p>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Load amount:</label>
