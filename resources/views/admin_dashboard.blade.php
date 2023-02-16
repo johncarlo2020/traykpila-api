@@ -12,10 +12,12 @@
     </head>
     <style>
         body{
+            
             background-color:#e4fff9 !important;
         }
+        
     </style>
-    
+    <span class="loader"></span>    
     <body class="sb-nav-fixed">
         @extends('layouts.navbar')
         <div id="layoutSidenav">

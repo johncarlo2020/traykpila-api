@@ -200,23 +200,15 @@ class adminController extends Controller
     public function update_tpc(Request $request, $id)
     {
 
-        $users = User::where('id',$id)->get();
-        $tpc = $request->input('tpc');
+        // $users = User::where('id',$id)->get();
+        // $tpc = $request->input('tpc');
 
         $data = User::find($id);
- 
-        $data->TPC =  $data->TPC + $request->tpc;
-        
+        $data->TPC =  $data->TPC + $request->tpc;        
         $data->save();
+            
+        return redirect('admin/tricycle_drivers/details/'.$id);
         
-
-        
-        
-      
-
-        
-
-        // dd($tpc);
     }
 
     /**
