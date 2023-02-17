@@ -33,7 +33,7 @@
                             <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
-                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Month of March</p>
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Registered</p>
                                     </div>
                                     <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                                 </div>
@@ -55,12 +55,12 @@
                         <h3 class="mt-4">New Registered</h3>
                   
                         <div class="row">
-                            <div class="col-xl-6">
+                        <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
-                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Passengers in month of March</p>
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Drivers in month of March</p>
                                     </div>
-                                    <div class="card-body"><canvas id="myAreaChart2" width="100%" height="40"></canvas></div>
+                                    <div class="card-body"><canvas id="myAreaChart3" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
@@ -68,15 +68,13 @@
                                     <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Drivers in month of March</p>
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart2" width="100%" height="40"></canvas></div>
+                                    <div class="card-body"><canvas id="myAreaChart4" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                         </div> 
                     </div>
          
-
-
-
+                    
             <!-- GENERAL BOOKING LISTS -->
                     <div class="container-fluid px-4">
                         <h3 class="mt-4">General History Booking Lists  </h3>
@@ -101,7 +99,7 @@
                                             <th>Rating</th>                       
                                         </tr>
                                     </thead>
-                                    
+                                   
                                     
                                     <tbody>
                                     @foreach ($bookings as $booking)
@@ -148,3 +146,125 @@
     </body>
 </html>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{url('js/scripts.js')}}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+      
+        <script src="{{url('assets/demo/chart-bar-demo.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="{{url('js/datatables-simple-demo.js')}}"></script>
+   
+       
+<script>
+            // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Area Chart Example
+var ctx = document.getElementById("myAreaChart3");
+var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels:  {!! json_encode($registered_drivers_day) !!},
+        datasets: [{
+            label: "Sessions",
+            lineTension: 0.3,
+            backgroundColor: "rgba(2,117,216,0.2)",
+            borderColor: "rgba(2,117,216,1)",
+            pointRadius: 5,
+            pointBackgroundColor: "rgba(2,117,216,1)",
+            pointBorderColor: "rgba(255,255,255,0.8)",
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(2,117,216,1)",
+            pointHitRadius: 50,
+            pointBorderWidth: 2,
+            data: {!! json_encode($total_drivers) !!},
+        }],
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'date'
+                },
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    maxTicksLimit: 7
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 100,
+                    maxTicksLimit: 5
+                },
+                gridLines: {
+                    color: "rgba(0, 0, 0, .125)",
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+        </script>
+       
+       <script>
+            // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Area Chart Example
+var ctx = document.getElementById("myAreaChart4");
+var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels:  {!! json_encode($registered_passenger_day) !!},
+        datasets: [{
+            label: "Sessions",
+            lineTension: 0.3,
+            backgroundColor: "rgba(2,117,216,0.2)",
+            borderColor: "rgba(2,117,216,1)",
+            pointRadius: 5,
+            pointBackgroundColor: "rgba(2,117,216,1)",
+            pointBorderColor: "rgba(255,255,255,0.8)",
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(2,117,216,1)",
+            pointHitRadius: 50,
+            pointBorderWidth: 2,
+            data: {!! json_encode($total_passenger) !!},
+        }],
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'date'
+                },
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    maxTicksLimit: 7
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 100,
+                    maxTicksLimit: 5
+                },
+                gridLines: {
+                    color: "rgba(0, 0, 0, .125)",
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+        </script>

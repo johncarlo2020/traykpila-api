@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\ChartjsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use App\Http\Controllers\adminController;
 
 
 Route::get('/admin',[adminController::class,'generaldetails'])->name('admin_dashboard');
+// Route::get('/admin',[ChartjsController::class,'chart_controller'])->name('admin_dashboard');
 
 Route::get('/admin/reported_drivers',[adminController::class,'reported_drivers'])->name('reported_drivers');
 

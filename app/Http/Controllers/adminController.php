@@ -29,6 +29,9 @@ class adminController extends Controller
         ->join('users', 'users.id', '=', 'Reports.driver_id')
         ->where('ReportStatus',1)
         ->get();
+
+    
+
    
         return view('reported_drivers',compact('users','reports'));
     }
@@ -110,14 +113,34 @@ class adminController extends Controller
         ->get();
 
         $count=$bookings->count(); 
-      
         
-        return view('admin_dashboard',compact('bookings','count'));
+        //REGISTERED DRIVERS 
+        $registered_drivers = User::select(User::raw('DATE(created_at) as registered_drivers_day'), User::raw('COUNT(*) as total_drivers'))
+        ->where('role',1)
+        ->groupBy('registered_drivers_day')
+        ->get();
+
+        $registered_drivers_day = $registered_drivers->pluck('registered_drivers_day');
+        $total_drivers = $registered_drivers->pluck('total_drivers');  
+        
+        //REGISTERED PASSENGER
+
+        $registered_passenger = User::select(User::raw('DATE(created_at) as registered_passenger_day'), User::raw('COUNT(*) as total_passenger'))
+        ->where('role',2)
+        ->groupBy('registered_passenger_day')
+        ->get();
+
+        $registered_passenger_day = $registered_passenger->pluck('registered_passenger_day');
+        $total_passenger = $registered_passenger->pluck('total_passenger');  
+        
+        
+        return view('admin_dashboard', ['registered_drivers_day' => $registered_drivers_day, 'total_drivers' => $total_drivers,'bookings'=>$bookings,'count'=>$count,'registered_passenger_day'=>$registered_passenger_day,'total_passenger'=>$total_passenger]);
+
     }
     
 
     public function passengers(){
-        $users=User::where('role',2)->get();
+        $users=User::where('role',1)->get();
         return view('passenger_list',compact('users'));
     }
 
