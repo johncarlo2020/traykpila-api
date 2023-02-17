@@ -59,7 +59,7 @@
                                             <td>{{$user->PhoneNumber}}</td>
                                             <td>{{$user->TPC}}</td>
                                
-                                            <td><a href="{{url('/admin/tricycle_drivers/passenger_list/details/')}}/{{$user->id}}">ViewDetails</a></td>
+                                            <td><a href="{{url('/admin/passenger_list/details/')}}/{{$user->id}}">ViewDetails</a></td>
                                         </tr>
                                    @endforeach
                                                             

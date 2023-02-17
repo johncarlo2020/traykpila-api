@@ -76,7 +76,7 @@ class adminController extends Controller
     
     
 
-    public function bookingdetails($id){
+    public function driver_details($id){
         $users=User::where('id',$id)->get();
         $bookings=booking::select('bookings.*','users.name AS passenger','tricycles.body_number AS Body_number')
         ->join('users', 'users.id', '=', 'bookings.passenger_id')
@@ -131,6 +131,7 @@ class adminController extends Controller
         ->get();
 
         $registered_passenger_day = $registered_passenger->pluck('registered_passenger_day');
+      
         $total_passenger = $registered_passenger->pluck('total_passenger');  
         
         
@@ -140,7 +141,7 @@ class adminController extends Controller
     
 
     public function passengers(){
-        $users=User::where('role',1)->get();
+        $users=User::where('role',2)->get();
         return view('passenger_list',compact('users'));
     }
 

@@ -30,16 +30,16 @@ Route::get('/admin/tricycle_drivers',[adminController::class,'drivers'])->name('
 Route::get('/admin/drivers_accounts',[adminController::class,'accounts'])->name('tryk_drivers_accounts');
 Route::get('/admin/drivers_accounts_notverified',[adminController::class,'notverified'])->name('tryk_drivers_accounts_notverified');
 // Route::get('/admin',[adminController::class,'generaldetails'])->name('general');
-Route::get('/admin/tricycle_drivers/details/{id}',[adminController::class,'bookingdetails'])->name('driver_details');
+Route::get('/admin/tricycle_drivers/details/{id}',[adminController::class,'driver_details'])->name('driver_details');
 Route::post('/admin/tricycle_drivers/details/update_tpc/{id}',[adminController::class,'update_tpc'])->name('update_tpc');
 
 
-Route::get('/admin/tricycle_drivers/passenger_list/details/{id}',[adminController::class,'passengerdetails'])->name('passenger_details');
-Route::get('/admin/tricycle_drivers/passenger_list/details/{id}',[adminController::class,'update_tpc'])->name('passenger_details');
+Route::get('/admin/passenger_list/details/{id}',[adminController::class,'passengerdetails'])->name('passenger_details');
+//Route::get('/admin/passenger_list/details/{id}',[adminController::class,'update_tpc'])->name('passenger_details');
 // Route::get('/admin/tricycle_drivers/details/{id}',[adminController::class,'driverdetails'])->name('driver_account_details');
-Route::get('/admin/tricycle_drivers/passenger_accounts',[adminController::class,'passenger_accounts'])->name('passenger_details_accounts');
-Route::get('/admin/tricycle_drivers/passenger_accounts_notverified',[adminController::class,'passenger_accounts_notverified'])->name('passenger_details_accounts_notverified');
-Route::get('/admin/tricycle_drivers/passenger_list',[adminController::class,'passengers'])->name('passenger_details');
+Route::get('/admin/passenger_accounts',[adminController::class,'passenger_accounts'])->name('passenger_details_accounts');
+Route::get('/admin/passenger_accounts_notverified',[adminController::class,'passenger_accounts_notverified'])->name('passenger_details_accounts_notverified');
+Route::get('/admin/passenger_list',[adminController::class,'passengers'])->name('passenger_details');
 
 
 

@@ -30,20 +30,20 @@
                         <h3 class="mt-4">Total Booking</h3>
                   
                         <div class="row">
-                            <div class="col-xl-6">
+                        <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
-                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Registered</p>
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Total booking in the month of {{date('F, Y');}}</p>
                                     </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-body"><canvas id="myBarChart1" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
-                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Total TPC Circculating supply</p>
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>TPC supply in the month of {{date('F, Y');}}</p>
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                    <div class="card-body"><canvas id="myBarChart2" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                         </div> 
@@ -58,7 +58,7 @@
                         <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
-                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Drivers in month of March</p>
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Passengers in month of {{date('F, Y');}}</p>
                                     </div>
                                     <div class="card-body"><canvas id="myAreaChart3" width="100%" height="40"></canvas></div>
                                 </div>
@@ -66,7 +66,7 @@
                             <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
-                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Drivers in month of March</p>
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Drivers in month of {{date('F, Y');}}</p>
                                     </div>
                                     <div class="card-body"><canvas id="myAreaChart4" width="100%" height="40"></canvas></div>
                                 </div>
@@ -160,14 +160,14 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-// Area Chart Example
+// Passenger Chart Area
 var ctx = document.getElementById("myAreaChart3");
 var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels:  {!! json_encode($registered_drivers_day) !!},
         datasets: [{
-            label: "Sessions",
+            label: "Registered Passenger",
             lineTension: 0.3,
             backgroundColor: "rgba(2,117,216,0.2)",
             borderColor: "rgba(2,117,216,1)",
@@ -210,6 +210,7 @@ var myLineChart = new Chart(ctx, {
         }
     }
 });
+
         </script>
        
        <script>
@@ -217,14 +218,14 @@ var myLineChart = new Chart(ctx, {
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-// Area Chart Example
+// Driver Chart Area
 var ctx = document.getElementById("myAreaChart4");
 var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels:  {!! json_encode($registered_passenger_day) !!},
         datasets: [{
-            label: "Sessions",
+            label: "Registered Driver",
             lineTension: 0.3,
             backgroundColor: "rgba(2,117,216,0.2)",
             borderColor: "rgba(2,117,216,1)",
@@ -268,3 +269,104 @@ var myLineChart = new Chart(ctx, {
     }
 });
         </script>
+
+<script>
+    // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Total Bookings Chart Bar
+var ctx = document.getElementById("myBarChart1");
+var myLineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13"],
+        datasets: [{
+            label: "Revenue",
+            backgroundColor: "rgba(2,117,216,1)",
+            borderColor: "rgba(2,117,216,1)",
+            data: [1000, 1200, 1342, 1523, 2543, 3000, 1124, 1211, 1425, 7841, 9821, 14984],
+        }],
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'month'
+                },
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    maxTicksLimit: 6
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 3000,
+                    maxTicksLimit: 5
+                },
+                gridLines: {
+                    display: true
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+</script>
+
+
+
+
+<script>
+    // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Tpc  Supply Chart Bar
+var ctx = document.getElementById("myBarChart2");
+var myLineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13"],
+        datasets: [{
+            label: "Revenue",
+            backgroundColor: "rgba(2,117,216,1)",
+            borderColor: "rgba(2,117,216,1)",
+            data: [1000, 1200, 1342, 1523, 2543, 3000, 1124, 1211, 1425, 7841, 9821, 14984],
+        }],
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'month'
+                },
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    maxTicksLimit: 6
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 3000,
+                    maxTicksLimit: 5
+                },
+                gridLines: {
+                    display: true
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+</script>
