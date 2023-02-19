@@ -35,7 +35,10 @@
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Total booking in the month of {{date('F, Y');}}</p>
                                     </div>
-                                    <div class="card-body"><h3 class="text-center text-primary pb-1">TOTAL BOOKINGS = {{$bookings->count('id')}}</h3><canvas id="myBarChart1" width="100%" height="40"></canvas></div>
+                                    <div class="card-body">
+                                        <h3 class="text-center text-primary pb-1">TOTAL BOOKINGS: <span class="text-success">{{$bookings->count('id')}}</span> </h3>
+                                        <canvas id="myBarChart1" width="100%" height="40"></canvas>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
@@ -43,7 +46,10 @@
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>TPC supply in the month of {{date('F, Y');}}</p>
                                     </div>
-                                    <div class="card-body"><h3 class="text-center text-primary pb-1">TOTAL TPC = {{$circullating_tpc->sum('TPC')}}</h3><canvas id="myBarChart2" width="100%" height="40"></canvas></div>
+                                    <div class="card-body">
+                                        <h3 class="text-center text-primary pb-1">TOTAL TPC: <span class="text-success">{{$circullating_tpc->sum('TPC')}}</span></h3>
+                                        <canvas id="myBarChart2" width="100%" height="40"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div> 
@@ -60,7 +66,10 @@
                                     <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Passengers in month of {{date('F, Y');}}</p>
                                     </div>
-                                    <div class="card-body"><canvas id="myAreaChart3" width="100%" height="40"></canvas></div>
+                                    <div class="card-body">
+                                    <h4 class="text-center text-primary pb-1">TOTAL PASSENGER: <span class="text-success">{{$total_passenger_registered->count('id')}}</span></h4>
+                                        <canvas id="myAreaChart3" width="100%" height="40"></canvas>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
@@ -68,7 +77,10 @@
                                     <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Drivers in month of {{date('F, Y');}}</p>
                                     </div>
-                                    <div class="card-body"><canvas id="myAreaChart4" width="100%" height="40"></canvas></div>
+                                    <div class="card-body">
+                                    <h4 class="text-center text-primary pb-1">TOTAL DRIVER: <span class="text-success">{{$total_driver_registered->count('id')}}</span></h4>
+                                        <canvas id="myAreaChart4" width="100%" height="40"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div> 

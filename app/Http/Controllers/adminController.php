@@ -114,25 +114,25 @@ class adminController extends Controller
 
         $count=$bookings->count(); 
         
-        //REGISTERED DRIVERS CHART
-        $registered_drivers = User::select(User::raw('DATE(created_at) as registered_drivers_day'), User::raw('COUNT(*) as total_drivers'))
-        ->where('role',1)
+        //REGISTERED PASSENGER CHART
+        $registered_passenger = User::select(User::raw('DATE(created_at) as registered_drivers_day'), User::raw('COUNT(*) as total_drivers'))
+        ->where('role',2)
         ->groupBy('registered_drivers_day')
         ->get();
 
-        $registered_drivers_day = $registered_drivers->pluck('registered_drivers_day');
-        $total_drivers = $registered_drivers->pluck('total_drivers');  
+        $registered_drivers_day = $registered_passenger->pluck('registered_drivers_day');
+        $total_drivers = $registered_passenger->pluck('total_drivers');  
         
-        //REGISTERED PASSENGER CHART
+        //REGISTERED DRIVER CHART
 
-        $registered_passenger = User::select(User::raw('DATE(created_at) as registered_passenger_day'), User::raw('COUNT(*) as total_passenger'))
-        ->where('role',2)
+        $registered_driver = User::select(User::raw('DATE(created_at) as registered_passenger_day'), User::raw('COUNT(*) as total_passenger'))
+        ->where('role',1)
         ->groupBy('registered_passenger_day')
         ->get();
 
-        $registered_passenger_day = $registered_passenger->pluck('registered_passenger_day');
+        $registered_passenger_day = $registered_driver->pluck('registered_passenger_day');
       
-        $total_passenger = $registered_passenger->pluck('total_passenger');  
+        $total_passenger = $registered_driver->pluck('total_passenger');  
         
         //TOTAL BOOKINGS CHART
 
@@ -153,8 +153,12 @@ class adminController extends Controller
         $top_up_day = $total_tpc->pluck('top_up_day');
         $total_tpc = $total_tpc->pluck('total_tpc');
 
-        $circullating_tpc = User::select(User::raw('TPC'))
+        //TOTAL LABELS
+        $circullating_tpc = User::select(User::raw('TPC'))        
         ->get(); 
+        
+        $total_passenger_registered=User::where('role',2)->get();
+        $total_driver_registered=User::where('role',1)->get();
         
         
         
@@ -170,7 +174,9 @@ class adminController extends Controller
         'total_bookings_count'=>$total_bookings_count,
         'top_up_day'=>$top_up_day,
         'total_tpc'=>$total_tpc,
-        'circullating_tpc'=>$circullating_tpc
+        'circullating_tpc'=>$circullating_tpc,
+        'total_passenger_registered'=>$total_passenger_registered,
+        'total_driver_registered'=>$total_driver_registered
 
     ]);
          
