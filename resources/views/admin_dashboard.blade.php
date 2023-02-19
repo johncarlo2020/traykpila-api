@@ -212,10 +212,16 @@ var myLineChart = new Chart(ctx, {
                 }
             }],
             yAxes: [{
+                scaleLabel: {
+            display: true,
+            labelString: 'Passengers',
+            fontSize: 20
+          },
                 ticks: {
                     min: 0,
                     max: 100,
                     maxTicksLimit: 10
+                    
                 },
                 gridLines: {
                     color: "rgba(0, 0, 0, .125)",
@@ -270,6 +276,11 @@ var myLineChart = new Chart(ctx, {
                 }
             }],
             yAxes: [{
+                scaleLabel: {
+            display: true,
+            labelString: 'Drivers',
+            fontSize: 20
+          },
                 ticks: {
                     min: 0,
                     max: 100,
@@ -319,6 +330,11 @@ var myLineChart = new Chart(ctx, {
                 }
             }],
             yAxes: [{
+                scaleLabel: {
+            display: true,
+            labelString: 'Bookings',
+            fontSize: 20
+          },
                 ticks: {
                     min: 0,
                     max: 30,
@@ -372,7 +388,13 @@ var myLineChart = new Chart(ctx, {
                 }
             }],
             yAxes: [{
+                scaleLabel: {
+            display: true,
+            labelString: 'Top-Ups',
+            fontSize: 20
+          },
                 ticks: {
+                    
                     min: 0,
                     max: 2000,
                     maxTicksLimit: 10
