@@ -35,7 +35,7 @@
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Total booking in the month of {{date('F, Y');}}</p>
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart1" width="100%" height="40"></canvas></div>
+                                    <div class="card-body"><h3 class="text-center text-primary pb-1">TOTAL BOOKINGS = {{$bookings->count('id')}}</h3><canvas id="myBarChart1" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                             <div class="col-xl-6">
@@ -43,7 +43,7 @@
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>TPC supply in the month of {{date('F, Y');}}</p>
                                     </div>
-                                    <div class="card-body"><canvas id="myBarChart2" width="100%" height="40"></canvas></div>
+                                    <div class="card-body"><h3 class="text-center text-primary pb-1">TOTAL TPC = {{$circullating_tpc->sum('TPC')}}</h3><canvas id="myBarChart2" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
                         </div> 
@@ -280,12 +280,12 @@ var ctx = document.getElementById("myBarChart1");
 var myLineChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13"],
+        labels:  {!! json_encode($total_bookings_day) !!},
         datasets: [{
-            label: "Revenue",
+            label: "Bookings",
             backgroundColor: "rgba(2,117,216,1)",
             borderColor: "rgba(2,117,216,1)",
-            data: [1000, 1200, 1342, 1523, 2543, 3000, 1124, 1211, 1425, 7841, 9821, 14984],
+            data:  {!! json_encode($total_bookings_count) !!},
         }],
     },
     options: {
@@ -304,7 +304,7 @@ var myLineChart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     min: 0,
-                    max: 3000,
+                    max: 30,
                     maxTicksLimit: 5
                 },
                 gridLines: {
@@ -332,15 +332,16 @@ var ctx = document.getElementById("myBarChart2");
 var myLineChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13"],
+        labels:  {!! json_encode($top_up_day) !!},
         datasets: [{
-            label: "Revenue",
+            label: "Top-Up",
             backgroundColor: "rgba(2,117,216,1)",
             borderColor: "rgba(2,117,216,1)",
-            data: [1000, 1200, 1342, 1523, 2543, 3000, 1124, 1211, 1425, 7841, 9821, 14984],
+            data:  {!! json_encode($total_tpc) !!},
         }],
     },
     options: {
+        
         scales: {
             xAxes: [{
                 time: {
@@ -356,7 +357,7 @@ var myLineChart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     min: 0,
-                    max: 3000,
+                    max: 2000,
                     maxTicksLimit: 5
                 },
                 gridLines: {
