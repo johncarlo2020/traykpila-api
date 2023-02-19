@@ -7,30 +7,31 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
-    
- 
+
+
     </head>
     <style>
         body{
-            
+
             background-color:#e4fff9 !important;
         }
-        
+
     </style>
-    <span class="loader"></span>    
+    <span class="loader"></span>
     <body class="sb-nav-fixed">
         @extends('layouts.navbar')
         <div id="layoutSidenav">
             @extends('layouts.sidebar')
             <div id="layoutSidenav_content">
-               
+
             <main>
                 <!-- GENERAL BOOKING NUMBER -->
                 <div class="container-fluid px-4">
-                        <h3 class="mt-4">Total Booking</h3>
-                  
+
+
                         <div class="row">
                         <div class="col-xl-6">
+                        <h3 class="mt-4">Bookings</h3>
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Total booking in the month of {{date('F, Y');}}</p>
@@ -41,7 +42,9 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-xl-6">
+                            <h3 class="mt-4">Cirrculating Supply</h3>
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>TPC supply in the month of {{date('F, Y');}}</p>
@@ -52,15 +55,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
 
 
                 <!-- GENERAL REGISTERED USERS-->
                 <div class="container-fluid px-4">
-                        <h3 class="mt-4">New Registered</h3>
-                  
-                        <div class="row">
+                        <h3 class="mt-4">Newly Registered</h3>
+
+                    <div class="row">
                         <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
@@ -83,10 +86,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
-         
-                    
+
+
             <!-- GENERAL BOOKING LISTS -->
                     <div class="container-fluid px-4">
                         <h3 class="mt-4">General History Booking Lists  </h3>
@@ -103,16 +106,16 @@
                                             <th>Booking Date/Time:</th>
                                             <th>Arrival Date/Time:</th>
                                             <th>Total Pickup time:</th>
-                                            <th>Pickup Location:</th>    
+                                            <th>Pickup Location:</th>
                                             <th>Destination</th>
-                                            <th>Body Number</th>   
-                                            <th>Status</th>    
+                                            <th>Body Number</th>
+                                            <th>Status</th>
                                             <th>Fare Received</th>
-                                            <th>Rating</th>                       
+                                            <th>Rating</th>
                                         </tr>
                                     </thead>
-                                   
-                                    
+
+
                                     <tbody>
                                     @foreach ($bookings as $booking)
                                         <tr>
@@ -132,11 +135,11 @@
                                             <td>₱15</td>
                                             <td>5.00</td>
                                         </tr>
-                                     @endforeach                  
+                                     @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </main>
 
@@ -154,19 +157,21 @@
                 </footer>
             </div>
         </div>
-      
+
     </body>
 </html>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="{{url('js/scripts.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-      
-        <script src="{{url('assets/demo/chart-bar-demo.js')}}"></script>
+
+
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="{{url('js/datatables-simple-demo.js')}}"></script>
-   
-       
+        <!-- <script src="{{url('js/datatables-simple-demo.js')}}"></script>
+        <script src="{{url('js/scripts.js')}}"></script>
+        <script src="{{url('assets/demo/chart-bar-demo.js')}}"></script> -->
+
+
 <script>
             // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -177,7 +182,7 @@ var ctx = document.getElementById("myAreaChart3");
 var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels:  {!! json_encode($registered_drivers_day) !!},
+        labels:  {!! json_encode($registered_driver_parsedDates) !!},
         datasets: [{
             label: "Registered Passenger",
             lineTension: 0.3,
@@ -210,7 +215,7 @@ var myLineChart = new Chart(ctx, {
                 ticks: {
                     min: 0,
                     max: 100,
-                    maxTicksLimit: 5
+                    maxTicksLimit: 10
                 },
                 gridLines: {
                     color: "rgba(0, 0, 0, .125)",
@@ -224,7 +229,7 @@ var myLineChart = new Chart(ctx, {
 });
 
         </script>
-       
+
        <script>
             // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -235,7 +240,7 @@ var ctx = document.getElementById("myAreaChart4");
 var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels:  {!! json_encode($registered_passenger_day) !!},
+        labels:  {!! json_encode($registered_passenger_parsedDates) !!},
         datasets: [{
             label: "Registered Driver",
             lineTension: 0.3,
@@ -268,7 +273,7 @@ var myLineChart = new Chart(ctx, {
                 ticks: {
                     min: 0,
                     max: 100,
-                    maxTicksLimit: 5
+                    maxTicksLimit: 10
                 },
                 gridLines: {
                     color: "rgba(0, 0, 0, .125)",
@@ -292,7 +297,7 @@ var ctx = document.getElementById("myBarChart1");
 var myLineChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels:  {!! json_encode($total_bookings_day) !!},
+        labels:  {!! json_encode($total_bookings_day_parsedDates) !!},
         datasets: [{
             label: "Bookings",
             backgroundColor: "rgba(2,117,216,1)",
@@ -317,7 +322,7 @@ var myLineChart = new Chart(ctx, {
                 ticks: {
                     min: 0,
                     max: 30,
-                    maxTicksLimit: 5
+                    maxTicksLimit: 10
                 },
                 gridLines: {
                     display: true
@@ -344,7 +349,7 @@ var ctx = document.getElementById("myBarChart2");
 var myLineChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels:  {!! json_encode($top_up_day) !!},
+        labels:  {!! json_encode($top_up_day_parsedDates) !!},
         datasets: [{
             label: "Top-Up",
             backgroundColor: "rgba(2,117,216,1)",
@@ -353,7 +358,7 @@ var myLineChart = new Chart(ctx, {
         }],
     },
     options: {
-        
+
         scales: {
             xAxes: [{
                 time: {
@@ -370,7 +375,8 @@ var myLineChart = new Chart(ctx, {
                 ticks: {
                     min: 0,
                     max: 2000,
-                    maxTicksLimit: 5
+                    maxTicksLimit: 10
+
                 },
                 gridLines: {
                     display: true

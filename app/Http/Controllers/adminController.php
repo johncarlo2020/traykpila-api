@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\booking;
 use App\Models\User;
 use App\Models\reports;
+use Carbon\Carbon;
 
 class adminController extends Controller
 {
@@ -84,7 +85,35 @@ class adminController extends Controller
         ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
         ->where('driver_id',$id)
         ->get();
-        return view('driver_details',compact('users','bookings'));
+
+
+        $total_bookings = booking::select(booking::raw('DATE(created_at) as total_booking'), booking::raw('COUNT(id) as total_booking_count'))
+        ->where('driver_id',$id)
+        ->groupBy('total_booking')
+        ->get();
+
+        $total = $total_bookings->pluck('total_booking');
+        $count = $total_bookings->pluck('total_booking_count');
+
+        // $date = Carbon::parse('2023-02-19','2023-02-14');
+
+        // dd ($date->format('l jS F Y'));
+        
+     $dates = $total;
+
+    $parsedDates = [];
+
+    foreach ($dates as $date) {
+    $parsedDates[] = Carbon::parse($date)->format('F d');
+}
+
+
+        
+
+        
+        return view('driver_details',compact('users','bookings','parsedDates','count'));
+
+
     }
 
     public function passengerdetails($id){
@@ -95,6 +124,7 @@ class adminController extends Controller
         ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
         ->where('passenger_id',$id)
         ->get();
+
         
         
         return view('passenger_details',compact('users','bookings'));
@@ -104,84 +134,7 @@ class adminController extends Controller
     
 
 
-// ADMIN DASHBOARD
-    public function generaldetails(){
-        $bookings = booking::select('bookings.*','u1.name AS driver','u2.name AS passenger', 'tricycles.body_number')
-        ->join('users As u1', 'u1.id', '=', 'bookings.driver_id')
-        ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
-        ->join('tricycles', 'tricycles.id', '=', 'bookings.passenger_id')
-        ->get();
 
-        $count=$bookings->count(); 
-        
-        //REGISTERED PASSENGER CHART
-        $registered_passenger = User::select(User::raw('DATE(created_at) as registered_drivers_day'), User::raw('COUNT(*) as total_drivers'))
-        ->where('role',2)
-        ->groupBy('registered_drivers_day')
-        ->get();
-
-        $registered_drivers_day = $registered_passenger->pluck('registered_drivers_day');
-        $total_drivers = $registered_passenger->pluck('total_drivers');  
-        
-        //REGISTERED DRIVER CHART
-
-        $registered_driver = User::select(User::raw('DATE(created_at) as registered_passenger_day'), User::raw('COUNT(*) as total_passenger'))
-        ->where('role',1)
-        ->groupBy('registered_passenger_day')
-        ->get();
-
-        $registered_passenger_day = $registered_driver->pluck('registered_passenger_day');
-      
-        $total_passenger = $registered_driver->pluck('total_passenger');  
-        
-        //TOTAL BOOKINGS CHART
-
-        $total_bookings = booking::Select(booking::raw('DATE(created_at) as total_bookings_day'),booking::raw('COUNT(*) as total_bookings_count'))
-        ->groupBy('total_bookings_day')
-        ->get();
-        
-        $total_bookings_day = $total_bookings->pluck('total_bookings_day');
-        $total_bookings_count = $total_bookings->pluck('total_bookings_count');
-
-        //TPC CIRCULATTING SUPPLY CHART
-
-        $total_tpc = User::select(User::raw('DATE(updated_at) as top_up_day'), User::raw('SUM(TPC) as total_tpc'))
-       
-        ->groupBy('top_up_day')
-        ->get();
-
-        $top_up_day = $total_tpc->pluck('top_up_day');
-        $total_tpc = $total_tpc->pluck('total_tpc');
-
-        //TOTAL LABELS
-        $circullating_tpc = User::select(User::raw('TPC'))        
-        ->get(); 
-        
-        $total_passenger_registered=User::where('role',2)->get();
-        $total_driver_registered=User::where('role',1)->get();
-        
-        
-        
-
-        return view('admin_dashboard',
-         ['registered_drivers_day' => $registered_drivers_day, 
-        'total_drivers' => $total_drivers,
-        'bookings'=>$bookings,
-        'count'=>$count,
-        'registered_passenger_day'=>$registered_passenger_day,
-        'total_passenger'=>$total_passenger,
-        'total_bookings_day'=> $total_bookings_day,
-        'total_bookings_count'=>$total_bookings_count,
-        'top_up_day'=>$top_up_day,
-        'total_tpc'=>$total_tpc,
-        'circullating_tpc'=>$circullating_tpc,
-        'total_passenger_registered'=>$total_passenger_registered,
-        'total_driver_registered'=>$total_driver_registered
-
-    ]);
-         
-    }
-    
 
     public function passengers(){
         $users=User::where('role',2)->get();
