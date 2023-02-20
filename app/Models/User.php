@@ -25,12 +25,12 @@ class User extends Authenticatable
         'role',
         'address',
         'image',
-        'TPC',
         'Verified',
         'PhoneNumber',
         'ReportStatus',
         'ReportDesc',
-        'ReviewDesc'
+        'ReviewDesc',
+        'TPCWallet'
 
     ];
 

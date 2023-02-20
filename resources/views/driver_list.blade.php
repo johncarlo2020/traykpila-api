@@ -42,7 +42,7 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
-                                            <th>Gender</th>    
+                                            <th>Address</th>    
                                             <th></th>                                 
                                         </tr>
                                     </thead>
@@ -53,7 +53,7 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->PhoneNumber }}</td>
-                                            <td>Male</td>
+                                            <td>{{ $user->address }}</td>
                                
                                               <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$user->id}}">ViewDetails</a></td>
                                         </tr>

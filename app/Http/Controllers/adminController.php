@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\booking;
+use App\Models\tpc;
 use App\Models\User;
 use App\Models\reports;
 use Carbon\Carbon;
@@ -79,11 +80,12 @@ class adminController extends Controller
 
     public function driver_details($id){
         $users=User::where('id',$id)->get();
-        $bookings=booking::select('bookings.*','users.name AS passenger','tricycles.body_number AS Body_number')
+        $bookings=booking::select('bookings.*','users.name AS passenger', 'users.tpcw', 'tpc.farein','tricycles.body_number AS Body_number')
         ->join('users', 'users.id', '=', 'bookings.passenger_id')
-
+        ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
+        ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
         ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
-        ->where('driver_id',$id)
+        ->where('bookings.driver_id',$id)
         ->get();
 
 
@@ -99,12 +101,12 @@ class adminController extends Controller
 
         // dd ($date->format('l jS F Y'));
         
-     $dates = $total;
+        $dates = $total;
 
-    $parsedDates = [];
+        $parsedDates = [];
 
-    foreach ($dates as $date) {
-    $parsedDates[] = Carbon::parse($date)->format('F d');
+        foreach ($dates as $date) {
+        $parsedDates[] = Carbon::parse($date)->format('F d');
 }
 
 
@@ -220,11 +222,11 @@ class adminController extends Controller
     public function update_tpc(Request $request, $id)
     {
 
-        // $users = User::where('id',$id)->get();
+        //  $users = User::where('id',$id)->get();
         // $tpc = $request->input('tpc');
 
         $data = User::find($id);
-        $data->TPC =  $data->TPC + $request->tpc;        
+        $data->tpcw =  $data->tpcw + $request->User;        
         $data->save();
             
         return redirect('admin/tricycle_drivers/details/'.$id);

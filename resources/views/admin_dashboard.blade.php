@@ -70,7 +70,7 @@
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Passengers in month of {{date('F, Y');}}</p>
                                     </div>
                                     <div class="card-body">
-                                    <h4 class="text-center text-primary pb-1">TOTAL PASSENGER: <span class="text-success">{{$total_passenger_registered->count('id')}}</span></h4>
+                                    <h4 class="text-center text-primary pb-1">TOTAL PASSENGER: <span class="text-success"></span></h4>
                                         <canvas id="myAreaChart3" width="100%" height="40"></canvas>
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Drivers in month of {{date('F, Y');}}</p>
                                     </div>
                                     <div class="card-body">
-                                    <h4 class="text-center text-primary pb-1">TOTAL DRIVER: <span class="text-success">{{$total_driver_registered->count('id')}}</span></h4>
+                                    <h4 class="text-center text-primary pb-1">TOTAL DRIVER: <span class="text-success"></span></h4>
                                         <canvas id="myAreaChart4" width="100%" height="40"></canvas>
                                     </div>
                                 </div>
@@ -132,7 +132,7 @@
                                             @else
                                             <td>Success</td>
                                             @endif
-                                            <td>₱15</td>
+                                            <td>{{$booking->farein}}</td>
                                             <td>5.00</td>
                                         </tr>
                                      @endforeach

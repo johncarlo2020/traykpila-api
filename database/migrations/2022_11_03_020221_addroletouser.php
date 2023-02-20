@@ -14,7 +14,7 @@ class Addroletouser extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role');
+            $table->string('role')->comment('0=admin,1=driver,2=passenger');
         });
     }
 

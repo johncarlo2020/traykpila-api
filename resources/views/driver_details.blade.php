@@ -29,12 +29,12 @@
                             <li class="breadcrumb-item active">Address: {{$users[0]->address}} </li>
                         </ol>
                                 @if (($users[0]->Verified) == 0)
-                                    <h5 class="breadcrumb-item ">Account Status: Not Verified</h5> 
+                                    <h5 class="breadcrumb-item ">Account Status: Insufficient TPC</h5> 
                                 @else 
-                                    <h5 class="">Account Status: Verified</h5> 
+                                    <h5 class="">Account Status: Sufficient TPC</h5> 
                                 @endif
                                 <div class="row">
-                                <h5 class="col-md-6">TraykPila Coins: {{$users[0]->TPC}} 
+                                <h5 class="col-md-6">TraykPila Coins: {{$users[0]->tpcw}} 
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TPC">
                                         <p class="mb-0">Top-up TPC</p> 
                                     </button>
@@ -59,7 +59,7 @@
                         <form action="{{ 'update_tpc' }}/{{$users[0]->id}}" method="POST">
                         @csrf
                             <div class="mb-3">
-                                <p>Current TraykPila Coins: <h3>{{$users[0]->TPC}}</h3></p>
+                                <p>Current TraykPila Coins: <h3>{{$users[0]->tpcw}}</h3></p>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Load amount:</label>
@@ -166,9 +166,9 @@
                                             <th>5 mins</th>
                                             <td>Purok 2</td>
                                             <td>Purok 3</td>
-                                            <td>2209</td>
+                                            <td>{{$booking->Body_number}}</td>
                                             <td>Success</td>
-                                            <td>₱15</td>
+                                            <td>{{$booking->farein}}</td>
                                             <td>5.00</td>
                                         </tr>
                                      @endforeach                     
