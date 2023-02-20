@@ -30,7 +30,7 @@ class User extends Authenticatable
         'ReportStatus',
         'ReportDesc',
         'ReviewDesc',
-        'TPCWallet'
+        'tpcw'
 
     ];
 
