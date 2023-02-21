@@ -74,7 +74,7 @@
                                         <canvas id="myAreaChart3" width="100%" height="40"></canvas>
                                     </div>
                                 </div>
-                            </div>
+                        </div>
                             <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
@@ -86,9 +86,21 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="chart-container">
+                            <div class="card mb-4 shadow round">
+                                    <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
+                                        <p class=" text-center font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-clock me-3 "></i>Over All time Experience</p>
+                                    </div>
+                                    <div class="card-body">
+                                    <h4 class="text-center text-primary pb-1">Booking Time By User Experience: <span class="text-success"></span></h4>
+                                      <canvas id="myPieChart"></canvas>
+                                    </div>
+                                </div>
+                            
+                            </div>
                         </div>
                     </div>
-
+                   
 
             <!-- GENERAL BOOKING LISTS -->
                     <div class="container-fluid px-4">
@@ -172,6 +184,27 @@
         <script src="{{url('assets/demo/chart-bar-demo.js')}}"></script> -->
 
 
+
+
+<script>
+ // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Pie Chart Example
+var ctx = document.getElementById("myPieChart");
+var myPieChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ["5min", "10min:", "15min", "20min"],
+    datasets: [{
+      data: [13, 12, 11, 10],
+      backgroundColor: ['#28a745', '#007bff', '#ffc107', '#dc3545'],
+    }],
+  },
+});
+
+</script>
 <script>
             // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
