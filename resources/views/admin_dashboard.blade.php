@@ -88,10 +88,10 @@
                             </div>
                             <div class="chart-container">
                             <div class="card mb-4 shadow round">
-                                    <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
+                                    <div class="card-header font-weight-bold" style="background-color: green;">
                                         <p class=" text-center font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-clock me-3 "></i>Over All time Experience</p>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body ">
                                     <h4 class="text-center text-primary pb-1">Booking Time By User Experience: <span class="text-success"></span></h4>
                                       <canvas id="myPieChart"></canvas>
                                     </div>
@@ -193,8 +193,8 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Pie Chart Example
 var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: 'pie',
+var myDoughnutChart = new Chart(ctx, {
+  type: 'doughnut',
   data: {
     labels: ["5min", "10min:", "15min", "20min"],
     datasets: [{
