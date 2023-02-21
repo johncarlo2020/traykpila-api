@@ -14,7 +14,7 @@ class AddTpcwToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->String('tpcw');
+            $table->bigInteger('tpcw');
         });
     }
 

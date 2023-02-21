@@ -226,8 +226,9 @@ class adminController extends Controller
         // $tpc = $request->input('tpc');
 
         $data = User::find($id);
-        $data->tpcw =  $data->tpcw + $request->User;        
+        $data->tpcw =  $data->tpcw + $request->tpc;        
         $data->save();
+       
             
         return redirect('admin/tricycle_drivers/details/'.$id);
         

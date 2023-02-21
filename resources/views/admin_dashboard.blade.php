@@ -50,7 +50,7 @@
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>TPC supply in the month of {{date('F, Y');}}</p>
                                     </div>
                                     <div class="card-body">
-                                        <h3 class="text-center text-primary pb-1">TOTAL TPC: <span class="text-success">{{$circullating_tpc->sum('TPC')}}</span></h3>
+                                        <h3 class="text-center text-primary pb-1">TOTAL TPC: <span class="text-success">{{$circullating_tpc->sum('tpcw')}}</span></h3>
                                         <canvas id="myBarChart2" width="100%" height="40"></canvas>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Passengers in month of {{date('F, Y');}}</p>
                                     </div>
                                     <div class="card-body">
-                                    <h4 class="text-center text-primary pb-1">TOTAL PASSENGER: <span class="text-success"></span></h4>
+                                    <h4 class="text-center text-primary pb-1">TOTAL PASSENGER: <span class="text-success">{{$total_passenger_registered->count('id')}}</span></h4>
                                         <canvas id="myAreaChart3" width="100%" height="40"></canvas>
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>New Drivers in month of {{date('F, Y');}}</p>
                                     </div>
                                     <div class="card-body">
-                                    <h4 class="text-center text-primary pb-1">TOTAL DRIVER: <span class="text-success"></span></h4>
+                                    <h4 class="text-center text-primary pb-1">TOTAL DRIVER: <span class="text-success">{{$total_driver_registered->count('id')}}</span></h4>
                                         <canvas id="myAreaChart4" width="100%" height="40"></canvas>
                                     </div>
                                 </div>

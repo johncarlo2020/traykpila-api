@@ -77,7 +77,7 @@ public function generaldetails(){
 
     //TPC CIRCULATTING SUPPLY CHART
 
-    $total_tpc = tpc::select(tpc::raw('DATE(updated_at) as top_up_day'), tpc::raw('SUM(wallet) as total_tpc'))
+    $total_tpc = User::select(User::raw('DATE(updated_at) as top_up_day'), User::raw('SUM(tpcw) as total_tpc'))
    
     ->groupBy('top_up_day')
     ->get();
@@ -97,19 +97,16 @@ public function generaldetails(){
 }
     
     //TOTAL LABELS
-    $circullating_tpc = tpc::select(tpc::raw('wallet'))        
+    $circullating_tpc = User::select(User::raw('tpcw'))        
     ->get();
     
 
 
-    // $total_passenger_registered=tpc::where('role',2)
-   
-    // ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
-    
+    $total_passenger_registered=User::where('role',2)
+    ->get(); 
 
-    // $total_driver_registered=tpc::where('role',1)->get();
-    // ->join('users  As u1', 'u1.id', '=', 'bookings.driver_id')
-    // ->get();
+    $total_driver_registered=User::where('role',1)
+    ->get();
     
     
 
@@ -124,9 +121,9 @@ public function generaldetails(){
     'total_bookings_count'=>$total_bookings_count,
     'top_up_day_parsedDates'=>$top_up_day_parsedDates,
     'total_tpc'=>$total_tpc,
-    'circullating_tpc'=>$circullating_tpc
-    // 'total_passenger_registered'=>$total_passenger_registered,
-    // 'total_driver_registered'=>$total_driver_registered
+    'circullating_tpc'=>$circullating_tpc,
+    'total_passenger_registered'=>$total_passenger_registered,
+    'total_driver_registered'=>$total_driver_registered
 
 ]);
      
