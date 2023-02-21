@@ -80,8 +80,21 @@ class adminController extends Controller
 
     public function driver_details($id){
         $users=User::where('id',$id)->get();
-        $bookings=booking::select('bookings.*','users.name AS passenger', 'users.tpcw', 'tpc.farein','tricycles.body_number AS Body_number')
-        ->join('users', 'users.id', '=', 'bookings.passenger_id')
+        // $cashtpc=tpc::select('tpc.*','u1.name AS driver','SUM(tpc.farein)','SUM(tpc.cashin)','SUM(tpc.cashin) + SUM(tpc.farein) as total')
+        $cashtpc=tpc::select(tpc::raw('SUM(tpc.farein) AS farein'),tpc::raw('SUM(tpc.cashin) AS cashin'),tpc::raw('SUM(tpc.cashin) + SUM(tpc.farein) as totals'),tpc::raw('tpc.driver_id AS driver'))
+        ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
+        ->where('tpc.driver_id',$id)
+        ->groupBy('driver_id')
+        ->get();
+        $driver = $cashtpc->pluck('driver');
+       
+        $fareinrev = $cashtpc->pluck('farein');
+        $cashinrev = $cashtpc->pluck('cashin');
+        $totalrev = $cashtpc->pluck('totals');
+
+
+        $bookings=booking::select('bookings.*','users.name AS passenger','tpc.cashin', 'tpc.farein','tricycles.body_number AS Body_number')
+        ->join('users', 'users.id', '=', 'bookings.driver_id')
         ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
         ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
         ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
@@ -107,16 +120,63 @@ class adminController extends Controller
 
         foreach ($dates as $date) {
         $parsedDates[] = Carbon::parse($date)->format('F d');
-}
+
+        }
+
+        $fareintpc =  booking::select(tpc::raw('SUM(tpc.cashin) as cashin'),tpc::raw('SUM(tpc.farein)'),booking::raw('SUM(tpc.cashin) + SUM(tpc.farein) as total'))
+        ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
+        ->join('users as u1', 'u1.id', '=', 'bookings.driver_id')  
+        ->join('users as u2', 'u2.id', '=', 'tpc.driver_id')            
+        ->where('bookings.driver_id',$id)
+        ->groupBy('cashin')
+        ->get();
+
+        // $faretpc = $fareintpc->pluck('total');
+
+        // $cashintpc = booking::select(tpc::raw('SUM(tpc.farein)'),tpc::raw('SUM(tpc.cashin)'),tpc::raw('SUM(tpc.cashin) + SUM(tpc.farein) as total'))
+        // ->join('tpc','tpc.id', '=', 'bookings.tpc_id')  
+        // ->join('users as u2', 'u2.id', '=', 'tpc.driver_id')            
+        // ->where('tpc.driver_id',$id)
+        // ->groupBy('cashin')
+        // ->get();
+
+        // $cashtpc = $cashintpc->pluck('total');
+
+    
+       
 
 
+        $total_revenue = booking::select(booking::raw('DATE(bookings.created_at) as bookings_date'),tpc::raw('SUM(tpc.farein) as revenue'))
+        ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
+        ->join('users as u1', 'u1.id', '=', 'bookings.driver_id')  
+        ->join('users as u2', 'u2.id', '=', 'tpc.driver_id')            
+        ->where('bookings.driver_id',$id)
+        ->groupBy('bookings_date')
+        ->get();
+
+        $revenue_date = $total_revenue->pluck('bookings_date');
+        $sum = $total_revenue->pluck('revenue');
+        // $total=$total_revenue->pluck('total');
+        $dates = $revenue_date;
+
+         $parsedDates = [];
+
+        foreach ($dates as $date) {
+        $parsedDates[] = Carbon::parse($date)->format('F d');
+       
+      
+        }
+
+       
+        
         
 
-        
-        return view('driver_details',compact('users','bookings','parsedDates','count'));
+        return view('driver_details',compact('users','bookings','parsedDates','count','revenue_date','sum','total','cashtpc','totalrev','cashinrev','fareinrev','driver'));
+     }
 
-
-    }
+    
+  
+    
 
     public function passengerdetails($id){
         $users=User::where('id',$id)->get();
@@ -225,9 +285,24 @@ class adminController extends Controller
         //  $users = User::where('id',$id)->get();
         // $tpc = $request->input('tpc');
 
-        $data = User::find($id);
-        $data->tpcw =  $data->tpcw + $request->tpc;        
-        $data->save();
+        // $data = User::find($id);    
+        // $data->save();
+        
+        $user=User::find($id); 
+    
+        $tpc = new tpc;
+ 
+        $tpc->cashin = $request->tpc ;
+        $tpc->driver_id = $user->id;
+        $tpc->tpcstatus=0;
+        $tpc->wallet=0;
+        $tpc->cashout=0;
+        $tpc->farein=0;
+        $tpc->fareout=0;
+ 
+        $tpc->save();
+    
+   
        
             
         return redirect('admin/tricycle_drivers/details/'.$id);
@@ -244,4 +319,4 @@ class adminController extends Controller
     {
         //
     }
-}
+} 

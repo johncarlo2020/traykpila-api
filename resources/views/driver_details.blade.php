@@ -24,17 +24,17 @@
                         
                         <h1 class="mt-4">Name: {{$users[0]->name}} </h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">email: {{$users[0]->email}} </li>
-                            <li class="breadcrumb-item active">Phone Number: {{$users[0]->PhoneNumber}} </li>
-                            <li class="breadcrumb-item active">Address: {{$users[0]->address}} </li>
+                            <li class="breadcrumb-item active">email: {{$users[0]->email}}  </li>
+                            <li class="breadcrumb-item active">Phone Number: {{$users[0]->PhoneNumber}}  </li>
+                            <li class="breadcrumb-item active">Address: {{$users[0]->address}}  </li>
                         </ol>
-                                @if (($users[0]->Verified) == 0)
+                                @if (($cashtpc[0]->Verified) == 0)
                                     <h5 class="breadcrumb-item ">Account Status: Insufficient TPC</h5> 
                                 @else 
                                     <h5 class="">Account Status: Sufficient TPC</h5> 
                                 @endif
                                 <div class="row">
-                                <h5 class="col-md-6">TraykPila Coins: {{$users[0]->tpcw}} 
+                                <h5 class="col-md-6">TraykPila Coins: {{$totalrev[0]}} 
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TPC">
                                         <p class="mb-0">Top-up TPC</p> 
                                     </button>
@@ -56,10 +56,10 @@
                         </div>
                         <div class="modal-body">
                             
-                        <form action="{{ 'update_tpc' }}/{{$users[0]->id}}" method="POST">
+                        <form action="{{ 'update_tpc' }}/{{$driver[0]}}" method="POST">
                         @csrf
                             <div class="mb-3">
-                                <p>Current TraykPila Coins: <h3>{{$users[0]->tpcw}}</h3></p>
+                                <p>Current TraykPila Coins: <h3>{{$totalrev[0]}}</h3></p>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Load amount:</label>
@@ -299,9 +299,9 @@ var ctx = document.getElementById("myAreaChart1");
 var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7", "Day 8", "Day 9", "Day 10", "Day 11", "Day 12", "Day 13"],
+        labels:  {!! json_encode($parsedDates) !!},
         datasets: [{
-            label: "Sessions",
+            label: "Revenue",
             lineTension: 0.3,
             backgroundColor: "rgba(2,117,216,0.2)",
             borderColor: "rgba(2,117,216,1)",
@@ -312,7 +312,7 @@ var myLineChart = new Chart(ctx, {
             pointHoverBackgroundColor: "rgba(2,117,216,1)",
             pointHitRadius: 50,
             pointBorderWidth: 2,
-            data: [10, 20, 30, 50, 30, 20, 40, 50, 60, 70, 30, 20, 50, 12],
+            data:  {!! json_encode($sum) !!},
         }],
     },
     options: {
