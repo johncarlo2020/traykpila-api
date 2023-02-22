@@ -147,16 +147,12 @@ public function generaldetails(){
     'total_tpc'=>$total_tpc,
     'circullating_tpc'=>$circullating_tpc,
     'total_passenger_registered'=>$total_passenger_registered,
-<<<<<<< HEAD
     'total_driver_registered'=>$total_driver_registered,
     'minutes'=>$minutes,
     'user_counter'=>$user_counter,
     'label'=>$label
 
    
-=======
-    'total_driver_registered'=>$total_driver_registered
->>>>>>> 417dbe081bfdb7ec5f19a05a016b0a293446b763
 
 ]);
      
