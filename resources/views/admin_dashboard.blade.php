@@ -201,10 +201,10 @@ var ctx = document.getElementById("myPieChart");
 var myDoughnutChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["5min", "10min:", "15min", "20min"],
+    labels: {!! json_encode($minutes) !!},
     datasets: [{
       label: "User",
-      data: [13, 12, 11, 10],
+      data:{!! json_encode($user_counter) !!} ,
       backgroundColor: ['#28a745', '#007bff', '#ffc107', '#dc3545'],
     }],
   },

@@ -88,31 +88,47 @@ public function generaldetails(){
 
     $top_up_day = $total_tpc->pluck('top_up_day');
     $total_tpc = $total_tpc->pluck('total_tpc');
-
-   
-
     
     $dates = $top_up_day;
     $top_up_day = [];
 
     foreach ($dates as $date) {
     $top_up_day_parsedDates[] = Carbon::parse($date)->format('F d');
-}
+    }
     
     //TOTAL LABELS
     $circullating_tpc = tpc::select(tpc::raw('cashin'))        
     ->get();
     
-
-
     $total_passenger_registered=User::where('role',2)
     ->get(); 
 
     $total_driver_registered=User::where('role',1)
     ->get();
     
-    
 
+    //OVER ALL DONUT CHART
+    $results = booking::select('bookings.*')
+    ->select(booking::raw('CASE
+                        WHEN TIMESTAMPDIFF(MINUTE, created_at, updated_at) > 20 THEN "20 minutes above"
+                        ELSE CONCAT(FLOOR(TIMESTAMPDIFF(MINUTE, created_at, updated_at) / 5) * 5, "-", FLOOR(TIMESTAMPDIFF(MINUTE, created_at, updated_at) / 5) * 5 + 5," minutes")
+                      END as diff_in_minutes'))
+    ->selectRaw('COUNT(*) as count')
+    ->orderBy('created_at')
+    ->groupBy('diff_in_minutes')
+    ->get();
+
+ 
+    $minutes = $results->pluck('diff_in_minutes');
+    $user_counter = $results->pluck('count');
+   
+
+ 
+        
+
+
+
+  
     return view('admin_dashboard',
      ['registered_driver_parsedDates' => $registered_driver_parsedDates, 
     'total_drivers' => $total_drivers,
@@ -126,7 +142,10 @@ public function generaldetails(){
     'total_tpc'=>$total_tpc,
     'circullating_tpc'=>$circullating_tpc,
     'total_passenger_registered'=>$total_passenger_registered,
-    'total_driver_registered'=>$total_driver_registered
+    'total_driver_registered'=>$total_driver_registered,
+    'minutes'=>$minutes,
+    'user_counter'=>$user_counter
+
    
 
 ]);

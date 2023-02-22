@@ -1,3 +1,8 @@
+
+<?php
+use Carbon\Carbon;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -161,13 +166,17 @@
                                         <tr>
                                         
                                             <td>{{$booking->passenger}}</td>
-                                            <td>March 9, 2023 5:30pm</td>
-                                            <td>March 9, 2023 5:35pm</td>
-                                            <th>5 mins</th>
-                                            <td>Purok 2</td>
-                                            <td>Purok 3</td>
+                                            <td>{{Carbon::parse($booking->created_at)->format('F d Y g:i A');}}</td>
+                                            <td>{{Carbon::parse($booking->updated_at)->format('F d Y g:i A');}}</td>
+                                            <th>{{$booking->created_at->diffInMinutes($booking->updated_at)}} min</th>
+                                            <td>{{$booking->passenger_location}}</td>
+                                            <td>{{$booking->Destination}}</td>
                                             <td>{{$booking->Body_number}}</td>
+                                            @if($booking->status==0)
+                                            <td>Failed</td>
+                                            @else
                                             <td>Success</td>
+                                            @endif
                                             <td>{{$booking->farein}}</td>
                                             <td>5.00</td>
                                         </tr>
