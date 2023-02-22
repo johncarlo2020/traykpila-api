@@ -15,7 +15,7 @@ class CreateTPC extends Migration
     {
         Schema::create('TPC', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('tpcstatus');
+            $table->string('tpcstatus');
             $table->bigInteger('wallet');
             $table->bigInteger('cashin');
             $table->bigInteger('cashout');

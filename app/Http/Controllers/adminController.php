@@ -81,14 +81,13 @@ class adminController extends Controller
     public function driver_details($id){
         $users=User::where('id',$id)->get();
         // $cashtpc=tpc::select('tpc.*','u1.name AS driver','SUM(tpc.farein)','SUM(tpc.cashin)','SUM(tpc.cashin) + SUM(tpc.farein) as total')
-        $cashtpc=tpc::select(tpc::raw('SUM(tpc.farein) AS farein'),tpc::raw('SUM(tpc.cashin) AS cashin'),tpc::raw('SUM(tpc.cashin) + SUM(tpc.farein) as totals'),tpc::raw('tpc.tpcstatus AS tpcstatus'),tpc::raw('tpc.driver_id AS driver'))
+        $cashtpc=tpc::select(tpc::raw('SUM(tpc.farein) AS farein'),tpc::raw('SUM(tpc.cashin) AS cashin'),tpc::raw('SUM(tpc.cashin) + SUM(tpc.farein) as totals'),tpc::raw('tpc.driver_id AS driver'))
         ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
         ->where('tpc.driver_id',$id)
-        ->groupBy('driver_id','tpcstatus')
+        ->groupBy('driver_id')
         ->get();
         $driver = $cashtpc->pluck('driver');
-        $tpcstatus = $cashtpc->pluck('tpcstatus');
-    //  dd($tpcstatus);
+       
         $fareinrev = $cashtpc->pluck('farein');
         $cashinrev = $cashtpc->pluck('cashin');
         $totalrev = $cashtpc->pluck('totals');
@@ -172,7 +171,7 @@ class adminController extends Controller
         
         
 
-        return view('driver_details',compact('users','bookings','parsedDates','count','revenue_date','sum','total','cashtpc','totalrev','cashinrev','fareinrev','driver','tpcstatus'));
+        return view('driver_details',compact('users','bookings','parsedDates','count','revenue_date','sum','total','cashtpc','totalrev','cashinrev','fareinrev','driver'));
      }
 
     

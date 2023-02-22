@@ -24,11 +24,8 @@ public function generaldetails(){
     ->join('tricycles As t2', 't2.id', '=', 'bookings.tricycle_id')
     ->join('users As u3', 'u3.id', '=', 't2.user_id')
     ->get();
-
-    
     $count=$bookings->count(); 
-
- 
+    // dd ($bookings);
     //REGISTERED PASSENGER CHART
     $registered_passenger = User::select(User::raw('DATE(created_at) as registered_drivers_day'), User::raw('COUNT(*) as total_drivers'))
     ->where('role',2)
@@ -80,7 +77,7 @@ public function generaldetails(){
 
     //TPC CIRCULATTING SUPPLY CHART
 
-    $total_tpc = tpc::select(tpc::raw('DATE(updated_at) as top_up_day'), tpc::raw('SUM(cashin) as total_tpc'))
+    $total_tpc = User::select(User::raw('DATE(updated_at) as top_up_day'), User::raw('SUM(tpcw) as total_tpc'))
    
     ->groupBy('top_up_day')
     ->get();
@@ -100,7 +97,7 @@ public function generaldetails(){
 }
     
     //TOTAL LABELS
-    $circullating_tpc = tpc::select(tpc::raw('cashin'))        
+    $circullating_tpc = User::select(User::raw('tpcw'))        
     ->get();
     
 
@@ -127,7 +124,6 @@ public function generaldetails(){
     'circullating_tpc'=>$circullating_tpc,
     'total_passenger_registered'=>$total_passenger_registered,
     'total_driver_registered'=>$total_driver_registered
-   
 
 ]);
      
