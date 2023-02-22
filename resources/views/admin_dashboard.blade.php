@@ -42,7 +42,7 @@ use Carbon\Carbon;
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Total booking in the month of {{date('F, Y');}}</p>
                                     </div>
                                     <div class="card-body">
-                                        <h3 class="text-center text-primary pb-1">TOTAL BOOKINGS: <span class="text-success">{{$bookings->count('id')}}</span> </h3>
+                                        <h3 class="text-center text-primary pb-1">TOTAL BOOKINGS: <span class="text-success">{{$bookings->COUNT('id')}}</span> </h3>
                                         <canvas id="myBarChart1" width="100%" height="40"></canvas>
                                     </div>
                                 </div>
@@ -203,9 +203,9 @@ var myDoughnutChart = new Chart(ctx, {
   data: {
     labels: {!! json_encode($minutes) !!},
     datasets: [{
-      label: "User",
+   
       data:{!! json_encode($user_counter) !!} ,
-      backgroundColor: ['#28a745', '#007bff', '#ffc107', '#dc3545'],
+      backgroundColor: ['#dc3545','#ffc107','#007bff','#28a745'],
     }],
   },
 });

@@ -39,9 +39,9 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Cp Number</th>
-                                            <th>Address</th>
-                                            <th>Age</th>    
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Address</th>    
                                             <th></th>                                 
                                         </tr>
                                     </thead>
@@ -49,10 +49,10 @@
 
                                     @foreach ($users as $user)
                                         <tr>
-                                            <td>{{$user->name}}</td>
-                                            <td>+639984092871</td>
-                                            <td>Edinburgh</td>
-                                            <td>62</td>
+                                        <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->PhoneNumber }}</td>
+                                            <td>{{ $user->address }}</td>
                                
                                             <td><a href="{{url('/admin/passenger_list/details/')}}/{{$user->id}}">ViewDetails</a></td>
                                         </tr>

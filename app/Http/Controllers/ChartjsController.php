@@ -27,7 +27,7 @@ public function generaldetails(){
 
     
     $count=$bookings->count(); 
-
+   
  
     //REGISTERED PASSENGER CHART
     $registered_passenger = User::select(User::raw('DATE(created_at) as registered_drivers_day'), User::raw('COUNT(*) as total_drivers'))
@@ -110,21 +110,24 @@ public function generaldetails(){
     //OVER ALL DONUT CHART
     $results = booking::select('bookings.*')
     ->select(booking::raw('CASE
-                        WHEN TIMESTAMPDIFF(MINUTE, created_at, updated_at) > 20 THEN "20 minutes above"
-                        ELSE CONCAT(FLOOR(TIMESTAMPDIFF(MINUTE, created_at, updated_at) / 5) * 5, "-", FLOOR(TIMESTAMPDIFF(MINUTE, created_at, updated_at) / 5) * 5 + 5," minutes")
-                      END as diff_in_minutes'))
-    ->selectRaw('COUNT(*) as count')
+    WHEN TIMESTAMPDIFF(MINUTE, created_at, updated_at) > 20 THEN "20 minutes above"
+    ELSE CONCAT(FLOOR(TIMESTAMPDIFF(MINUTE, created_at, updated_at) / 5) * 5, "-", FLOOR(TIMESTAMPDIFF(MINUTE, created_at, updated_at) / 5) * 5 + 5," minutes")
+    END as diff_in_minutes'))
+    ->selectRaw('COUNT(*) as users ')
     ->orderBy('created_at')
     ->groupBy('diff_in_minutes')
     ->get();
 
- 
-    $minutes = $results->pluck('diff_in_minutes');
-    $user_counter = $results->pluck('count');
    
-
+    $minutes = $results->pluck('diff_in_minutes');
+    $user_counter = $results->pluck('users');
  
-        
+
+    $label = "User";
+
+
+    
+    
 
 
 
@@ -144,7 +147,8 @@ public function generaldetails(){
     'total_passenger_registered'=>$total_passenger_registered,
     'total_driver_registered'=>$total_driver_registered,
     'minutes'=>$minutes,
-    'user_counter'=>$user_counter
+    'user_counter'=>$user_counter,
+    'label'=>$label
 
    
 

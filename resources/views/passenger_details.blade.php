@@ -26,13 +26,13 @@
                             <li class="breadcrumb-item active">Phone Number: {{$users[0]->PhoneNumber}} </li>
                             <li class="breadcrumb-item active">Address: {{$users[0]->address}} </li>
                         </ol>
-                                @if (($users[0]->Verified) == 0)
-                                    <h5 class="breadcrumb-item ">Account Status: Not Verified</h5> 
+                        @if ($tpcstatus = 0)
+                                    <h5 class="breadcrumb-item ">Account Status: Insufficient TPC</h5> 
                                 @else 
-                                    <h5 class="">Account Status: Verified</h5> 
+                                    <h5 class="">Account Status: Sufficient TPC</h5> 
                                 @endif
                                 <div class="row">
-                                <h5 class="col-md-6">TraykPila Coins: {{$users[0]->TPC}} 
+                                <h5 class="col-md-6">TraykPila Coins: {{$totalrev[0]}} 
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TPC">
                                         <p class="mb-0">Top-up TPC</p> 
                                     </button>
@@ -41,7 +41,7 @@
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#REPORT">
                                         <p class="mb-0">Report</p> 
                                     </button>
-                                </h5>  
+                                </h5>   
                                 </div>
 
                                 
