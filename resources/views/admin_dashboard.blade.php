@@ -1,8 +1,3 @@
-
-<?php
-
-use Carbon\Carbon;
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -94,7 +89,7 @@ use Carbon\Carbon;
                             <div class="chart-container">
                             <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: green;">
-                                        <p class=" text-center font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-clock me-3 "></i>Over All Pickup time </p>
+                                        <p class=" text-center font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-clock me-3 "></i>Over All time Experience</p>
                                     </div>
                                     <div class="card-body ">
                                     <h4 class="text-center text-primary pb-1">Booking Time By User Experience: <span class="text-success"></span></h4>
@@ -132,16 +127,16 @@ use Carbon\Carbon;
                                         </tr>
                                     </thead>
 
-                   
+
                                     <tbody>
                                     @foreach ($bookings as $booking)
                                         <tr>
                                             <td>{{$booking->driver}}</td>
                                             <td>{{$booking->passenger}}</td>
-                                            <td>{{Carbon::parse($booking->created_at)->format('F d Y g:i A');}}</td>
-                                            <td>{{Carbon::parse($booking->updated_at)->format('F d Y g:i A');}}</td>
-                                            <td>{{$booking->created_at->diffInMinutes($booking->updated_at)}} min</td>
-                                            <td>{{$booking->passenger_location}}</td>
+                                            <td>March 9, 2023 5:30pm</td>
+                                            <td>March 9, 2023 5:35pm</td>
+                                            <th>5 mins</th>
+                                            <td>Purok 2</td>
                                             <td>{{$booking->Destination}}</td>
                                             <td>{{$booking->body_number}}</td>
                                             @if($booking->status==0)
@@ -203,9 +198,14 @@ var myDoughnutChart = new Chart(ctx, {
   data: {
     labels: {!! json_encode($minutes) !!},
     datasets: [{
+<<<<<<< HEAD
    
       data:{!! json_encode($user_counter) !!} ,
       backgroundColor: ['#dc3545','#ffc107','#007bff','#28a745'],
+=======
+      data: [13, 12, 11, 10],
+      backgroundColor: ['#28a745', '#007bff', '#ffc107', '#dc3545'],
+>>>>>>> 417dbe081bfdb7ec5f19a05a016b0a293446b763
     }],
   },
 });
@@ -423,7 +423,7 @@ var myLineChart = new Chart(ctx, {
                     display: false
                 },
                 ticks: {
-                    maxTicksLimit: 6
+                    maxTicksLimit: 21
                 }
             }],
             yAxes: [{

@@ -33,7 +33,7 @@ use Carbon\Carbon;
                             <li class="breadcrumb-item active">Phone Number: {{$users[0]->PhoneNumber}}  </li>
                             <li class="breadcrumb-item active">Address: {{$users[0]->address}}  </li>
                         </ol>
-                                @if ($tpcstatus = 0)
+                                @if (($cashtpc[0]->Verified) == 0)
                                     <h5 class="breadcrumb-item ">Account Status: Insufficient TPC</h5> 
                                 @else 
                                     <h5 class="">Account Status: Sufficient TPC</h5> 
