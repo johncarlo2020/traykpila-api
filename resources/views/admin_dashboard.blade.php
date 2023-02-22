@@ -198,14 +198,9 @@ var myDoughnutChart = new Chart(ctx, {
   data: {
     labels: {!! json_encode($minutes) !!},
     datasets: [{
-<<<<<<< HEAD
    
       data:{!! json_encode($user_counter) !!} ,
       backgroundColor: ['#dc3545','#ffc107','#007bff','#28a745'],
-=======
-      data: [13, 12, 11, 10],
-      backgroundColor: ['#28a745', '#007bff', '#ffc107', '#dc3545'],
->>>>>>> 417dbe081bfdb7ec5f19a05a016b0a293446b763
     }],
   },
 });
