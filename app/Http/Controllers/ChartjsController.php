@@ -25,12 +25,9 @@ public function generaldetails(){
     ->join('users As u3', 'u3.id', '=', 't2.user_id')
     ->get();
     $count=$bookings->count(); 
-<<<<<<< HEAD
    
  
-=======
     // dd ($bookings);
->>>>>>> 417dbe081bfdb7ec5f19a05a016b0a293446b763
     //REGISTERED PASSENGER CHART
     $registered_passenger = User::select(User::raw('DATE(created_at) as registered_drivers_day'), User::raw('COUNT(*) as total_drivers'))
     ->where('role',2)
