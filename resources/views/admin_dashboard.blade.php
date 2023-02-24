@@ -34,8 +34,7 @@ use Carbon\Carbon;
                 <div class="container-fluid px-4">
 
 
-                        <div class="row">
-                        <div class="col-xl-6">
+                    <div class="chart-container">   
                         <h3 class="mt-4">Bookings</h3>
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
@@ -46,27 +45,13 @@ use Carbon\Carbon;
                                         <canvas id="myBarChart1" width="100%" height="40"></canvas>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xl-6">
-                            <h3 class="mt-4">Cirrculating Supply</h3>
-                                <div class="card mb-4 shadow round">
-                                    <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
-                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>TPC supply in the month of {{date('F, Y');}}</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <h3 class="text-center text-primary pb-1">TOTAL TPC: <span class="text-success">{{$circullating_tpc->sum('tpcw')}}</span></h3>
-                                        <canvas id="myBarChart2" width="100%" height="40"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </div>                      
                     </div>
 
 
                 <!-- GENERAL REGISTERED USERS-->
                 <div class="container-fluid px-4">
-                        <h3 class="mt-4">Newly Registered</h3>
+                        <h3 class="">Newly Registered</h3>
 
                     <div class="row">
                         <div class="col-xl-6">
@@ -92,6 +77,24 @@ use Carbon\Carbon;
                                 </div>
                             </div>
                             <div class="chart-container">
+                            <h3 class="">Traykpila coins Top up and Minted Coins </h3>
+                            <div class="card mb-4 shadow round">
+                                    <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
+                                        <p class=" text-center font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa fa-industry me-3 "></i>Traykpila coins circullating supply </p>
+                                    </div>
+                                    <div class="card-body ">
+                                   <div class="d-flex justify-content-around ">
+                                    <h4 class="text-primary"> TOTAL TOP UP TPC: <span class="text-success">100</h4>
+                                    
+                                    <h4 class="text-primary"> TOTAL MINTED TPC: <span class="text-danger">-100</h4>
+                                   </div>
+                                         <canvas id="myChart"></canvas>
+
+                                    </div>
+                                </div>
+                            
+                            </div>   
+                            <div class="chart-container">
                             <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: green;">
                                         <p class=" text-center font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-clock me-3 "></i>Over All Pickup time </p>
@@ -102,9 +105,13 @@ use Carbon\Carbon;
                                     </div>
                                 </div>
                             
-                            </div>
+                            </div>   
+                               
                         </div>
                     </div>
+
+                        
+                          
                    
 
             <!-- GENERAL BOOKING LISTS -->
@@ -177,10 +184,12 @@ use Carbon\Carbon;
 
     </body>
 </html>
+        <script src="https://code.jscharting.com/latest/jscharting.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.min.js"></script>
 
 
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
@@ -335,7 +344,7 @@ var myLineChart = new Chart(ctx, {
         }
     }
 });
-        </script>
+</script>
 
 <script>
     // Set new default font family and font color to mimic Bootstrap's default styling
@@ -394,59 +403,36 @@ var myLineChart = new Chart(ctx, {
 
 
 
-<script>
-    // Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#292b2c';
 
-// Tpc  Supply Chart Bar
-var ctx = document.getElementById("myBarChart2");
-var myLineChart = new Chart(ctx, {
+
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels:  {!! json_encode($top_up_day_parsedDates) !!},
+        labels: ['Day 1', 'Day 2', 'Day 3','Day 4','Day 5','Day 6','Day 7'],
         datasets: [{
-            label: "Top-Up",
-            backgroundColor: "rgba(2,117,216,1)",
-            borderColor: "rgba(2,117,216,1)",
-            data:  {!! json_encode($total_tpc) !!},
-        }],
+            label: 'Top-Ups',
+            data: [12, 19, 3, 4, 3, 20, 7],
+            backgroundColor: '#7eff84',
+            borderColor: '#002709',
+            borderWidth: 1
+        }, {
+            label: 'Cash Out',
+            data: [-5, -6, -7, -4, -5, -8, -10],
+            backgroundColor: '#Ff3a3a',
+            borderColor: '#F30202',
+            borderWidth: 1
+        }]
     },
     options: {
-
         scales: {
-            xAxes: [{
-                time: {
-                    unit: 'month'
-                },
-                gridLines: {
-                    display: false
-                },
-                ticks: {
-                    maxTicksLimit: 6
-                }
-            }],
-            yAxes: [{
-                scaleLabel: {
-            display: true,
-            labelString: 'Top-Ups',
-            fontSize: 20
-          },
-                ticks: {
-                    
-                    min: 0,
-                    max: 2000,
-                    maxTicksLimit: 10
-
-                },
-                gridLines: {
-                    display: true
-                }
-            }],
-        },
-        legend: {
-            display: false
+            y: {
+                beginAtZero: true
+            }
         }
     }
 });
 </script>
+
+
