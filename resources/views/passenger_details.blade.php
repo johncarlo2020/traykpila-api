@@ -32,7 +32,7 @@
                                     <h5 class="">Account Status: Sufficient TPC</h5> 
                                 @endif
                                 <div class="row">
-                                <h5 class="col-md-6">TraykPila Coins: {{$totalrev[0]}} 
+                                <h5 class="col-md-6">TraykPila Coins: 
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TPC">
                                         <p class="mb-0">Top-up TPC</p> 
                                     </button>

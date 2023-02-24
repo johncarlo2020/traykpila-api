@@ -77,16 +77,16 @@ use Carbon\Carbon;
                                 </div>
                             </div>
                             <div class="chart-container">
-                            <h3 class="">Traykpila coins Top up and Minted Coins </h3>
+                            <h3 class="">Traykpila coins Top up and Cash out Coins </h3>
                             <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #0c7daa;">
                                         <p class=" text-center font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa fa-industry me-3 "></i>Traykpila coins circullating supply </p>
                                     </div>
                                     <div class="card-body ">
                                    <div class="d-flex justify-content-around ">
-                                    <h4 class="text-primary"> TOTAL TOP UP TPC: <span class="text-success">100</h4>
+                                    <h4 class="text-primary"> TOTAL TOP-UP TPC: <span class="text-success">100</h4>
                                     
-                                    <h4 class="text-primary"> TOTAL MINTED TPC: <span class="text-danger">-100</h4>
+                                    <h4 class="text-primary"> TOTAL CASH OUT TPC: <span class="text-danger">-100</h4>
                                    </div>
                                          <canvas id="myChart"></canvas>
 
@@ -100,7 +100,7 @@ use Carbon\Carbon;
                                         <p class=" text-center font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-clock me-3 "></i>Over All Pickup time </p>
                                     </div>
                                     <div class="card-body ">
-                                    <h4 class="text-center text-primary pb-1">Booking Time By User Experience: <span class="text-success"></span></h4>
+                                    <h4 class="text-center text-primary pb-1">Booking Arival Time by minutes: <span class="text-success"></span></h4>
                                       <canvas id="myPieChart"></canvas>
                                     </div>
                                 </div>
@@ -407,6 +407,7 @@ var myLineChart = new Chart(ctx, {
 
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
+
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -428,11 +429,17 @@ var myChart = new Chart(ctx, {
     options: {
         scales: {
             y: {
-                beginAtZero: true
+                min: -100,
+                max: 100,
+                title: {
+                    display: true,
+                    text: 'Y-Axis Label'
+                }
             }
         }
     }
 });
+
 </script>
 
 
