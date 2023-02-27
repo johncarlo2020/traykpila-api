@@ -400,6 +400,51 @@ class adminController extends Controller
         $tpc->save();
     
    
+
+       
+            
+        return redirect('admin/tricycle_drivers/details/'.$id);
+        
+    }
+    public function cash_out(Request $request, $id)
+    {
+
+        $users=User::where('id',$id)->get();
+        // $cashtpc=tpc::select('tpc.*','u1.name AS driver','SUM(tpc.farein)','SUM(tpc.cashin)','SUM(tpc.cashin) + SUM(tpc.farein) as total')
+        $cashtpc=tpc::select(tpc::raw('SUM(tpc.farein) AS farein'),tpc::raw('SUM(tpc.cashin) AS cashin'),tpc::raw('SUM(tpc.cashin) + SUM(tpc.farein) as totals'),tpc::raw('tpc.driver_id AS driver'))
+        ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
+        ->where('tpc.driver_id',$id)
+        ->groupBy('driver_id')
+        ->get();
+
+    
+        $totalrev = $cashtpc->pluck('totals');
+        
+        $cashout = $totalrev[0]-$request->tpc;
+
+        //  $users = User::where('id',$id)->get();
+        // $tpc = $request->input('tpc');
+
+        // $data = User::find($id);    
+        // $data->save();
+        
+        $user=User::find($id); 
+    
+        $tpc = new tpc;
+        
+        dd($cashout);
+        // $tpc->cashin = $request->tpc ;
+        // $tpc->driver_id = $user->id;
+        //  $tpc->tpcstatus=0;
+        // $tpc->wallet=0;
+        // $tpc->cashout=0;
+        // $tpc->farein=0;
+        // $tpc->fareout=0;
+ 
+        // $tpc->save();
+    
+   
+        
        
             
         return redirect('admin/tricycle_drivers/details/'.$id);

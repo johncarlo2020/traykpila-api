@@ -73,7 +73,7 @@ use Carbon\Carbon;
                             </div>
                             <div class="modal-body">
                                 
-                            <form action="{{ 'update_tpc' }}/{{$driver[0]}}" method="POST">
+                            <form action="{{ 'cash_out' }}/{{$driver[0]}}" method="POST">
                             @csrf
                                 <div class="mb-3">
                                     <p>Current TraykPila Coins: <h3>{{$totalrev[0]}}</h3></p>
@@ -92,6 +92,7 @@ use Carbon\Carbon;
                             </form>
                         </div>
                     </div>
+                    
 
                     <!-- Modal TPC -->
                     <div class="modal fade" id="TPC" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
