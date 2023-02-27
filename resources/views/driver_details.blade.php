@@ -25,9 +25,19 @@ use Carbon\Carbon;
             <div id="layoutSidenav_content">
                 <main>
                     
-                    <div class="container-fluid px-4">
-                        
-                        <h1 class="mt-4">Name: {{$users[0]->name}} </h1>
+                    <div class="container-fluid px-4 pt-4">
+                    
+                    <div class="row">
+                    <div class="d-flex justify-content-between">
+                        <h3>Name: {{$users[0]->name}} </h3>
+                        <h3>Report This User: 
+                                    <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#REPORT">
+                                        <p class="mb-0">Report</p> 
+                                    </button> -->
+                                    <a style="color:red;"data-bs-toggle="modal" data-bs-target="#REPORT" href="your link here"><i class="fas fa-exclamation-circle"></i></a>
+                         </h3>  
+                    </div>
+                    </div>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">email: {{$users[0]->email}}  </li>
                             <li class="breadcrumb-item active">Phone Number: {{$users[0]->PhoneNumber}}  </li>
@@ -39,17 +49,49 @@ use Carbon\Carbon;
                                     <h5 class="">Account Status: Sufficient TPC</h5> 
                                 @endif
                                 <div class="row">
+                                    
                                 <h5 class="col-md-6">TraykPila Coins: {{$totalrev[0]}} 
+                                 <!--
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TPC">
                                         <p class="mb-0">Top-up TPC</p> 
                                     </button>
                                 </h5>  
-                                <h5 class="col-md-6">Report This User: 
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#REPORT">
-                                        <p class="mb-0">Report</p> 
+
+                                <h5 class="col-md-2">
+                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#TPC">
+                                        <p class="mb-0">Cash-out TPC</p> 
                                     </button>
-                                </h5>  
+                                </h5>   -->                         
                                 </div>
+
+                    <div class="modal fade" id="CASH_OUT" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header bg-warning text-black">
+                                <h5 class="modal-title" id="exampleModalLabel">Cash-Out Traykpila Coins</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                
+                            <form action="{{ 'update_tpc' }}/{{$driver[0]}}" method="POST">
+                            @csrf
+                                <div class="mb-3">
+                                    <p>Current TraykPila Coins: <h3>{{$totalrev[0]}}</h3></p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recipient-name" class="col-form-label">Cash out Amount:</label>
+                                    <input type="number" name="tpc"class="form-control" min="0" max="300" id="recipient-name" onkeyup=imposeMinMax(this)>
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Send Amount</button>
+                            </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
 
                     <!-- Modal TPC -->
                     <div class="modal fade" id="TPC" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -116,11 +158,29 @@ use Carbon\Carbon;
                         </div>
                     </div>
                     </div>
+                    <div class="card mb-4 shadow round" style="background-color:#ffdede">
+                        <div class="card-header font-weight-bold" style="background-color: #2591c6;">
+                            <p class="font-weight-bold text-white text-center mb-0" style="font-weight:bold;"><i class=""></i>Top-Up And Cash-Out</p>
+                        </div>
+                            <div class="d-flex ">
+                                <h5 class="col-xl-6 p-3">
+                                        <button type="button" class="btn btn-success w-100 p-3 " data-bs-toggle="modal" data-bs-target="#TPC">
+                                            <p class="mb-0">Top-up TPC</p> 
+                                        </button>
+                                    </h5>  
+
+                                    <h5 class="col-xl-6 p-3 ">
+                                        <button type="button" class="btn btn-danger w-100 p-3 " data-bs-toggle="modal" data-bs-target="#CASH_OUT">
+                                            <p class="mb-0">Cash-out TPC</p> 
+                                        </button>
+                                    </h5>  
+                            </div>
+                        </div>
                                     
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
-                                    <div class="card-header font-weight-bold" style="background-color: #f3be2b;">
+                                    <div class="card-header font-weight-bold" style="background-color:  #d08031;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-chart-area me-1"></i>Total Revenue in the month of  {{date('F, Y');}}</p>
                                     </div>
                                     
@@ -137,9 +197,11 @@ use Carbon\Carbon;
                                 </div>
                             </div>
                         </div> 
+
+                     
                          <div class="card mb-4 shadow round">
                            
-                            <div class="card-header font-weight-bold" style="background-color: #25C36B;">
+                            <div class="card-header font-weight-bold" style="background-color: #2591c3;">
                                 <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Booking History</p>
                             </div>
                             <div class="card-body">
@@ -291,12 +353,8 @@ use Carbon\Carbon;
     </body>
 
 </html>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-
-
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         
 <script>
     // Set new default font family and font color to mimic Bootstrap's default styling
