@@ -84,9 +84,11 @@ use Carbon\Carbon;
                                     </div>
                                     <div class="card-body ">
                                    <div class="d-flex justify-content-around ">
-                                    <h4 class="text-primary"> TOTAL TOP-UP TPC: <span class="text-success">100</h4>
-                                    
-                                    <h4 class="text-primary"> TOTAL CASH OUT TPC: <span class="text-danger">-100</h4>
+                                    <h4 class="text-primary"> TOTAL CIRCULLATING TPC: <span class="text-success">{{$circullating_tpc->SUM('cashin')-$circullating_tpc_cashout->SUM('cashout')}}</h4>
+                                    <!-- <h4 class="text-primary"> TOTAL TOP-UP TPC: <span class="text-success">{{$circullating_tpc->SUM('cashin')}}</h4> -->
+                                
+                                    <h4 class="text-primary"> TOTAL CASH OUT TPC: <span class="text-danger">-{{$circullating_tpc_cashout->SUM('cashout')}}</h4>
+                                  
                                    </div>
                                          <canvas id="myChart"></canvas>
 
@@ -156,7 +158,9 @@ use Carbon\Carbon;
                                             @else
                                             <td>Success</td>
                                             @endif
-                                            <td>{{$booking->farein}}</td>
+                                   
+                                            <td>{{$booking->amount}}</td>
+                                     
                                             <td>5.00</td>
                                         </tr>
                                      @endforeach
@@ -410,16 +414,16 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Day 1', 'Day 2', 'Day 3','Day 4','Day 5','Day 6','Day 7'],
+        labels: {!! json_encode($top_up_day_parsedDates) !!},
         datasets: [{
             label: 'Top-Ups',
-            data: [12, 19, 3, 4, 3, 20, 7],
+            data: {!! json_encode($total_tpc) !!},
             backgroundColor: '#7eff84',
             borderColor: '#002709',
             borderWidth: 1
         }, {
             label: 'Cash Out',
-            data: [-5, -6, -7, -4, -5, -8, -10],
+            data:{!! json_encode($totalcashout) !!},
             backgroundColor: '#Ff3a3a',
             borderColor: '#F30202',
             borderWidth: 1

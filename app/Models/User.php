@@ -26,11 +26,8 @@ class User extends Authenticatable
         'address',
         'image',
         'Verified',
-        'PhoneNumber',
-        'ReportStatus',
-        'ReportDesc',
-        'ReviewDesc',
-        'tpcw'
+        'PhoneNumber'
+     
 
     ];
 

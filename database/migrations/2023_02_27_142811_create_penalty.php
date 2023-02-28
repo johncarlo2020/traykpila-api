@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTPClogs extends Migration
+class CreatePenalty extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,15 @@ class CreateTPClogs extends Migration
      */
     public function up()
     {
-        Schema::create('tpclogs', function (Blueprint $table) {
+        Schema::create('penalty', function (Blueprint $table) {
             $table->id();
-             
-            $table->bigInteger('cashin');
-            $table->bigInteger('cashout');
-            $table->bigInteger('farein');
-            $table->bigInteger('fareout');
- 
-
-            
-            
-            
+            $table->bigInteger('users_id')->unsigned()->index()->nullable();
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('amount');
             $table->timestamps();
+       
+            
+            
         });
     }
 
@@ -36,6 +32,6 @@ class CreateTPClogs extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('TPC');
+        Schema::dropIfExists('penalty');
     }
 }

@@ -7,6 +7,11 @@ use App\Models\booking;
 use App\Models\tpc;
 use App\Models\User;
 use App\Models\reports;
+use App\Models\payment;
+use App\Models\tpclogs;
+use App\Models\reviews;
+
+
 use Carbon\Carbon;
 
 class adminController extends Controller
@@ -80,26 +85,60 @@ class adminController extends Controller
 
     public function driver_details($id){
         $users=User::where('id',$id)->get();
-        // $cashtpc=tpc::select('tpc.*','u1.name AS driver','SUM(tpc.farein)','SUM(tpc.cashin)','SUM(tpc.cashin) + SUM(tpc.farein) as total')
-        $cashtpc=tpc::select(tpc::raw('SUM(tpc.farein) AS farein'),tpc::raw('SUM(tpc.cashin) AS cashin'),tpc::raw('SUM(tpc.cashin) + SUM(tpc.farein) as totals'),tpc::raw('tpc.driver_id AS driver'))
-        ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
-        ->where('tpc.driver_id',$id)
-        ->groupBy('driver_id')
+
+        $cashtpc = tpc::select('tpc.users_id as driver','tpc.wallet')
+        ->join('users','users.id','=','tpc.users_id')
+        ->where('tpc.users_id',$id)
         ->get();
+
         $driver = $cashtpc->pluck('driver');
+
+
+        $reviews = reviews::where('users_id',$id)
+        ->get();
+      
        
-        $fareinrev = $cashtpc->pluck('farein');
-        $cashinrev = $cashtpc->pluck('cashin');
-        $totalrev = $cashtpc->pluck('totals');
+   
+        // $cashtpc=tpc::select('tpc.*','u1.name AS driver','SUM(tpc.farein)','SUM(tpc.cashin)','SUM(tpc.cashin) + SUM(tpc.farein) as total')
+        // $cashtpc=tpclogs::select(tpclogs::raw('SUM(tpclogs.farein) AS farein'),tpclogs::raw('SUM(tpclogs.cashin) AS cashin'),tpclogs::raw('SUM(tpclogs.cashin) + SUM(tpclogs.farein) as totals'),tpc::raw('tpc.driver_id AS driver'))
+        // ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
+        // ->join('tpc.id', '=', 'tpclogs.tpc_id')
+        // ->where('tpc.driver_id',$id)
+        // ->groupBy('driver_id')
+        // ->get();
+       
+       
+        // $fareinrev = $cashtpc->pluck('farein');
+        // $cashinrev = $cashtpc->pluck('cashin');
+        // $totalrev = $cashtpc->pluck('totals');
 
 
-        $bookings=booking::select('bookings.*','users.name AS passenger','tpc.cashin', 'tpc.farein','tricycles.body_number AS Body_number')
-        ->join('users', 'users.id', '=', 'bookings.driver_id')
-        ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
-        ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
-        ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
+        // $bookings=booking::select('bookings.*','users.name AS passenger','tpc.cashin', 'tpc.farein','tricycles.body_number AS Body_number')
+        // ->join('users', 'users.id', '=', 'bookings.driver_id')
+        // ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
+        // ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
+        // ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
+        // ->where('bookings.driver_id',$id)
+        // ->get();
+
+        // $bookings = booking::select('bookings.*','u1.name AS driver','u2.name AS passenger', 't2.body_number','payment.amount')
+        // ->join('users As u1', 'u1.id', '=', 'bookings.driver_id')
+        // ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
+        // // ->join('users As u3', 'u3.id', '=', 't2.user_id')
+        // ->join('tricycles As t2', 't2.id', '=', 'bookings.tricycle_id')
+        // ->join('payment', 'bookings.id', '=', 'payment.bookings_id')
+        // ->where('bookings.driver_id',$id)
+        // ->get();
+
+        $bookings = booking::select('bookings.*','u2.name AS passenger', 't2.body_number as Body_number','payment.amount')
+        ->join('users As u1', 'u1.id', '=', 'bookings.driver_id')
+        ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
+        // ->join('users As u3', 'u3.id', '=', 't2.user_id')
+        ->join('tricycles As t2', 't2.id', '=', 'bookings.tricycle_id')
+        ->join('payment', 'bookings.id', '=', 'payment.bookings_id')
         ->where('bookings.driver_id',$id)
         ->get();
+    
         
 
 
@@ -124,13 +163,13 @@ class adminController extends Controller
 
         }
 
-        $fareintpc =  booking::select(tpc::raw('SUM(tpc.cashin) as cashin'),tpc::raw('SUM(tpc.farein)'),booking::raw('SUM(tpc.cashin) + SUM(tpc.farein) as total'))
-        ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
-        ->join('users as u1', 'u1.id', '=', 'bookings.driver_id')  
-        ->join('users as u2', 'u2.id', '=', 'tpc.driver_id')            
-        ->where('bookings.driver_id',$id)
-        ->groupBy('cashin')
-        ->get();
+        // $fareintpc =  booking::select(tpc::raw('SUM(tpc.cashin) as cashin'),tpc::raw('SUM(tpc.farein)'),booking::raw('SUM(tpc.cashin) + SUM(tpc.farein) as total'))
+        // ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
+        // ->join('users as u1', 'u1.id', '=', 'bookings.driver_id')  
+        // ->join('users as u2', 'u2.id', '=', 'tpc.driver_id')            
+        // ->where('bookings.driver_id',$id)
+        // ->groupBy('cashin')
+        // ->get();
 
         // $faretpc = $fareintpc->pluck('total');
 
@@ -147,32 +186,32 @@ class adminController extends Controller
        
 
 
-        $total_revenue = booking::select(booking::raw('DATE(bookings.created_at) as bookings_date'),tpc::raw('SUM(tpc.farein) as revenue'))
-        ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
-        ->join('users as u1', 'u1.id', '=', 'bookings.driver_id')  
-        ->join('users as u2', 'u2.id', '=', 'tpc.driver_id')            
-        ->where('bookings.driver_id',$id)
-        ->groupBy('bookings_date')
-        ->get();
+        // $total_revenue = booking::select(booking::raw('DATE(bookings.created_at) as bookings_date'),tpc::raw('SUM(tpc.farein) as revenue'))
+        // ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
+        // ->join('users as u1', 'u1.id', '=', 'bookings.driver_id')  
+        // ->join('users as u2', 'u2.id', '=', 'tpc.driver_id')            
+        // ->where('bookings.driver_id',$id)
+        // ->groupBy('bookings_date')
+        // ->get();
 
-        $revenue_date = $total_revenue->pluck('bookings_date');
-        $sum = $total_revenue->pluck('revenue');
-        // $total=$total_revenue->pluck('total');
-        $dates = $revenue_date;
+        // $revenue_date = $total_revenue->pluck('bookings_date');
+        // $sum = $total_revenue->pluck('revenue');
+        // // $total=$total_revenue->pluck('total');
+        // $dates = $revenue_date;
 
-         $parsedDates = [];
+        //  $parsedDates = [];
 
-        foreach ($dates as $date) {
-        $parsedDates[] = Carbon::parse($date)->format('F d');
+        // foreach ($dates as $date) {
+        // $parsedDates[] = Carbon::parse($date)->format('F d');
        
       
-        }
+        // }
 
        
         
         
 
-        return view('driver_details',compact('users','bookings','parsedDates','count','revenue_date','sum','total','cashtpc','totalrev','cashinrev','fareinrev','driver'));
+        return view('driver_details',compact('users','bookings','parsedDates','count','total','cashtpc','driver','reviews'));
      }
 
     
@@ -379,25 +418,43 @@ class adminController extends Controller
     public function update_tpc(Request $request, $id)
     {
 
-        //  $users = User::where('id',$id)->get();
+       
+        $item = tpc::where('users_id',$id)->firstOrFail();
+        $item->wallet += $request->input('tpc');
+        $item->save();
+       
+        $tpclogs = new tpclogs;
+        $tpclogs->cashin = $request->tpc ;
+        $tpclogs->cashout=0;
+        $tpclogs->farein=0;
+        $tpclogs->fareout=0;
+        $tpclogs->tpc_id=$item->id;
+        $tpclogs->save();
+
+
+        
+        //  $topup = tpc::where('users_id',$id)->get();
+        //  $data = tpc::find($topup); 
+        // $data[0]->wallet = $request->tpc;
+        // // dd($data);
+        //  tpc::update([$data[0]]);
+
+
+        // $topup = tpc::where('users_id',$id)->get();
+        // $data = tpc::find($topup);  
+        // $amount= $data[0]->wallet + $request->tpc;    
+        // dd($amount);
+        //  $amount->save();
+    
+
+
+        // $users = tpc::where('id',$id)->get();
         // $tpc = $request->input('tpc');
 
         // $data = User::find($id);    
         // $data->save();
         
-        $user=User::find($id); 
-    
-        $tpc = new tpc;
- 
-        $tpc->cashin = $request->tpc ;
-        $tpc->driver_id = $user->id;
-         $tpc->tpcstatus=0;
-        $tpc->wallet=0;
-        $tpc->cashout=0;
-        $tpc->farein=0;
-        $tpc->fareout=0;
- 
-        $tpc->save();
+        // $user=User::find($id); 
     
    
 
@@ -409,41 +466,24 @@ class adminController extends Controller
     public function cash_out(Request $request, $id)
     {
 
-        $users=User::where('id',$id)->get();
-        // $cashtpc=tpc::select('tpc.*','u1.name AS driver','SUM(tpc.farein)','SUM(tpc.cashin)','SUM(tpc.cashin) + SUM(tpc.farein) as total')
-        $cashtpc=tpc::select(tpc::raw('SUM(tpc.farein) AS farein'),tpc::raw('SUM(tpc.cashin) AS cashin'),tpc::raw('SUM(tpc.cashin) + SUM(tpc.farein) as totals'),tpc::raw('tpc.driver_id AS driver'))
-        ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
-        ->where('tpc.driver_id',$id)
-        ->groupBy('driver_id')
-        ->get();
-
-    
-        $totalrev = $cashtpc->pluck('totals');
+     
         
-        $cashout = $totalrev[0]-$request->tpc;
-
-        //  $users = User::where('id',$id)->get();
-        // $tpc = $request->input('tpc');
-
-        // $data = User::find($id);    
-        // $data->save();
-        
-        $user=User::find($id); 
-    
-        $tpc = new tpc;
-        
-        dd($cashout);
-        // $tpc->cashin = $request->tpc ;
-        // $tpc->driver_id = $user->id;
-        //  $tpc->tpcstatus=0;
-        // $tpc->wallet=0;
-        // $tpc->cashout=0;
-        // $tpc->farein=0;
-        // $tpc->fareout=0;
- 
-        // $tpc->save();
-    
-   
+        $item = tpc::where('users_id',$id)->firstOrFail();
+        $item->wallet -= $request->input('cashout');
+        if ( $request->input('cashout') >= $item->wallet  ){          
+     
+        }else{
+        $item->save();
+        }
+       
+       
+        $tpclogs = new tpclogs;
+        $tpclogs->cashout = $request->cashout ;
+        $tpclogs->cashin=0;
+        $tpclogs->farein=0;
+        $tpclogs->fareout=0;
+        $tpclogs->tpc_id=$item->id;
+        $tpclogs->save();
         
        
             

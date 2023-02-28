@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tpc extends Model
+class payment extends Model
 {
-    protected $table='tpc';
+    use HasFactory;
+      protected $table='payment';
 
       protected $fillable = [
-        'id',
-        'tpcstatus',
-        'wallet'
+        'bookings_id',
+        'amount',
+        'paymentmethod'
+     
+     
         
-  
     ];
 }

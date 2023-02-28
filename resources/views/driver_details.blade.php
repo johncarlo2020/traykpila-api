@@ -50,7 +50,7 @@ use Carbon\Carbon;
                                 @endif
                                 <div class="row">
                                     
-                                <h5 class="col-md-6">TraykPila Coins: {{$totalrev[0]}} 
+                                <h5 class="col-md-6">TraykPila Coins: {{$cashtpc[0]->wallet}} 
                                  <!--
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TPC">
                                         <p class="mb-0">Top-up TPC</p> 
@@ -76,17 +76,17 @@ use Carbon\Carbon;
                             <form action="{{ 'cash_out' }}/{{$driver[0]}}" method="POST">
                             @csrf
                                 <div class="mb-3">
-                                    <p>Current TraykPila Coins: <h3>{{$totalrev[0]}}</h3></p>
+                                    <p>Current TraykPila Coins: <h3 id="wallet">{{$cashtpc[0]->wallet}}</h3></p>
                                 </div>
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Cash out Amount:</label>
-                                    <input type="number" name="tpc"class="form-control" min="0" max="300" id="recipient-name" onkeyup=imposeMinMax(this)>
+                                    <input type="number" name="cashout"class="form-control" min="0" max="300" id="amount" onkeyup=imposeMinMax(this)>
                                 </div>
-                                
+                           
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Send Amount</button>
+                                <button id="submit_cashout"type="submit" class="btn btn-primary">Send Amount</button>
                             </div>
                             </div>
                             </form>
@@ -107,7 +107,7 @@ use Carbon\Carbon;
                         <form action="{{ 'update_tpc' }}/{{$driver[0]}}" method="POST">
                         @csrf
                             <div class="mb-3">
-                                <p>Current TraykPila Coins: <h3>{{$totalrev[0]}}</h3></p>
+                                <p>Current TraykPila Coins: <h3>{{$cashtpc[0]->wallet}}</h3></p>
                             </div>
                             <div class="mb-3">
                                 <label for="recipient-name" class="col-form-label">Load amount:</label>
@@ -159,8 +159,8 @@ use Carbon\Carbon;
                         </div>
                     </div>
                     </div>
-                    <div class="card mb-4 shadow round" style="background-color:#ffdede">
-                        <div class="card-header font-weight-bold" style="background-color: #2591c6;">
+                  
+                        <div class="card-header font-weight-bold" style="background-color: #2591c5;">
                             <p class="font-weight-bold text-white text-center mb-0" style="font-weight:bold;"><i class=""></i>Top-Up And Cash-Out</p>
                         </div>
                             <div class="d-flex ">
@@ -176,7 +176,7 @@ use Carbon\Carbon;
                                         </button>
                                     </h5>  
                             </div>
-                        </div>
+                     
                                     
                         <div class="row">
                             <div class="col-xl-6">
@@ -240,7 +240,7 @@ use Carbon\Carbon;
                                             @else
                                             <td>Success</td>
                                             @endif
-                                            <td>{{$booking->farein}}</td>
+                                            <td>{{$booking->amount}}</td>
                                             <td>5.00</td>
                                         </tr>
                                      @endforeach                     
@@ -262,6 +262,7 @@ use Carbon\Carbon;
                                             <th>Passenger Name:</th>
                                             <th>Tricyce Body Number</th>
                                             <th>Review Description</th>
+                                            <th>ratings</th>
                                             <th>Date</th>
                                                         
                                         </tr>
@@ -269,24 +270,16 @@ use Carbon\Carbon;
                                     
                                     
                                     <tbody>
-                              
+                                @foreach ($reviews as $review)
                                         <tr>
                                         
-                                            <td></td>
-                                            <td>March 9, 2023 5:30pm</td>
-                                            <td>Speeding</td>
-                                            <td>March 9, 2023 5:35pm</td>
-                                          
-                                        </tr>
-                                      <tr>
-                                        
-                                        <td></td>
-                                        <td>March 9, 2023 5:30pm</td>
-                                        <td>Good driver</td>
-                                        <td>March 9, 2023 5:35pm</td>
-                                      
-                                    </tr>
-                                                      
+                                            <td>{{$review->name}}</td>
+                                            <td>{{$review->bodynumber}}</td>
+                                            <td>{{$review->description}}</td>
+                                            <td>{{$review->ratings}}</td>
+                                            <td>{{$review->created_at}}</td>
+                                @endforeach          
+                                        </tr>                                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -354,6 +347,17 @@ use Carbon\Carbon;
     </body>
 
 </html>
+
+<script>
+         const wallet = document.getElementById("wallet");
+         const amount = document.getElementById("amount");
+         const button = document.getElementById("submit_cashout");
+
+         amount.addEventListener('input', () => {
+         const inputValue = parseFloat(amount.value);
+         const headingValue = parseFloat(wallet.textContent);
+         button.disabled = inputValue > headingValue;});
+</script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         
@@ -380,7 +384,7 @@ var myLineChart = new Chart(ctx, {
             pointHoverBackgroundColor: "rgba(2,117,216,1)",
             pointHitRadius: 50,
             pointBorderWidth: 2,
-            data:  {!! json_encode($sum) !!},
+            data:  [],
         }],
     },
     options: {

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTpcwToUsers extends Migration
+class AddPlateNumberToReports extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddTpcwToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('tpcw');
+        Schema::table('reports', function (Blueprint $table) {
+            $table->string('platenumber');
+            $table->string('bodynumber');
+            $table->string('name');
         });
     }
 
@@ -25,8 +27,9 @@ class AddTpcwToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('reports', function (Blueprint $table) {
             //
+            
         });
     }
 }

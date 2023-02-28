@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTPClogs extends Migration
+class CreateTPC extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateTPClogs extends Migration
      */
     public function up()
     {
-        Schema::create('tpclogs', function (Blueprint $table) {
+        Schema::create('TPC', function (Blueprint $table) {
             $table->id();
-             
-            $table->bigInteger('cashin');
-            $table->bigInteger('cashout');
-            $table->bigInteger('farein');
-            $table->bigInteger('fareout');
- 
-
-            
-            
-            
+            $table->bigInteger('users_id')->unsigned()->index()->nullable();
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('tpcstatus');
+            $table->bigInteger('wallet');
             $table->timestamps();
         });
     }

@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\booking;
-use App\Models\User;
 use App\Models\tpc;
+use App\Models\User;
 use App\Models\reports;
+use App\Models\payment;
+use App\Models\tpclogs;
+use App\Models\reviews;
+
+
 use Carbon\Carbon;
 
 
@@ -15,19 +20,20 @@ class ChartjsController extends Controller
 
     // ADMIN DASHBOARD
 public function generaldetails(){
-    $bookings = booking::select('bookings.*','u1.name AS driver','u2.name AS passenger', 't2.body_number','tpc.farein' )
+
+    $bookings = booking::select('bookings.*','u1.name AS driver','u2.name AS passenger', 't2.body_number','payment.amount')
     ->join('users As u1', 'u1.id', '=', 'bookings.driver_id')
     ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
-    // ->join('users As u3', 'u3.id', '=', 'tpc.driver_id')
-    // ->join('users As u4', 'u4.id', '=', 'tpc.passenger_id')
-    ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
+    // ->join('users As u3', 'u3.id', '=', 't2.user_id')
     ->join('tricycles As t2', 't2.id', '=', 'bookings.tricycle_id')
-    ->join('users As u3', 'u3.id', '=', 't2.user_id')
+    ->join('payment', 'bookings.id', '=', 'payment.bookings_id')
     ->get();
+
+
     $count=$bookings->count(); 
    
  
-    // dd ($bookings);
+
     //REGISTERED PASSENGER CHART
     $registered_passenger = User::select(User::raw('DATE(created_at) as registered_drivers_day'), User::raw('COUNT(*) as total_drivers'))
     ->where('role',2)
@@ -79,14 +85,26 @@ public function generaldetails(){
 
     //TPC CIRCULATTING SUPPLY CHART
 
-    $total_tpc = User::select(User::raw('DATE(updated_at) as top_up_day'), User::raw('SUM(tpcw) as total_tpc'))
-   
+
+
+    $total_tpc = tpclogs::select(tpclogs::raw('DATE(created_at) as top_up_day'), tpclogs::raw('SUM(cashin) as total_tpc'))
     ->groupBy('top_up_day')
     ->get();
   
 
     $top_up_day = $total_tpc->pluck('top_up_day');
     $total_tpc = $total_tpc->pluck('total_tpc');
+
+    
+    $cashout = tpclogs::select(tpclogs::raw('DATE(created_at) as cashout_day'), tpclogs::raw('SUM(cashout) as cashout'))
+    ->groupBy('cashout_day')
+    ->get();
+
+    $daysofcashout = $cashout->pluck('cashout_day');
+    $totalcashout = $cashout->pluck('cashout');
+
+   
+   
     
     $dates = $top_up_day;
     $top_up_day = [];
@@ -96,8 +114,13 @@ public function generaldetails(){
     }
     
     //TOTAL LABELS
-    $circullating_tpc = User::select(User::raw('tpcw'))        
+    $circullating_tpc = tpclogs::select(tpclogs::raw('cashin'))        
     ->get();
+
+    $circullating_tpc_cashout = tpclogs::select(tpclogs::raw('cashout'))        
+    ->get();
+
+
     
     $total_passenger_registered=User::where('role',2)
     ->get(); 
@@ -122,7 +145,7 @@ public function generaldetails(){
     $user_counter = $results->pluck('users');
  
 
-    $label = "User";
+  
 
 
     
@@ -142,12 +165,16 @@ public function generaldetails(){
     'total_bookings_count'=>$total_bookings_count,
     'top_up_day_parsedDates'=>$top_up_day_parsedDates,
     'total_tpc'=>$total_tpc,
+    'cashout'=>$cashout,
     'circullating_tpc'=>$circullating_tpc,
     'total_passenger_registered'=>$total_passenger_registered,
     'total_driver_registered'=>$total_driver_registered,
     'minutes'=>$minutes,
     'user_counter'=>$user_counter,
-    'label'=>$label
+    'daysofcashout'=>$daysofcashout,
+    'totalcashout'=>$totalcashout,
+    'circullating_tpc_cashout'=>$circullating_tpc_cashout
+   
 
    
 

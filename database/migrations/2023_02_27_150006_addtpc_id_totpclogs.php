@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTpcIdToBookings extends Migration
+class AddtpcIdTotpclogs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddTpcIdToBookings extends Migration
      */
     public function up()
     {
-        Schema::table('bookings', function (Blueprint $table) {
+        Schema::table('tpclogs', function (Blueprint $table) {
             $table->bigInteger('tpc_id')->unsigned()->index()->nullable();
             $table->foreign('tpc_id')->references('id')->on('tpc')->onDelete('cascade');
           
@@ -27,8 +27,6 @@ class AddTpcIdToBookings extends Migration
      */
     public function down()
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            //
-        });
+        //
     }
 }

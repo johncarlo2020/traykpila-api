@@ -23,7 +23,7 @@ class booking extends Model
         'passenger_count',
         'status',
         'created_at',
-        'Destination',
-        'tpcwallet'
+        'Destination'
+        
     ];
 }
