@@ -81,6 +81,9 @@ use Carbon\Carbon;
                                 <div class="mb-3">
                                     <label for="recipient-name" class="col-form-label">Cash out Amount:</label>
                                     <input type="number" name="cashout"class="form-control" min="0" max="300" id="amount" onkeyup=imposeMinMax(this)>
+                                    <div id="prompt" class="alert alert-danger mt-3" role="alert">
+                                        *Invalid Cash-out, please check your amount
+                                    </div>
                                 </div>
                            
                             </div>
@@ -349,6 +352,8 @@ use Carbon\Carbon;
 </html>
 
 <script>
+         const prompt = document.getElementById("prompt");
+         prompt.style.display = 'none'; 
          const wallet = document.getElementById("wallet");
          const amount = document.getElementById("amount");
          const button = document.getElementById("submit_cashout");
@@ -356,7 +361,22 @@ use Carbon\Carbon;
          amount.addEventListener('input', () => {
          const inputValue = parseFloat(amount.value);
          const headingValue = parseFloat(wallet.textContent);
-         button.disabled = inputValue > headingValue;});
+        //  button.disabled = inputValue > headingValue 
+
+         if(inputValue > headingValue){
+            button.disabled = true;
+            prompt.style.display = 'block'; 
+         }else{
+            button.disabled = false;
+            prompt.style.display = 'none'; 
+         }
+      
+   
+         });
+
+       
+      
+        
 </script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
@@ -371,7 +391,7 @@ var ctx = document.getElementById("myAreaChart1");
 var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels:  {!! json_encode($parsedDates) !!},
+        labels:  {!! json_encode($parsed_revenuedate) !!},
         datasets: [{
             label: "Revenue",
             lineTension: 0.3,
@@ -384,7 +404,7 @@ var myLineChart = new Chart(ctx, {
             pointHoverBackgroundColor: "rgba(2,117,216,1)",
             pointHitRadius: 50,
             pointBorderWidth: 2,
-            data:  [],
+            data:  [ {!! json_encode($total_revenue) !!}],
         }],
     },
     options: {

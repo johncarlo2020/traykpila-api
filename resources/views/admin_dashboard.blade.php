@@ -84,7 +84,7 @@ use Carbon\Carbon;
                                     </div>
                                     <div class="card-body ">
                                    <div class="d-flex justify-content-around ">
-                                    <h4 class="text-primary"> TOTAL CIRCULLATING TPC: <span class="text-success">{{$circullating_tpc->SUM('cashin')-$circullating_tpc_cashout->SUM('cashout')}}</h4>
+                                    <h4 class="text-primary"> TOTAL CURRENT CIRCULLATING TPC: <span class="text-success">{{$circullating_tpc->SUM('cashin')-$circullating_tpc_cashout->SUM('cashout')}}</h4>
                                     <!-- <h4 class="text-primary"> TOTAL TOP-UP TPC: <span class="text-success">{{$circullating_tpc->SUM('cashin')}}</h4> -->
                                 
                                     <h4 class="text-primary"> TOTAL CASH OUT TPC: <span class="text-danger">-{{$circullating_tpc_cashout->SUM('cashout')}}</h4>

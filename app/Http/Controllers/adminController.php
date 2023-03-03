@@ -92,13 +92,48 @@ class adminController extends Controller
         ->get();
 
         $driver = $cashtpc->pluck('driver');
+        
 
 
         $reviews = reviews::where('users_id',$id)
         ->get();
+
+    
+        $revenue=tpclogs::select(tpclogs::raw('DATE(tpclogs.created_at) as day'),tpclogs::raw('SUM(tpclogs.farein) AS farein'))
+        ->join('tpc','tpc.id','=','tpc_id')
+        ->join('users','users.id','=','tpc.users_id')
+        ->where('tpc.users_id',$id)
+        ->groupBy('day')
+        ->get(); 
+        
+        $payment=payment::select(payment::raw('DATE(payment.created_at) AS paymentday'),payment::raw('SUM(payment.amount) AS payment'))
+        ->where('bookings_id',$id)
+        ->groupBy('paymentday')
+        ->get(); 
       
+         $revenuedata = $revenue->pluck('farein');
+         $paymentdata = $payment->pluck('payment');
+
+         $revenuedate = $revenue->pluck('day');
+         $paymentdate = $payment->pluck('paymentday');
+         
+         $total_revenue = $revenuedata[0] + $paymentdata[0];
+
+        $dates = $revenuedate;
+
+        $parsed_revenuedate = [];
+
+        foreach ($dates as $date) {
+        $parsed_revenuedate[] = Carbon::parse($date)->format('F d');
+
+        }
+
        
-   
+        
+        
+        
+        
+
         // $cashtpc=tpc::select('tpc.*','u1.name AS driver','SUM(tpc.farein)','SUM(tpc.cashin)','SUM(tpc.cashin) + SUM(tpc.farein) as total')
         // $cashtpc=tpclogs::select(tpclogs::raw('SUM(tpclogs.farein) AS farein'),tpclogs::raw('SUM(tpclogs.cashin) AS cashin'),tpclogs::raw('SUM(tpclogs.cashin) + SUM(tpclogs.farein) as totals'),tpc::raw('tpc.driver_id AS driver'))
         // ->join('users As u1', 'u1.id', '=', 'tpc.driver_id')
@@ -207,11 +242,9 @@ class adminController extends Controller
       
         // }
 
-       
-        
         
 
-        return view('driver_details',compact('users','bookings','parsedDates','count','total','cashtpc','driver','reviews'));
+        return view('driver_details',compact('users','bookings','parsedDates','count','total','cashtpc','driver','reviews','parsed_revenuedate','total_revenue'));
      }
 
     
@@ -319,7 +352,7 @@ class adminController extends Controller
         
         
 
-        return view('passenger_details',compact('users','bookings','parsedDates','count','revenue_date','sum','total','cashtpc','totalrev','cashinrev','fareinrev','driver','tpcstatus'));
+        return view('passenger_details',compact('users','bookings','parsedDates','count','revenue_date','sum','total','cashtpc','totalrev','cashinrev','fareinrev','driver','tpcstatus','revenuedate'));
         // $users=User::where('id',$id)->get();
         
 
@@ -466,17 +499,14 @@ class adminController extends Controller
     public function cash_out(Request $request, $id)
     {
 
-     
+  
         
         $item = tpc::where('users_id',$id)->firstOrFail();
-        $item->wallet -= $request->input('cashout');
-        if ( $request->input('cashout') >= $item->wallet  ){          
-     
-        }else{
+        $item->wallet = $item->wallet - $request->input('cashout');
+       
         $item->save();
-        }
-       
-       
+
+        
         $tpclogs = new tpclogs;
         $tpclogs->cashout = $request->cashout ;
         $tpclogs->cashin=0;
@@ -485,6 +515,9 @@ class adminController extends Controller
         $tpclogs->tpc_id=$item->id;
         $tpclogs->save();
         
+        
+       
+       
        
             
         return redirect('admin/tricycle_drivers/details/'.$id);
