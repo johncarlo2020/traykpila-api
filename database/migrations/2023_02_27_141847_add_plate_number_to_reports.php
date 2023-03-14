@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Addroletouser extends Migration
+class AddPlateNumberToReports extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class Addroletouser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->comment('0=admin,1=driver,2=passenger');
+        Schema::table('reports', function (Blueprint $table) {
+            $table->string('platenumber');
+            $table->string('bodynumber');
+            $table->string('name');
         });
     }
 
@@ -25,6 +27,9 @@ class Addroletouser extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('reports', function (Blueprint $table) {
+            //
+            
+        });
     }
 }

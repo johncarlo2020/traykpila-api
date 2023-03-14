@@ -8,12 +8,11 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="/css/adminstyle.css" rel="stylesheet" />
-       
+     
     </head>
     <style>
         .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
-            background-color: #d6ffe9!important;
+            background-color: #d6ffe9;  
         }
         body{
             background-color:#e4fff9 !important;
@@ -26,39 +25,44 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Driver Lists</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Driver Lists</li>
-                        </ol>
-                  
+                        <div class="row justify-content-between">
+                            <div class="col-xl-3">
+                                <h1 class="mt-4">Passenger Lists</h1>
+                            </div>
+                            <div class="col-xl-5">
+                                <h3 class="mt-4">Total Verified Passenger: {{$count}}</h3>
+                            </div>
+                        </div>
+                     
                          <div class="card mb-4 shadow round">
-                            <div class="card-header font-weight-bold" style="background-color: #25C36B;">
-                                <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Datatable</p>
+                            <div class="card-header" style="background-color: #25C36B;">
+                                <i class="fas fa-table me-1"></i>
+                                Verified Passengers 
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple" class="table table-striped table-hover ">
+                                <table id="datatablesSimple" class="table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
-                                            <th>Address</th>    
+                                            <th>TPC</th>  
                                             <th></th>                                 
                                         </tr>
                                     </thead>
-                                
                                     <tbody>
-                                        @foreach($users as $user)
+
+                                    @foreach ($users as $user)
                                         <tr>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->PhoneNumber }}</td>
-                                            <td>{{ $user->address }}</td>
+                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->email}}</td>
+                                            <td>{{$user->PhoneNumber}}</td>
+                                            <td>{{$user->TPC}}</td>
                                
-                                              <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$user->id}}">ViewDetails</a></td>
+                                            <td><a href="{{url('/admin/passenger_list/details/')}}/{{$user->id}}">ViewDetails</a></td>
                                         </tr>
-                                        @endforeach
-                                                                    
+                                   @endforeach
+                                                            
                                     </tbody>
                                 </table>
                             </div>
@@ -79,6 +83,6 @@
                 </footer>
             </div>
         </div>
-      
+  
     </body>
 </html>

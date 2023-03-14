@@ -1,265 +1,247 @@
+
+<?php
+use Carbon\Carbon;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
      
- 
+        <title>Dashboard - SB Admin</title>
+     
     </head>
+    <style>
+        .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+            background-color: #d6ffe9;  
+        }
+        body{
+            background-color:#e4fff9 !important;
+        }
+    </style>
     <body class="sb-nav-fixed">
-       @extends('layouts.navbar')
+     @extends('layouts.navbar')
         <div id="layoutSidenav">
         @extends('layouts.sidebar')
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Admin: Azil Sorveto@gmail.com
-                    </div>
-                </nav>
-            </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Name: Mang Kanor </h1>
+                <div class="container-fluid px-4 pt-4">
+                    
+                    <div class="row">
+                    <div class="d-flex justify-content-between">
+                        <h3>Name: {{$users[0]->name}} </h3>
+                        <h3>Report This User: 
+                                    <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#REPORT">
+                                        <p class="mb-0">Report</p> 
+                                    </button> -->
+                                    <a style="color:red;"data-bs-toggle="modal" data-bs-target="#REPORT" href="your link here"><i class="fas fa-exclamation-circle"></i></a>
+                         </h3>  
+                    </div>
+                    </div>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">email: mangkanor@gmail.com </li>
+                            <li class="breadcrumb-item active">email: {{$users[0]->email}} </li>
+                            <li class="breadcrumb-item active">Phone Number: {{$users[0]->PhoneNumber}} </li>
+                            <li class="breadcrumb-item active">Address: {{$users[0]->address}} </li>
                         </ol>
-                        <!-- <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Tricylce Drivers</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        @if ($tpcstatus = 0)
+                             <h5 class="breadcrumb-item ">Account Status: Insufficient TPC</h5> 
+                                @else 
+                             <h5 class="">Account Status: Sufficient TPC</h5> 
+                                @endif
+                            <div class="row">        
+                             <h5 class="col-md-6">TraykPila Coins: {{$cashtpc[0]->wallet}} 
+                            </div> 
+
+                    <!-- Modal TPC -->
+                    <div class="modal fade" id="TPC" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title" id="exampleModalLabel">Top-up TraykPila Coins</h5>
+                            <button name="top-up" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        
+                        <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <p>Current TraykPila Coins: <h3>₱2</h3></p>
+                                
+                                
+                            </div>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Load amount:</label>
+                                <input type="number" class="form-control" min="0" max="300" id="recipient-name" onkeyup=imposeMinMax(this)">
+                            </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary">Send Amount</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                     <!-- Modal Report -->
+                     <div class="modal fade" id="REPORT" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="exampleModalLabel">Report This User:</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <form>
+                        <div class="col-md-6">
+                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                             <label class="form-check-label" for="flexCheckDefault">Temporary Restrict</label>
+                             <hr class="hr" />
+                        </div>
+                        <div class="col-md-6">
+                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                             <label class="form-check-label" for="flexCheckDefault">Temporary Block </label>
+                             <hr class="hr" />
+                        </div>
+                        <div class="col-md-6">
+                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                             <label class="form-check-label" for="flexCheckDefault">Permanent Bann </label>
+                            
+                        </div>
+                      
+                       
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary">Send Report</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>    
+                    <div class="card-header font-weight-bold" style="background-color: #2591c5;">
+                            <p class="font-weight-bold text-white text-center mb-0" style="font-weight:bold;"><i class=""></i>Top-Up And Cash-Out</p>
+                        </div>
+                            <div class="d-flex ">
+                                <h5 class="col-xl-6 p-3">
+                                        <button type="button" class="btn btn-success w-100 p-3 " data-bs-toggle="modal" data-bs-target="#TPC">
+                                            <p class="mb-0">Top-up TPC</p> 
+                                        </button>
+                                    </h5>  
+
+                                    <h5 class="col-xl-6 p-3 ">
+                                        <button type="button" class="btn btn-danger w-100 p-3 " data-bs-toggle="modal" data-bs-target="#CASH_OUT">
+                                            <p class="mb-0">Cash-out TPC</p> 
+                                        </button>
+                                    </h5>  
+                            </div>
+                                                        
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-4 shadow round">
+                                    <div class="card-header font-weight-bold" style="background-color: #f3be2b;">
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-chart-area me-1"></i>Total Top up this week</p>
                                     </div>
+                                    
+                                    <div class="card-body"><canvas id="myAreaChart1" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Passengers </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4 shadow round">
+                                    <div class="card-header font-weight-bold" style="background-color: #2591c3;">
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-chart-bar me-1 my-0"></i>Total Booking This Week</p>
                                     </div>
+                                    <div class="card-body"><canvas id="myBarChart1" width="100%" height="40"></canvas></div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Terminals </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Reports</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  -->
-                
-                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable 
+                        </div> 
+                         <div class="card mb-4 shadow round">
+                            <div class="card-header font-weight-bold" style="background-color: #25C36B;">
+                                <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Booking History</p>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                            <table id="datatablesSimple" class="table table-striped table-hover ">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Body Number</th>
-                                            <th>Status</th>
-                                            <th>Age</th>    
-                                            <th></th>                                 
+                                            
+                                            <th>Driver Name:</th>
+                                            <th>Booking Date/Time:</th>
+                                            <th>Arrival Date/Time:</th>
+                                            <th>Total Pickup time:</th>
+                                            <th>Pickup Location:</th>    
+                                            <th>Destination:</th>
+                                            <th>Body Number:</th>   
+                                            <th>Status:</th>    
+                                            <th>Fare Received:</th>
+                                            <th>Rating:</th>                       
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Body Number</th>
-                                            <th>Status</th>
-                                            <th>Age</th>
-                                            <th></th> 
-
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>0239</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                               
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>0232</td>
-                                            <td>Tokyo</td>
-                                            <td>63</td>
-                                
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>0235</td>
-                                            <td>San Francisco</td>
-                                            <td>66</td>
-                                       
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>0231</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
-                                       
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>0236</td>
-                                            <td>Tokyo</td>
-                                            <td>33</td>
-                                         
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brielle Williamson</td>
-                                            <td>0237</td>
-                                            <td>New York</td>
-                                            <td>61</td>
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Herrod Chandler</td>
-                                            <td>0221</td>
-                                            <td>San Francisco</td>
-                                            <td>59</td>
-                                      
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rhona Davidson</td>
-                                            <td>0238</td>
-                                            <td>Tokyo</td>
-                                            <td>55</td>
-                                       
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Colleen Hurst</td>
-                                            <td>0211</td>
-                                            <td>San Francisco</td>
-                                            <td>39</td>
-                                        
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sonya Frost</td>
-                                            <td>0241</td>
-                                            <td>Edinburgh</td>
-                                            <td>23</td>
-                                         
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jena Gaines</td>
-                                            <td>0251</td>
-                                            <td>London</td>
-                                            <td>30</td>
-                                       
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Quinn Flynn</td>
-                                            <td>0241</td>
-                                            <td>Edinburgh</td>
-                                            <td>22</td>
                                     
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>
+                                    
+                                    <tbody>
+                                    @foreach ($bookings as $booking)
                                         <tr>
-                                            <td>Charde Marshall</td>
-                                            <td>0271</td>
-                                            <td>San Francisco</td>
-                                            <td>36</td>
-                                   
-                                            <td><a href="#">ViewDetails</a></td>
-                                        </tr>                                    
+                                        
+                                            <td>{{$booking->driver}}</td>
+                                            <td>{{Carbon::parse($booking->created_at)->format('F d Y g:i A');}}</td>
+                                            <td>{{Carbon::parse($booking->updated_at)->format('F d Y g:i A');}}</td>
+                                            <th>{{$booking->created_at->diffInMinutes($booking->updated_at)}} min</th>
+                                            <td>{{$booking->passenger_location}}</td>
+                                            <td>{{$booking->Destination}}</td>
+                                            <td>{{$booking->Body_number}}</td>
+                                            @if($booking->status ==0)
+                                            <td>Failed</td>
+                                            @else
+                                            <td>Success</td>
+                                            @endif
+                                            <td>{{$booking->amount}}</td>
+                                            <td>3</td>
+                                        </tr>
+                                     @endforeach                     
+                                    </tbody>
+                                </table>
+
+                                
+                            </div>
+                        </div> 
+
+                          <!-- report table -->
+                          <div class="card mb-4 shadow round">
+                            <div class="card-header font-weight-bold" style="background-color: red;">
+                                <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Report</p>
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple" class="table table-striped table-hover ">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th>Passenger Name:</th>
+                                            <th>Tricyce Body Number</th>
+                                            <th>Review Description</th>
+                                            <th>Date</th>
+                                                        
+                                        </tr>
+                                    </thead>
+                                    
+                                    
+                                    <tbody>
+                           
+                                        <tr>
+                                        
+                                    
+                                            <td></td>
+                                            <td>March 9, 2023 5:30pm</td>
+                                            <td>Speeding</td>
+                                            <td>March 9, 2023 5:35pm</td>
+                                          
+                                        </tr>
+                                      <tr>
+                                        
+                                        <td></td>
+                                        <td>March 9, 2023 5:30pm</td>
+                                        <td>Good driver</td>
+                                        <td>March 9, 2023 5:35pm</td>
+                                      
+                                    </tr>
+                                                      
                                     </tbody>
                                 </table>
                             </div>
@@ -280,6 +262,123 @@
                 </footer>
             </div>
         </div>
-  
+       
     </body>
+
 </html>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        
+<script>
+    // Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Area Chart Example
+var ctx = document.getElementById("myAreaChart1");
+var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['day','day','day','day'],
+        datasets: [{
+            label: "Revenue",
+            lineTension: 0.3,
+            backgroundColor: "rgba(2,117,216,0.2)",
+            borderColor: "rgba(2,117,216,1)",
+            pointRadius: 5,
+            pointBackgroundColor: "rgba(2,117,216,1)",
+            pointBorderColor: "rgba(255,255,255,0.8)",
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(2,117,216,1)",
+            pointHitRadius: 50,
+            pointBorderWidth: 2,
+            data: [10, 20, 30, 50, 30, 20, 40, 50, 60, 70, 30, 20, 50, 12],
+        }],
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'date'
+                },
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    maxTicksLimit: 7
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 100,
+                    maxTicksLimit: 10
+                },
+                gridLines: {
+                    color: "rgba(0, 0, 0, .125)",
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+</script>
+
+<script>
+// Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Bar Chart Example
+var ctx = document.getElementById("myBarChart1");
+var myLineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels:  {!! json_encode($parsedDates) !!},
+        datasets: [{
+            label: "Passenger",
+            backgroundColor: "rgba(2,117,216,1)",
+            borderColor: "rgba(2,117,216,1)",
+            data: {!! json_encode($count) !!},
+        }],
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'month'
+                },
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    maxTicksLimit: 6
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 50,
+                    maxTicksLimit: 10
+                },
+                gridLines: {
+                    display: true
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+
+</script>

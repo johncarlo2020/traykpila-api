@@ -10,6 +10,14 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
      
     </head>
+    <style>
+        .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+            background-color: #d6ffe9;  
+        }
+        body{
+            background-color:#e4fff9 !important;
+        }
+    </style>
     <body class="sb-nav-fixed">
     @extends('layouts.navbar')
         <div id="layoutSidenav">
@@ -22,42 +30,31 @@
                             <li class="breadcrumb-item active">Passenger Lists</li>
                         </ol>
                      
-                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable 
+                         <div class="card mb-4 shadow round">
+                            <div class="card-header font-weight-bold" style="background-color: #25C36B;">
+                                <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Datatable</p>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table table-striped table-hover">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Cp Number</th>
-                                            <th>Address</th>
-                                            <th>Age</th>    
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Address</th>    
                                             <th></th>                                 
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Cp Number</th>
-                                            <th>Address</th>
-                                            <th>Age</th>
-                                            <th></th> 
-
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
 
                                     @foreach ($users as $user)
                                         <tr>
-                                            <td>{{$user->name}}</td>
-                                            <td>+639984092871</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
+                                        <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->PhoneNumber }}</td>
+                                            <td>{{ $user->address }}</td>
                                
-                                            <td><a href="#">ViewDetails</a></td>
+                                            <td><a href="{{url('/admin/passenger_list/details/')}}/{{$user->id}}">ViewDetails</a></td>
                                         </tr>
                                    @endforeach
                                                             

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Addroletouser extends Migration
+class AddDestinationToBookings extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class Addroletouser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->comment('0=admin,1=driver,2=passenger');
+        Schema::table('bookings', function (Blueprint $table) {
+            $table->String('Destination');
+            
         });
     }
 
@@ -25,6 +26,8 @@ class Addroletouser extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('bookings', function (Blueprint $table) {
+            //
+        });
     }
 }

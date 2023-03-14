@@ -1,7 +1,7 @@
 /* HEADER */
 
 #booknow a {
-    color: white !important;
+    color: #e4fff9!important;
     text-decoration: none;
     font-weight: 500;
 }
@@ -12,7 +12,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-
 }
 
 #with {
@@ -29,24 +28,23 @@ b {
 }
 
 
-
-
-
-
 /* FOOTER */
+
 img {
     max-width: 100%;
     height: auto;
 }
-        section {
-            padding: 60px 0;
-           /* min-height: 100vh;*/
-        }
- ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
+
+section {
+    padding: 60px 0;
+    /* min-height: 100vh;*/
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 
 .contact-content p {
     font-size: 15px;
@@ -81,7 +79,7 @@ img {
     margin-top: 30px;
 }
 
-.contact-social > ul {
+.contact-social>ul {
     display: inline-flex;
 }
 
@@ -105,11 +103,12 @@ img {
     max-width: 210px;
 }
 
-section p{
+section p {
     color: #000000;
 }
 
-section, footer {
+section,
+footer {
     color: #ffffff;
 }
 

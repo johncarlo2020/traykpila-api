@@ -26,13 +26,13 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Driver Lists</h1>
+                        <h1 class="mt-4">Reported Passenger Lists</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Driver Lists</li>
+                            <li class="breadcrumb-item active">Passenger Lists</li>
                         </ol>
                   
                          <div class="card mb-4 shadow round">
-                            <div class="card-header font-weight-bold" style="background-color: #25C36B;">
+                            <div class="card-header font-weight-bold" style="background-color: red;">
                                 <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-table me-3 "></i>Datatable</p>
                             </div>
                             <div class="card-body">
@@ -42,20 +42,20 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>
-                                            <th>Address</th>    
+                                            <th>Gender</th>    
                                             <th></th>                                 
                                         </tr>
                                     </thead>
                                 
                                     <tbody>
-                                        @foreach($users as $user)
+                                        @foreach($reports as $report)
                                         <tr>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->PhoneNumber }}</td>
-                                            <td>{{ $user->address }}</td>
+                                            <td>{{ $report->passenger }}</td>
+                                            <td>{{ $report->email }}</td>
+                                            <td>{{ $report->PhoneNumber }}</td>
+                                            <td>Male</td>
                                
-                                              <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$user->id}}">ViewDetails</a></td>
+                                              <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$report->id}}">ViewDetails</a></td>
                                         </tr>
                                         @endforeach
                                                                     
