@@ -65,8 +65,10 @@ class adminController extends Controller
 
     public function accounts(){
         $users=User::where('role',1)
+        ->join('tpc', 'tpc.users_id', '=', 'users.id')
         ->where('Verified',1)
         ->get();
+      
         $count = $users->count();
         
         return view('driver_accounts',compact('users','count'));
@@ -254,33 +256,28 @@ class adminController extends Controller
     public function passengerdetails($id){
         $users=User::where('id',$id)->get();
         // $cashtpc=tpc::select('tpc.*','u1.name AS driver','SUM(tpc.farein)','SUM(tpc.cashin)','SUM(tpc.cashin) + SUM(tpc.farein) as total')
-        $cashtpc=tpc::select(tpc::raw('SUM(tpc.farein) AS farein'),tpc::raw('SUM(tpc.cashin) AS cashin'),tpc::raw('SUM(tpc.cashin) + SUM(tpc.farein) as totals'),tpc::raw('tpc.tpcstatus AS tpcstatus'),tpc::raw('tpc.passenger_id AS passenger'))
-        ->join('users As u1', 'u1.id', '=', 'tpc.passenger_id')
-        ->where('tpc.passenger_id',$id)
-        ->groupBy('passenger_id','tpcstatus')
+        $cashtpc = tpc::select('tpc.users_id as passenger','tpc.wallet')
+        ->join('users','users.id','=','tpc.users_id')
+        ->where('tpc.users_id',$id)
         ->get();
-        $driver = $cashtpc->pluck('passenger');
-        $tpcstatus = $cashtpc->pluck('tpcstatus');
-    //  dd($tpcstatus);
-        $fareinrev = $cashtpc->pluck('farein');
-        $cashinrev = $cashtpc->pluck('cashin');
-        $totalrev = $cashtpc->pluck('totals');
 
 
-        $bookings=booking::select('bookings.*','users.name AS driver','tpc.cashin', 'tpc.farein','tricycles.body_number AS Body_number')
-        ->join('users', 'users.id', '=', 'bookings.passenger_id')
-        ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
-        ->join('users As u1', 'u1.id', '=', 'tpc.passenger_id')
-        ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
+        
+        
+        $passenger = $cashtpc->pluck('passenger');
+      
+
+        $bookings = booking::select('bookings.*','u2.name AS driver', 't2.body_number as Body_number','payment.amount')
+        ->join('users As u1', 'u1.id', '=', 'bookings.passenger_id')
+        ->join('users As u2', 'u2.id', '=', 'bookings.driver_id')
+        // ->join('users As u3', 'u3.id', '=', 't2.user_id')
+        ->join('tricycles As t2', 't2.id', '=', 'bookings.tricycle_id')
+        ->join('payment', 'bookings.id', '=', 'payment.bookings_id')
         ->where('bookings.passenger_id',$id)
         ->get();
 
-        // $bookings=booking::select('bookings.*','users.name AS driver','tricycles.body_number AS Body_number')
-        // ->join('users', 'users.id', '=', 'bookings.driver_id')
 
-        // ->join('tricycles','tricycles.id','=','bookings.tricycle_id')
-        // ->where('passenger_id',$id)
-        // ->get();
+        
 
 
         $total_bookings = booking::select(booking::raw('DATE(created_at) as total_booking'), booking::raw('COUNT(id) as total_booking_count'))
@@ -303,14 +300,21 @@ class adminController extends Controller
         $parsedDates[] = Carbon::parse($date)->format('F d');
 
         }
+        
+        // $total_topup =  tpclogs::select(tpclogs::raw('SUM(tpc.farein)'))
+        // ->where('tpc_id',$id)
+        // ->get();
+        // dd($total_topup);
 
-        $fareintpc =  booking::select(tpc::raw('SUM(tpc.cashin) as cashin'),tpc::raw('SUM(tpc.farein)'),booking::raw('SUM(tpc.cashin) + SUM(tpc.farein) as total'))
-        ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
-        ->join('users as u1', 'u1.id', '=', 'bookings.passenger_id')  
-        ->join('users as u2', 'u2.id', '=', 'tpc.passenger_id')            
-        ->where('bookings.passenger_id',$id)
-        ->groupBy('cashin')
-        ->get();
+       
+
+        // $fareintpc =  booking::select(tpc::raw('SUM(tpc.cashin) as cashin'),tpc::raw('SUM(tpc.farein)'),booking::raw('SUM(tpc.cashin) + SUM(tpc.farein) as total'))
+        // ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
+        // ->join('users as u1', 'u1.id', '=', 'bookings.passenger_id')  
+        // ->join('users as u2', 'u2.id', '=', 'tpc.passenger_id')            
+        // ->where('bookings.passenger_id',$id)
+        // ->groupBy('cashin')
+        // ->get();
 
         // $faretpc = $fareintpc->pluck('total');
 
@@ -327,32 +331,32 @@ class adminController extends Controller
        
 
 
-        $total_revenue = booking::select(booking::raw('DATE(bookings.created_at) as bookings_date'),tpc::raw('SUM(tpc.farein) as revenue'))
-        ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
-        ->join('users as u1', 'u1.id', '=', 'bookings.passenger_id')  
-        ->join('users as u2', 'u2.id', '=', 'tpc.passenger_id')            
-        ->where('bookings.passenger_id',$id)
-        ->groupBy('bookings_date')
-        ->get();
+        // $total_revenue = booking::select(booking::raw('DATE(bookings.created_at) as bookings_date'),tpc::raw('SUM(tpc.farein) as revenue'))
+        // ->join('tpc', 'tpc.id', '=', 'bookings.tpc_id')
+        // ->join('users as u1', 'u1.id', '=', 'bookings.passenger_id')  
+        // ->join('users as u2', 'u2.id', '=', 'tpc.passenger_id')            
+        // ->where('bookings.passenger_id',$id)
+        // ->groupBy('bookings_date')
+        // ->get();
 
-        $revenue_date = $total_revenue->pluck('bookings_date');
-        $sum = $total_revenue->pluck('revenue');
-        // $total=$total_revenue->pluck('total');
-        $dates = $revenue_date;
+        // $revenue_date = $total_revenue->pluck('bookings_date');
+        // $sum = $total_revenue->pluck('revenue');
+        // // $total=$total_revenue->pluck('total');
+        // $dates = $revenue_date;
 
-         $parsedDates = [];
+        //  $parsedDates = [];
 
-        foreach ($dates as $date) {
-        $parsedDates[] = Carbon::parse($date)->format('F d');
+        // foreach ($dates as $date) {
+        // $parsedDates[] = Carbon::parse($date)->format('F d');
        
       
-        }
+        // }
 
        
         
         
 
-        return view('passenger_details',compact('users','bookings','parsedDates','count','revenue_date','sum','total','cashtpc','totalrev','cashinrev','fareinrev','driver','tpcstatus','revenuedate'));
+        return view('passenger_details',compact('users','bookings','parsedDates','count','total','cashtpc'));
         // $users=User::where('id',$id)->get();
         
 
@@ -378,7 +382,7 @@ class adminController extends Controller
         $users=User::where('role',2)
         ->where('Verified',1)
         ->get();
-
+       
         $count = $users->count();
         return view('passenger_accounts',compact('users','count'));
     }

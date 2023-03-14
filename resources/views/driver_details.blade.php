@@ -18,13 +18,14 @@ use Carbon\Carbon;
             background-color:#e4fff9 !important;
         }
     </style>
+    
     <body class="sb-nav-fixed">
      @extends('layouts.navbar')
         <div id="layoutSidenav">
         @extends('layouts.sidebar')
             <div id="layoutSidenav_content">
                 <main>
-                    
+            
                     <div class="container-fluid px-4 pt-4">
                     
                     <div class="row">
@@ -95,7 +96,7 @@ use Carbon\Carbon;
                             </form>
                         </div>
                     </div>
-                    
+
 
                     <!-- Modal TPC -->
                     <div class="modal fade" id="TPC" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -120,7 +121,7 @@ use Carbon\Carbon;
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Send Amount</button>
+                            <button id="submit_topup"type="submit" class="btn btn-primary">Send Amount</button>
                         </div>
                         </div>
                         </form>
@@ -350,7 +351,6 @@ use Carbon\Carbon;
     </body>
 
 </html>
-
 <script>
          const prompt = document.getElementById("prompt");
          prompt.style.display = 'none'; 

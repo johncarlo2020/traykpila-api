@@ -61,9 +61,9 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->PhoneNumber }}</td>
-                                            <td>{{ $user->TPC }}</td>
+                                            <td>{{ $user->wallet }}</td>
                                
-                                              <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$user->id}}">ViewDetails</a></td>
+                                              <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$user->users_id}}">ViewDetails</a></td>
                                         </tr>
                                         @endforeach
                                                                     

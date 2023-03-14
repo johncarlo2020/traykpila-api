@@ -1,3 +1,8 @@
+
+<?php
+use Carbon\Carbon;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,32 +24,32 @@
         @extends('layouts.sidebar')
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Name: {{$users[0]->name}} </h1>
+                <div class="container-fluid px-4 pt-4">
+                    
+                    <div class="row">
+                    <div class="d-flex justify-content-between">
+                        <h3>Name: {{$users[0]->name}} </h3>
+                        <h3>Report This User: 
+                                    <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#REPORT">
+                                        <p class="mb-0">Report</p> 
+                                    </button> -->
+                                    <a style="color:red;"data-bs-toggle="modal" data-bs-target="#REPORT" href="your link here"><i class="fas fa-exclamation-circle"></i></a>
+                         </h3>  
+                    </div>
+                    </div>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">email: {{$users[0]->email}} </li>
                             <li class="breadcrumb-item active">Phone Number: {{$users[0]->PhoneNumber}} </li>
                             <li class="breadcrumb-item active">Address: {{$users[0]->address}} </li>
                         </ol>
                         @if ($tpcstatus = 0)
-                                    <h5 class="breadcrumb-item ">Account Status: Insufficient TPC</h5> 
+                             <h5 class="breadcrumb-item ">Account Status: Insufficient TPC</h5> 
                                 @else 
-                                    <h5 class="">Account Status: Sufficient TPC</h5> 
+                             <h5 class="">Account Status: Sufficient TPC</h5> 
                                 @endif
-                                <div class="row">
-                                <h5 class="col-md-6">TraykPila Coins: 
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TPC">
-                                        <p class="mb-0">Top-up TPC</p> 
-                                    </button>
-                                </h5>  
-                                <h5 class="col-md-6">Report This User: 
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#REPORT">
-                                        <p class="mb-0">Report</p> 
-                                    </button>
-                                </h5>   
-                                </div>
-
-                                
+                            <div class="row">        
+                             <h5 class="col-md-6">TraykPila Coins: {{$cashtpc[0]->wallet}} 
+                            </div> 
 
                     <!-- Modal TPC -->
                     <div class="modal fade" id="TPC" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -76,7 +81,6 @@
                         </div>
                     </div>
                     </div>
-
                      <!-- Modal Report -->
                      <div class="modal fade" id="REPORT" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -112,12 +116,24 @@
                         </div>
                         </div>
                     </div>
-                    </div>
+                    </div>    
+                    <div class="card-header font-weight-bold" style="background-color: #2591c5;">
+                            <p class="font-weight-bold text-white text-center mb-0" style="font-weight:bold;"><i class=""></i>Top-Up And Cash-Out</p>
+                        </div>
+                            <div class="d-flex ">
+                                <h5 class="col-xl-6 p-3">
+                                        <button type="button" class="btn btn-success w-100 p-3 " data-bs-toggle="modal" data-bs-target="#TPC">
+                                            <p class="mb-0">Top-up TPC</p> 
+                                        </button>
+                                    </h5>  
 
-                    
-
-                    
-                                    
+                                    <h5 class="col-xl-6 p-3 ">
+                                        <button type="button" class="btn btn-danger w-100 p-3 " data-bs-toggle="modal" data-bs-target="#CASH_OUT">
+                                            <p class="mb-0">Cash-out TPC</p> 
+                                        </button>
+                                    </h5>  
+                            </div>
+                                                        
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
@@ -165,15 +181,19 @@
                                         <tr>
                                         
                                             <td>{{$booking->driver}}</td>
-                                            <td>March 9, 2023 5:30pm</td>
-                                            <td>March 9, 2023 5:35pm</td>
-                                            <th>5 mins</th>
-                                            <td>Purok 2</td>
-                                            <td>Purok 3</td>
-                                            <td>2209</td>
+                                            <td>{{Carbon::parse($booking->created_at)->format('F d Y g:i A');}}</td>
+                                            <td>{{Carbon::parse($booking->updated_at)->format('F d Y g:i A');}}</td>
+                                            <th>{{$booking->created_at->diffInMinutes($booking->updated_at)}} min</th>
+                                            <td>{{$booking->passenger_location}}</td>
+                                            <td>{{$booking->Destination}}</td>
+                                            <td>{{$booking->Body_number}}</td>
+                                            @if($booking->status ==0)
+                                            <td>Failed</td>
+                                            @else
                                             <td>Success</td>
-                                            <td>₱15</td>
-                                            <td>5.00</td>
+                                            @endif
+                                            <td>{{$booking->amount}}</td>
+                                            <td>3</td>
                                         </tr>
                                      @endforeach                     
                                     </tbody>
@@ -323,12 +343,12 @@ var ctx = document.getElementById("myBarChart1");
 var myLineChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['day','day','day','day'],
+        labels:  {!! json_encode($parsedDates) !!},
         datasets: [{
             label: "Passenger",
             backgroundColor: "rgba(2,117,216,1)",
             borderColor: "rgba(2,117,216,1)",
-            data: [10, 20, 30, 50, 30, 20, 40, 50, 60, 70, 30, 20, 50, 12],
+            data: {!! json_encode($count) !!},
         }],
     },
     options: {
