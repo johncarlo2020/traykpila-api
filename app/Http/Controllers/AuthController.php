@@ -32,6 +32,7 @@ class AuthController extends Controller
             'email'=>$attrs['email'],
             'password'=>bcrypt($attrs['password']),
             'role'=> $attrs['role'],
+            'Verified' => '0',
             'address' =>$attrs['address'],
             'image'=>$path
         ]);
