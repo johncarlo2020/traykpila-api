@@ -173,11 +173,8 @@ public function generaldetails(){
     'user_counter'=>$user_counter,
     'daysofcashout'=>$daysofcashout,
     'totalcashout'=>$totalcashout,
-    'circullating_tpc_cashout'=>$circullating_tpc_cashout
-   
+    'circullating_tpc_cashout'=>$circullating_tpc_cashout 
 
-   
-
-]);
+    ]);
      
 }}

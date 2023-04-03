@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddtpcIdTotpclogs extends Migration
+class AddPhoneNumberNullableToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class AddtpcIdTotpclogs extends Migration
      */
     public function up()
     {
-        Schema::table('tpclogs', function (Blueprint $table) {
-            $table->bigInteger('tpc_id')->unsigned()->index()->nullable();
-            $table->foreign('tpc_id')->references('id')->on('tpc')->onDelete('cascade');
-          
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('PhoneNumber')->nullable();
         });
     }
 
@@ -27,6 +25,8 @@ class AddtpcIdTotpclogs extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

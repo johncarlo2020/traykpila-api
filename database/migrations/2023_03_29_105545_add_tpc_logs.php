@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTPClogs extends Migration
+class AddTpcLogs extends Migration
 {
     /**
      * Run the migrations.
@@ -15,16 +15,10 @@ class CreateTPClogs extends Migration
     {
         Schema::create('tpclogs', function (Blueprint $table) {
             $table->id();
-             
             $table->bigInteger('cashin');
             $table->bigInteger('cashout');
             $table->bigInteger('farein');
             $table->bigInteger('fareout');
- 
-
-            
-            
-            
             $table->timestamps();
         });
     }
@@ -36,6 +30,6 @@ class CreateTPClogs extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('TPC');
+        //
     }
 }
