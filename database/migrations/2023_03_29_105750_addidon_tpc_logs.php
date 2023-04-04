@@ -15,7 +15,7 @@ class AddidonTpcLogs extends Migration
     {
         Schema::table('tpclogs', function (Blueprint $table) {
             $table->bigInteger('tpc_id')->unsigned()->index()->nullable();
-            $table->foreign('tpc_id')->references('id')->on('tpc')->onDelete('cascade');
+            $table->foreign('tpc_id')->references('id')->on('tpc');
           
         });
     }

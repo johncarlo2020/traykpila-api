@@ -13,10 +13,10 @@ class AddTpc extends Migration
      */
     public function up()
     {
-        Schema::create('TPC', function (Blueprint $table) {
+        Schema::create('tpc', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('users_id')->unsigned()->index()->nullable();
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('users_id')->references('id')->on('users');
             $table->bigInteger('tpcstatus');
             $table->bigInteger('wallet');
             $table->timestamps();
