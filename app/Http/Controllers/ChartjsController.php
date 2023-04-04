@@ -107,7 +107,7 @@ public function generaldetails(){
    
     
     $dates = $top_up_day;
-    $top_up_day = [];
+    $top_up_day_parsedDates = [];
 
     foreach ($dates as $date) {
     $top_up_day_parsedDates[] = Carbon::parse($date)->format('F d');
