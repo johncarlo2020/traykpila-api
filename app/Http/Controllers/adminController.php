@@ -119,7 +119,11 @@ class adminController extends Controller
          $revenuedate = $revenue->pluck('day');
          $paymentdate = $payment->pluck('paymentday');
          
-         $total_revenue = $revenuedata[0] + $paymentdata[0];
+         if (!empty($revenuedata) && isset($revenuedata[0]) && !empty($paymentdata) && isset($paymentdata[0])) {
+            $total_revenue = $revenuedata[0] + $paymentdata[0];
+        } else {
+          $total_revenue = 0;
+        }
 
         $dates = $revenuedate;
 
