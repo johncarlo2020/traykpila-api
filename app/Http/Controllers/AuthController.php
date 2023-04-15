@@ -43,6 +43,24 @@ class AuthController extends Controller
             'path' => $path
         ],200);
     }
+    public function personal_information_image(Request $request){
+        $attrs= $request->validate([
+            'id'=>'required',
+        ]);
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('images');
+            }else{
+            $path='';
+           }
+           $user = User::find($attrs['id']);
+           $user->image = $path;
+           $user->save();
+
+           return response([
+            'user'  => $user,
+            'path' => $path
+        ],200);
+    }
 
     public function personal_information(Request $request){
 
