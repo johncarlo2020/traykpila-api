@@ -44,6 +44,39 @@ class AuthController extends Controller
         ],200);
     }
 
+    public function personal_information(Request $request){
+
+        $attrs= $request->validate([
+            'id'=>'required',
+            'nationality' => 'required',
+            'emergency_name'=>'String',
+            'emergency_relationship'=>'String',
+            'emergency_number'=>'String',
+            'emergency_address'=>'String',
+        ]);
+
+          if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images');
+           }else{
+            $path='';
+           }
+
+        $user = User::find($attrs['id']);
+        $user->nationality = $attrs['nationality'];
+        $user->emergency_contact = $attrs['emergency_name'];
+        $user->emergency_relationship = $attrs['emergency_relationship'];
+        $user->emergency_number = $attrs['emergency_number'];
+        $user->emergency_address = $attrs['emergency_address'];
+        $user->image = $path;
+        $user->save();
+
+
+        return response([
+            'user'  => $user,
+            'path' => $path
+        ],200);
+    }
+
     public function register_new(Request $request)
     {
         $attrs= $request->validate([
