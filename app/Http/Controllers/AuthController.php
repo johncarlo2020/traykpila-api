@@ -46,20 +46,22 @@ class AuthController extends Controller
     public function personal_information_image(Request $request){
         $attrs= $request->validate([
             'id'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-            if ($request->hasFile('image')) {
-                $path = $request->file('image')->store('images');
-            }else{
-            $path='';
-           }
+              // Get the uploaded file from the request
+            $image = $request->file('image');
+        
+            // Generate a unique filename for the uploaded image
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        
+            // Move the uploaded file to a public directory
+            $image->move(public_path('images'), $filename);
+
            $user = User::find($attrs['id']);
-           $user->image = $path;
+           $user->image = $filename;
            $user->save();
 
-           return response([
-            'user'  => $user,
-            'path' => $path
-        ],200);
+           return response()->json(['success' => true, 'message' => 'Image uploaded successfully']);
     }
 
     public function personal_information(Request $request){
