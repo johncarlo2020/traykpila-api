@@ -51,7 +51,11 @@ use Carbon\Carbon;
                                 @endif
                                 <div class="row">
                                     
-                                <h5 class="col-md-6">TraykPila Coins: {{$cashtpc[0]->wallet}} 
+                                <h5 class="col-md-6">TraykPila Coins: @if(!empty($cashtpc[0]) && isset($cashtpc[0]->wallet))
+                                                                            {{ $cashtpc[0]->wallet }}
+                                                                        @else
+                                                                            {{ $cashtpc = 0}}
+                                                                        @endif
                                  <!--
                                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#TPC">
                                         <p class="mb-0">Top-up TPC</p> 
