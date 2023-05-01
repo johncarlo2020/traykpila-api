@@ -102,7 +102,9 @@ class AuthController extends Controller
             $license = License::where('users_id', $attrs['id'])->exists();
            
             if ($license) {
-                $license1 = License::find($license->id);
+                $license2 = License::where('users_id', $attrs['id'])->get();
+
+                $license1 = License::find($license2[0]->id);
                 $license1->users_id = $attrs['id'];
                 $license1->front_image = $filename;
                 $license1->save();
