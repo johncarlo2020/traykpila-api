@@ -97,6 +97,18 @@ class AuthController extends Controller
         ],200);
     }
 
+    public function get_personal_information(Request $request){
+
+        $attrs= $request->validate([
+            'id'=>'required',
+        ]);
+        $user = User::find($attrs['id']);
+
+        return response([
+            'user'  => $user,
+        ],200);
+    }
+
     public function register_new(Request $request)
     {
         $attrs= $request->validate([

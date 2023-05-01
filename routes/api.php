@@ -28,6 +28,8 @@ Route::post('/active_driver',[AuthController::class,'active_driver']);
 
 Route::post('/personal_information',[AuthController::class,'personal_information']);
 Route::post('/personal_information_image',[AuthController::class,'personal_information_image']);
+Route::post('/get_personal_information_image',[AuthController::class,'get_personal_information_image']);
+
 
 
 
