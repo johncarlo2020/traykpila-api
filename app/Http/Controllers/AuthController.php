@@ -46,7 +46,7 @@ class AuthController extends Controller
     public function personal_information_image(Request $request){
         $attrs= $request->validate([
             'id'=>'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
               // Get the uploaded file from the request
             $image = $request->file('image');
