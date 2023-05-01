@@ -41,8 +41,10 @@ class AuthController extends Controller
             'image'=>$path
         ]);
 
-        $item = tpc::where('users_id',$user->id)->firstOrFail();
-        $item->wallet += 0;
+        $item = new tpc;
+        $item->users_id = $user->id;
+        $item->tpcstatus = 0;
+        $item->wallet = 0;
         $item->save();
        
         $tpclogs = new tpclogs;
