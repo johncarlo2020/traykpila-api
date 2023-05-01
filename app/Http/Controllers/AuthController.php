@@ -8,6 +8,8 @@ use App\Models\tpc;
 use App\Models\reports;
 use App\Models\payment;
 use App\Models\tpclogs;
+use App\Models\License;
+
 use Auth;
 
 class AuthController extends Controller
@@ -80,6 +82,34 @@ class AuthController extends Controller
            $user = User::find($attrs['id']);
            $user->image = $filename;
            $user->save();
+
+           return response()->json(['success' => true, 'message' => 'Image uploaded successfully']);
+    }
+    public function upload_license_front(Request $request){
+        $attrs= $request->validate([
+            'id'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+        ]);
+              // Get the uploaded file from the request
+            $image = $request->file('image');
+        
+            // Generate a unique filename for the uploaded image
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        
+            // Move the uploaded file to a public directory
+            $image->move(public_path('images'), $filename);
+
+           $license = License::find($attrs['id']);
+           
+            if ($license) {
+                $license->front_image = $filename;
+                $license->save();
+
+            } else {
+                $license = new License();
+                $license->front_image = $filename;
+                $license->save();
+            }
 
            return response()->json(['success' => true, 'message' => 'Image uploaded successfully']);
     }
