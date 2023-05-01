@@ -37,8 +37,22 @@ class AuthController extends Controller
             'image'=>$path
         ]);
 
+        $item = tpc::where('users_id',$user->id)->firstOrFail();
+        $item->wallet += 0;
+        $item->save();
+       
+        $tpclogs = new tpclogs;
+        $tpclogs->cashin = 0;
+        $tpclogs->cashout=0;
+        $tpclogs->farein=0;
+        $tpclogs->fareout=0;
+        $tpclogs->tpc_id=$item->id;
+        $tpclogs->save();
+
         return response([
             'user'  => $user,
+            'item' => $item,
+            'tpclogs' =>$tpclogs,
             'token' => $user->createToken('secret')->plainTextToken,
             'path' => $path
         ],200);
