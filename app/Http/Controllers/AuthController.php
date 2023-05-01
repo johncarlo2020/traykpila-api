@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\tpc;
+use App\Models\User;
+use App\Models\reports;
+use App\Models\payment;
+use App\Models\tpclogs;
 use Auth;
 
 class AuthController extends Controller
