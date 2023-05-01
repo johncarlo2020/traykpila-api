@@ -85,6 +85,69 @@ class AuthController extends Controller
 
            return response()->json(['success' => true, 'message' => 'Image uploaded successfully']);
     }
+    public function register(Request $request){
+
+        $attrs= $request->validate([
+            'id'=>'required',
+            'license_number'=>'required|string',
+            'expiration'=>'String',
+
+        ]);
+
+      
+        $license = License::where('users_id', $attrs['id'])->exists();
+           
+        if ($license) {
+            $license2 = License::where('users_id', $attrs['id'])->get();
+
+            $license1 = License::find($license2[0]->id);
+            $license1->license_number = $attrs['license_number'];
+            $license1->expiration =  $attrs['expiration'];
+            $license1->save();
+        } else {
+            $license1 = new License();
+            $license1->users_id = $attrs['id'];
+            $license1->license_number = $attrs['license_number'];
+            $license1->expiration =  $attrs['expiration'];
+            $license1->save();
+        }
+
+        return response([
+            'license'  => $license1,
+        ],200);
+    }
+    public function upload_license_back(Request $request){
+        $attrs= $request->validate([
+            'id'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+        ]);
+              // Get the uploaded file from the request
+            $image = $request->file('image');
+        
+            // Generate a unique filename for the uploaded image
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        
+            // Move the uploaded file to a public directory
+            $image->move(public_path('images'), $filename);
+
+            $license = License::where('users_id', $attrs['id'])->exists();
+           
+            if ($license) {
+                $license2 = License::where('users_id', $attrs['id'])->get();
+
+                $license1 = License::find($license2[0]->id);
+                $license1->users_id = $attrs['id'];
+                $license1->back_image = $filename;
+                $license1->save();
+            } else {
+                $license1 = new License();
+                $license1->users_id = $attrs['id'];
+                $license1->back_image = $filename;
+                $license1->save();
+            }
+
+           return response()->json(['success' => true, 'message' => 'Image uploaded successfully']);
+    }
     public function upload_license_front(Request $request){
         $attrs= $request->validate([
             'id'=>'required',
