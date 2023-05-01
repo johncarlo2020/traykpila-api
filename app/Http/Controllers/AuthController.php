@@ -102,14 +102,15 @@ class AuthController extends Controller
             $license = License::where('users_id', $attrs['id'])->exists();
            
             if ($license) {
-                $license->users_id = $attrs['id'];
-                $license->front_image = $filename;
-                $license->save();
+                $license1 = License::find($license->id);
+                $license1->users_id = $attrs['id'];
+                $license1->front_image = $filename;
+                $license1->save();
             } else {
-                $license = new License();
-                $license->users_id = $attrs['id'];
-                $license->front_image = $filename;
-                $license->save();
+                $license1 = new License();
+                $license1->users_id = $attrs['id'];
+                $license1->front_image = $filename;
+                $license1->save();
             }
 
            return response()->json(['success' => true, 'message' => 'Image uploaded successfully']);
