@@ -99,14 +99,15 @@ class AuthController extends Controller
             // Move the uploaded file to a public directory
             $image->move(public_path('images'), $filename);
 
-           $license = License::find($attrs['id']);
+            $license = License::where('users_id', $attrs['id'])->exists();
            
             if ($license) {
+                $license->users_id = $attrs['id'];
                 $license->front_image = $filename;
                 $license->save();
-
             } else {
                 $license = new License();
+                $license->users_id = $attrs['id'];
                 $license->front_image = $filename;
                 $license->save();
             }
