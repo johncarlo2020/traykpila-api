@@ -83,7 +83,11 @@ class AuthController extends Controller
            $user->image = $filename;
            $user->save();
 
-           return response()->json(['success' => true, 'message' => 'Image uploaded successfully']);
+           return response()->json([
+            'success' => true, 
+            'data' => $user, 
+            'message' => 'Image uploaded successfully']
+        );
     }
     public function upload_license(Request $request){
 
