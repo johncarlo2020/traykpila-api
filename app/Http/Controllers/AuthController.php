@@ -196,11 +196,7 @@ class AuthController extends Controller
             'emergency_address'=>'String',
         ]);
 
-          if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images');
-           }else{
-            $path='';
-           }
+         
 
         $user = User::find($attrs['id']);
         $user->nationality = $attrs['nationality'];
@@ -208,7 +204,6 @@ class AuthController extends Controller
         $user->emergency_relationship = $attrs['emergency_relationship'];
         $user->emergency_number = $attrs['emergency_number'];
         $user->emergency_address = $attrs['emergency_address'];
-        $user->image = $path;
         $user->save();
 
 
