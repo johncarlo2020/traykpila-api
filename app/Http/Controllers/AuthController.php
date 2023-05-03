@@ -182,7 +182,12 @@ class AuthController extends Controller
                 $license1->save();
             }
 
-           return response()->json(['success' => true, 'message' => 'Image uploaded successfully']);
+           return response()->json(
+            [
+            'success' => true, 
+            'data' => $license1, 
+
+            'message' => 'Image uploaded successfully']);
     }
 
     public function personal_information(Request $request){
@@ -209,7 +214,6 @@ class AuthController extends Controller
 
         return response([
             'user'  => $user,
-            'path' => $path
         ],200);
     }
     public function get_license(Request $request){
