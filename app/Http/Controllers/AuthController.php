@@ -85,7 +85,7 @@ class AuthController extends Controller
 
            return response()->json(['success' => true, 'message' => 'Image uploaded successfully']);
     }
-    public function register(Request $request){
+    public function upload_license(Request $request){
 
         $attrs= $request->validate([
             'id'=>'required',
