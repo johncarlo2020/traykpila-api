@@ -217,7 +217,7 @@ class AuthController extends Controller
         $attrs= $request->validate([
             'id'=>'required',
         ]);
-        $license = License::where('user_id',$attrs['id'])->get();
+        $license = License::where('users_id',$attrs['id'])->get();
 
         return response([
             'user'  => $license[0],
