@@ -212,6 +212,17 @@ class AuthController extends Controller
             'path' => $path
         ],200);
     }
+    public function get_license(Request $request){
+
+        $attrs= $request->validate([
+            'id'=>'required',
+        ]);
+        $license = License::where('user_id',$attrs['id'])->get();
+
+        return response([
+            'user'  => $license[0],
+        ],200);
+    }
 
     public function get_personal_information(Request $request){
 
