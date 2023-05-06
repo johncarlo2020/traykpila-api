@@ -57,4 +57,20 @@ class TricycleController extends Controller
             'message' => 'Image uploaded successfully']
         );
     }
+
+    public function plate_number(Request $request){
+
+        $attrs= $request->validate([
+            'id'=>'required',
+            'plate_number' => 'required',
+        ]);
+
+        $tricycle = tricycle::firstOrNew(['user_id' => $attrs['id']]);
+        $tricycle->plate_number = $attrs['plate_number'];
+        $tricycle->save();
+
+        return response([
+            'tricycle'  => $tricycle,
+        ],200);
+    }
 }

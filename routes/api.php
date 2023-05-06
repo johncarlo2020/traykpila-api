@@ -58,6 +58,8 @@ Route::post('/terminal/count',[TerminalController::class,'TerminalCount']);
 
 Route::post('/or_image',[TricycleController::class,'or_image']);
 Route::post('/cr_image',[TricycleController::class,'cr_image']);
+Route::post('/plate_number',[TricycleController::class,'plate_number']);
+
 
 
 
