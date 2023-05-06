@@ -43,6 +43,7 @@ Route::post('/upload_license',[AuthController::class,'upload_license']);
 
 
 
+
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/terminal/create',[TerminalController::class,'addimage']);
 Route::post('/terminal/createNew',[TerminalController::class,'store']);
@@ -55,10 +56,7 @@ Route::post('/terminal/delete',[TerminalController::class,'destroy']);
 Route::post('/terminal/update',[TerminalController::class,'edit']);
 Route::post('/terminal/count',[TerminalController::class,'TerminalCount']);
 
-Route::post('/tricyle/create',[TricycleController::class,'create']);
-Route::post('/tricyle/createNew',[TricycleController::class,'store']);
-
-Route::post('/tricyle',[TricycleController::class,'show']);
+Route::post('/or_image',[TricycleController::class,'or_image']);
 
 
 Route::post('/user/count',[TerminalController::class,'UserCount']);
