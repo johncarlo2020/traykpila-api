@@ -19,8 +19,6 @@ class CreateBookingsTable extends Migration
             $table->foreign('driver_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('passenger_id')->unsigned()->index()->nullable();
             $table->foreign('passenger_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('terminal_id')->unsigned()->index()->nullable();
-            $table->foreign('terminal_id')->references('id')->on('terminals')->onDelete('cascade');
             $table->bigInteger('tricycle_id')->unsigned()->index()->nullable();
             $table->foreign('tricycle_id')->references('id')->on('tricycles')->onDelete('cascade');
             $table->string('passenger_lat');
