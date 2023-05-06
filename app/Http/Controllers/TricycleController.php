@@ -24,7 +24,7 @@ class TricycleController extends Controller
 
             $tricycle = tricycle::firstOrNew(['user_id' => $attrs['id']]);
 
-            $tricycle->back_image = $filename;
+            $tricycle->or = $filename;
             $tricycle->save();
 
            return response()->json([
