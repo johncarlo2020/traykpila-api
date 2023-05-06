@@ -15,7 +15,6 @@ class tricycle extends Model
         'name',
         'image',
         'plate_number',
-        'body_number',
         'max_passenger',
         'user_id'
 

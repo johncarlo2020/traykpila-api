@@ -134,7 +134,6 @@ use Carbon\Carbon;
                                             <th>Total Pickup time:</th>
                                             <th>Pickup Location:</th>
                                             <th>Destination</th>
-                                            <th>Body Number</th>
                                             <th>Status</th>
                                             <th>Fare Received</th>
                                             <th>Rating</th>
@@ -152,7 +151,6 @@ use Carbon\Carbon;
                                             <td>{{$booking->created_at->diffInMinutes($booking->updated_at)}} min</td>
                                             <td>{{$booking->passenger_location}}</td>
                                             <td>{{$booking->Destination}}</td>
-                                            <td>{{$booking->body_number}}</td>
                                             @if($booking->status==0)
                                             <td>Failed</td>
                                             @else
