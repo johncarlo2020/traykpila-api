@@ -401,7 +401,22 @@ class adminController extends Controller
         return view('passenger_accounts_notverified',compact('users','count'));
     }
     
+    public function review_documents($id){
+
+        $users=User::where('id',$id)->get();
+        
+        return view('review_documents',compact('users'));
+
+    }
     
+    public function verify_driver(Request $request, $id){
+
+        $item = User::where('id',$id)->firstOrFail();
+        $item->Verified = 1;
+        $item->save();
+
+        return redirect('admin/drivers_accounts_notverified');
+    }
 
     
     

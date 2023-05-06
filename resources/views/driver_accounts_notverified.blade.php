@@ -47,6 +47,7 @@
                                             <th>email</th>
                                             <th>Phone Number</th>
                                             <th>TraykPila Coins</th>    
+                                            <th></th>
                                             <th></th>                                 
                                         </tr>
                                     </thead>
@@ -59,6 +60,7 @@
                                             <td>{{ $user->TPC }}</td>
                                
                                               <td><a href="{{url('/admin/tricycle_drivers/details/')}}/{{$user->id}}">ViewDetails</a></td>
+                                              <td><a href="{{url('/review_documents/driver/')}}/{{$user->id}}">Review Documents</a></td>
                                         </tr>
                                         @endforeach
                                                                     
@@ -71,7 +73,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

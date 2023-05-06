@@ -30,6 +30,11 @@ Route::get('/admin/drivers_accounts_notverified',[adminController::class,'notver
 // Route::get('/admin',[adminController::class,'generaldetails'])->name('general');
 Route::get('/admin/tricycle_drivers/details/{id}',[adminController::class,'driver_details'])->name('driver_details');
 Route::post('/admin/tricycle_drivers/details/update_tpc/{id}',[adminController::class,'update_tpc'])->name('update_tpc');
+
+
+Route::get('verify_driver/{id}', [adminController::class,'verify_driver'])->name('verify_driver');
+
+
 Route::post('/admin/tricycle_drivers/details/cash_out/{id}',[adminController::class,'cash_out'])->name('cash_out');
 Route::get('/admin/passenger_list/details/{id}',[adminController::class,'passengerdetails'])->name('passenger_details');
 //Route::get('/admin/passenger_list/details/{id}',[adminController::class,'update_tpc'])->name('passenger_details');
@@ -37,7 +42,7 @@ Route::get('/admin/passenger_list/details/{id}',[adminController::class,'passeng
 Route::get('/admin/passenger_accounts',[adminController::class,'passenger_accounts'])->name('passenger_details_accounts');
 Route::get('/admin/passenger_accounts_notverified',[adminController::class,'passenger_accounts_notverified'])->name('passenger_details_accounts_notverified');
 Route::get('/admin/passenger_list',[adminController::class,'passengers'])->name('passenger_details');
-
+Route::get('/review_documents/driver/{id}',[adminController::class,'review_documents'])->name('review_documents');
 
 
 

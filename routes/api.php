@@ -66,6 +66,7 @@ Route::post('/booking/details',[BookingController::class,'details']);
 
 
 
+
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/logout',[AuthController::class,'logout']);
     Route::post('/user',[AuthController::class,'user']);
