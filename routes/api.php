@@ -57,6 +57,8 @@ Route::post('/terminal/update',[TerminalController::class,'edit']);
 Route::post('/terminal/count',[TerminalController::class,'TerminalCount']);
 
 Route::post('/or_image',[TricycleController::class,'or_image']);
+Route::post('/cr_image',[TricycleController::class,'cr_image']);
+
 
 
 Route::post('/user/count',[TerminalController::class,'UserCount']);
