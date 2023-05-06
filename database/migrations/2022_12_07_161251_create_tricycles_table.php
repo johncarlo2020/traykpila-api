@@ -15,16 +15,11 @@ class CreateTricyclesTable extends Migration
     {
         Schema::create('tricycles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image');
+            $table->string('or');
+            $table->string('cr');
             $table->string('plate_number');
-            $table->string('body_number');
-            $table->string('max_passenger');
             $table->bigInteger('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-
-
             $table->timestamps();
         });
     }

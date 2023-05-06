@@ -26,6 +26,22 @@ Route::post('/register',[AuthController::class,'register']);
 Route::post('/register_new',[AuthController::class,'register_new']);
 Route::post('/active_driver',[AuthController::class,'active_driver']);
 
+Route::post('/personal_information',[AuthController::class,'personal_information']);
+Route::post('/personal_information_image',[AuthController::class,'personal_information_image']);
+Route::post('/get_personal_information',[AuthController::class,'get_personal_information']);
+Route::post('/get_license',[AuthController::class,'get_license']);
+
+Route::post('/upload_license_front',[AuthController::class,'upload_license_front']);
+Route::post('/upload_license_back',[AuthController::class,'upload_license_back']);
+Route::post('/upload_license',[AuthController::class,'upload_license']);
+
+
+
+
+
+
+
+
 
 
 Route::post('/login',[AuthController::class,'login']);
@@ -40,10 +56,13 @@ Route::post('/terminal/delete',[TerminalController::class,'destroy']);
 Route::post('/terminal/update',[TerminalController::class,'edit']);
 Route::post('/terminal/count',[TerminalController::class,'TerminalCount']);
 
-Route::post('/tricyle/create',[TricycleController::class,'create']);
-Route::post('/tricyle/createNew',[TricycleController::class,'store']);
+Route::post('/or_image',[TricycleController::class,'or_image']);
+Route::post('/cr_image',[TricycleController::class,'cr_image']);
+Route::post('/plate_number',[TricycleController::class,'plate_number']);
+Route::post('/get_tricycle',[TricycleController::class,'get_tricycle']);
 
-Route::post('/tricyle',[TricycleController::class,'show']);
+
+
 
 
 Route::post('/user/count',[TerminalController::class,'UserCount']);

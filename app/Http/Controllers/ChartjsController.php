@@ -21,7 +21,7 @@ class ChartjsController extends Controller
     // ADMIN DASHBOARD
 public function generaldetails(){
 
-    $bookings = booking::select('bookings.*','u1.name AS driver','u2.name AS passenger', 't2.body_number','payment.amount')
+    $bookings = booking::select('bookings.*','u1.name AS driver','u2.name AS passenger','payment.amount')
     ->join('users As u1', 'u1.id', '=', 'bookings.driver_id')
     ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
     // ->join('users As u3', 'u3.id', '=', 't2.user_id')
