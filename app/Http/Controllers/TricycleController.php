@@ -22,7 +22,7 @@ class TricycleController extends Controller
             // Move the uploaded file to a public directory
             $image->move(public_path('images'), $filename);
 
-            $tricycle = tricycle::firstOrNew(['users_id' => $attrs['id']]);
+            $tricycle = tricycle::firstOrNew(['user_id' => $attrs['id']]);
 
             $tricycle->back_image = $filename;
             $tricycle->save();
