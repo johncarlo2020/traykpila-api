@@ -73,4 +73,16 @@ class TricycleController extends Controller
             'tricycle'  => $tricycle,
         ],200);
     }
+
+    public function get_tricycle(Request $request){
+
+        $attrs= $request->validate([
+            'id'=>'required',
+        ]);
+        $tricycle = tricycle::where('user_id',$attrs['id'])->get();
+
+        return response([
+            'user'  => $tricycle->first()
+        ],200);
+    }
 }
