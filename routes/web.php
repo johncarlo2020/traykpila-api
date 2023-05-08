@@ -32,7 +32,7 @@ Route::get('/admin/tricycle_drivers/details/{id}',[adminController::class,'drive
 Route::post('/admin/tricycle_drivers/details/update_tpc/{id}',[adminController::class,'update_tpc'])->name('update_tpc');
 
 
-Route::get('verify_driver/{id}', [adminController::class,'verify_driver'])->name('verify_driver');
+Route::post('verify_driver/{id}', [adminController::class,'verify_driver'])->name('verify_driver');
 
 
 Route::post('/admin/tricycle_drivers/details/cash_out/{id}',[adminController::class,'cash_out'])->name('cash_out');

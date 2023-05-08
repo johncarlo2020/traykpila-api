@@ -20,6 +20,7 @@
             background-color:#e4fff9 !important;
         }
     
+        
     </style>
     <body class="sb-nav-fixed">
     @extends('layouts.navbar')
@@ -34,15 +35,82 @@
                     <div class="d-flex justify-content-between">
                   
                         <h3>Name: {{$users[0]->name}} </h3>
-                        <h3>Verify this Driver: 
-                                    <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#REPORT">
-                                        <p class="mb-0">Report</p> 
-                                    </button> -->
+
+                        <div class="d-flex  justify-content-around">
+                            <h3>Verify this Driver:     
+                                <a id="verify" style="color:green;" data-bs-toggle="modal" data-bs-target="#Verify" href=""><i class="fas fa-check-circle"></i></a>
+                            </h3>
+                            <span class="m-3"></span>
+                            <h3> Cancel Driver Application:     
+                                <a id="verify" style="color:red;" data-bs-toggle="modal" data-bs-target="#Cancel" href=""><i class="fas fa-times-circle"></i></a>
+                            </h3>
+                        </div>  
                                    
-                                     <a id="verify" style="color:green;" href="{{ route('verify_driver', ['id' => $users[0]->id]) }}"><i class="fas fa-check-circle"></i></a>
-                        </h3>       
+
+                    <!--MODAL VERIFY -->
+                    <div class="modal fade" id="Verify" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">                     
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title" id="exampleModalLabel">Are you Sure that you want to Verify This User?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                
+                        <div class="modal-footer ">
+                            <form action="{{ route('verify_driver', ['id' => $users[0]->id]) }}" method="POST">
+                            @csrf
+                                <div class="">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button> 
+                                    <button type="submit" class="btn btn-success">Verify</button>                                   
+                                </div>
+                        </form>
+                        </div>
+                        </div>
+                    </div>
+                    </div>    
                     </div>
                     </div>
+                    <!--MODAL CANCEL -->
+                    <div class="modal fade" id="Cancel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="exampleModalLabel">Reason For The Cancellation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <form>
+                        <div class="col-md-6">
+                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                             <label class="form-check-label" for="flexCheckDefault">Poor Image Quality</label>
+                             <hr class="hr" />
+                        </div>
+                        <div class="col-md-6">
+                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                             <label class="form-check-label" for="flexCheckDefault">Not Clear Information</label>
+                             <hr class="hr" />
+                        </div>
+                        <div class="col-md-6">
+                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                             <label class="form-check-label" for="flexCheckDefault">Information already exists</label>
+                             <hr class="hr" />
+                        </div>
+                        <div class="form-group purple-border">
+                            <label class="pb-3 fs-5" for="exampleFormControlTextarea4">Specify Cancellation:</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea4" rows="3" placeholder="The application has been cancelled because the you did not meet the eligibility requirements."></textarea>
+                        </div>
+                        
+                      
+                       
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary">Submit</button>
+                        </div>
+                        </div>
+                    </div>
+                    </div>    
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">email: {{$users[0]->email}}  </li>
                             <li class="breadcrumb-item active">Phone Number: {{$users[0]->PhoneNumber}}  </li>
