@@ -31,8 +31,6 @@ Route::post('/personal_information_image',[AuthController::class,'personal_infor
 Route::post('/get_personal_information',[AuthController::class,'get_personal_information']);
 Route::post('/get_license',[AuthController::class,'get_license']);
 
-Route::post('/upload_license_front',[AuthController::class,'upload_license_front']);
-Route::post('/upload_license_back',[AuthController::class,'upload_license_back']);
 Route::post('/upload_license',[AuthController::class,'upload_license']);
 
 
