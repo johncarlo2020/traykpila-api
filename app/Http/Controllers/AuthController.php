@@ -72,29 +72,36 @@ class AuthController extends Controller
             'id'=>'required',
             'license_number'=>'required|string',
             'expiration'=>'String',
-
+            'back' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'front' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
-      
-        $license = License::where('users_id', $attrs['id'])->exists();
-           
-        if ($license) {
-            $license2 = License::where('users_id', $attrs['id'])->get();
+        $back = $request->file('back');
+        $front = $request->file('front');
 
-            $license1 = License::find($license2[0]->id);
-            $license1->license_number = $attrs['license_number'];
-            $license1->expiration =  $attrs['expiration'];
-            $license1->save();
-        } else {
-            $license1 = new License();
-            $license1->users_id = $attrs['id'];
-            $license1->license_number = $attrs['license_number'];
-            $license1->expiration =  $attrs['expiration'];
-            $license1->save();
-        }
+        
+        // Generate a unique filename for the uploaded back
+        $filename_back = uniqid() . '.' . $back->getClientOriginalExtension();
+        $filename_front = uniqid() . '.' . $front->getClientOriginalExtension();
+
+    
+        // Move the uploaded file to a public directory
+        $back->move(public_path('images'), $filename_back);
+        $front->move(public_path('images'), $filename_front);
+
+
+
+      
+            $license = License::firstOrNew(['users_id' => $attrs['id']]);
+            $license->license_number = $attrs['license_number'];
+            $license->expiration =  $attrs['expiration'];
+            $license->back_image = $filename_back;
+            $license->front_image = $filename_front;
+            $license->save();
+      
 
         return response([
-            'license'  => $license1,
+            'license'  => $license,
         ],200);
     }
     public function upload_license_back(Request $request){
@@ -165,30 +172,6 @@ class AuthController extends Controller
             'data' => $license1, 
 
             'message' => 'Image uploaded successfully']);
-    }
-    public function personal_information_image(Request $request){
-        $attrs= $request->validate([
-            'id'=>'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-        ]);
-              // Get the uploaded file from the request
-            $image = $request->file('image');
-        
-            // Generate a unique filename for the uploaded image
-            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-        
-            // Move the uploaded file to a public directory
-            $image->move(public_path('images'), $filename);
-
-           $user = User::find($attrs['id']);
-           $user->image = $filename;
-           $user->save();
-
-           return response()->json([
-            'success' => true, 
-            'data' => $user, 
-            'message' => 'Image uploaded successfully']
-        );
     }
 
     public function personal_information(Request $request){
