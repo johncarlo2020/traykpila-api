@@ -72,21 +72,21 @@ class AuthController extends Controller
             'id'=>'required',
             'license_number'=>'required|string',
             'expiration'=>'String',
-            // 'back' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'back' => 'required|image|mimes:jpeg,png,jpg,gif',
             // 'front' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
-        // $back = $request->file('back');
+        $back = $request->file('back');
         // $front = $request->file('front');
 
         
         // // Generate a unique filename for the uploaded back
-        // $filename_back = uniqid() . '.' . $back->getClientOriginalExtension();
+        $filename_back = uniqid() . '.' . $back->getClientOriginalExtension();
         // $filename_front = uniqid() . '.' . $front->getClientOriginalExtension();
 
     
         // // Move the uploaded file to a public directory
-        // $back->move(public_path('images'), $filename_back);
+        $back->move(public_path('images'), $filename_back);
         // $front->move(public_path('images'), $filename_front);
 
 
@@ -95,7 +95,7 @@ class AuthController extends Controller
             $license = License::firstOrNew(['users_id' => $attrs['id']]);
             $license->license_number = $attrs['license_number'];
             $license->expiration =  $attrs['expiration'];
-            // $license->back_image = $filename_back;
+            $license->back_image = $filename_back;
             // $license->front_image = $filename_front;
             $license->save();
       
