@@ -72,18 +72,18 @@ class AuthController extends Controller
             'id'=>'required',
             'license_number'=>'required|string',
             'expiration'=>'String',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif',
 
         ]);
 
-           // Get the uploaded file from the request
-           $image = $request->file('image');
+        //    // Get the uploaded file from the request
+        //    $image = $request->file('image');
         
-           // Generate a unique filename for the uploaded image
-           $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        //    // Generate a unique filename for the uploaded image
+        //    $filename = uniqid() . '.' . $image->getClientOriginalExtension();
        
-           // Move the uploaded file to a public directory
-           $image->move(public_path('images'), $filename);
+        //    // Move the uploaded file to a public directory
+        //    $image->move(public_path('images'), $filename);
 
          
 
