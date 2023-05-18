@@ -90,7 +90,7 @@ class AuthController extends Controller
            $license = License::firstOrNew(['users_id' => $attrs['id']]);
            $license->license_number = $attrs['license_number'];
            $license->expiration =  $attrs['expiration'];
-           $license->back_image = $filename;
+        //    $license->back_image = $filename;
            // $license->front_image = $filename_front;
            $license->save();
 
