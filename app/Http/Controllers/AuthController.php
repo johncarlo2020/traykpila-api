@@ -73,7 +73,7 @@ class AuthController extends Controller
             'license_number'=>'required|string',
             'expiration'=>'String',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-            // 'front' => 'required|image|mimes:jpeg,png,jpg,gif',
+
         ]);
 
            // Get the uploaded file from the request
@@ -85,19 +85,19 @@ class AuthController extends Controller
            // Move the uploaded file to a public directory
            $image->move(public_path('images'), $filename);
 
+         
 
+           $license = License::firstOrNew(['users_id' => $attrs['id']]);
+           $license->license_number = $attrs['license_number'];
+           $license->expiration =  $attrs['expiration'];
+           $license->back_image = $filename;
+           // $license->front_image = $filename_front;
+           $license->save();
 
-      
-            // $license = License::firstOrNew(['users_id' => $attrs['id']]);
-            // $license->license_number = $attrs['license_number'];
-            // $license->expiration =  $attrs['expiration'];
-            // $license->back_image = $filename;
-            // // $license->front_image = $filename_front;
-            // $license->save();
-      
 
         return response([
-            'license'  => $image,
+            'success' => true, 
+            'data' => $license, 
         ],200);
     }
 
