@@ -65,30 +65,7 @@ class AuthController extends Controller
             'path' => $path
         ],200);
     }
-    public function personal_information_image(Request $request){
-        $attrs= $request->validate([
-            'id'=>'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-        ]);
-              // Get the uploaded file from the request
-            $image = $request->file('image');
-        
-            // Generate a unique filename for the uploaded image
-            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-        
-            // Move the uploaded file to a public directory
-            $image->move(public_path('images'), $filename);
-
-           $user = User::find($attrs['id']);
-           $user->image = $filename;
-           $user->save();
-
-           return response()->json([
-            'success' => true, 
-            'data' => $user, 
-            'message' => 'Image uploaded successfully']
-        );
-    }
+    
     public function upload_license(Request $request){
 
         $attrs= $request->validate([
@@ -189,6 +166,30 @@ class AuthController extends Controller
 
             'message' => 'Image uploaded successfully']);
     }
+    public function personal_information_image(Request $request){
+        $attrs= $request->validate([
+            'id'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+        ]);
+              // Get the uploaded file from the request
+            $image = $request->file('image');
+        
+            // Generate a unique filename for the uploaded image
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        
+            // Move the uploaded file to a public directory
+            $image->move(public_path('images'), $filename);
+
+           $user = User::find($attrs['id']);
+           $user->image = $filename;
+           $user->save();
+
+           return response()->json([
+            'success' => true, 
+            'data' => $user, 
+            'message' => 'Image uploaded successfully']
+        );
+    }
 
     public function personal_information(Request $request){
 
@@ -199,7 +200,18 @@ class AuthController extends Controller
             'emergency_relationship'=>'String',
             'emergency_number'=>'String',
             'emergency_address'=>'String',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+
         ]);
+
+           // Get the uploaded file from the request
+           $image = $request->file('image');
+        
+           // Generate a unique filename for the uploaded image
+           $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+       
+           // Move the uploaded file to a public directory
+           $image->move(public_path('images'), $filename);
 
          
 
@@ -209,11 +221,13 @@ class AuthController extends Controller
         $user->emergency_relationship = $attrs['emergency_relationship'];
         $user->emergency_number = $attrs['emergency_number'];
         $user->emergency_address = $attrs['emergency_address'];
+        $user->image = $filename;
         $user->save();
 
 
         return response([
-            'user'  => $user,
+            'success' => true, 
+            'data' => $user, 
         ],200);
     }
     public function get_license(Request $request){
