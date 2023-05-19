@@ -70,32 +70,32 @@ class AuthController extends Controller
 
         $attrs= $request->validate([
             'id'=>'required',
-            'license_number'=>'required|string',
+            'license_number'=>'required|String',
             'expiration'=>'String',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-            'image_back' => 'required|image|mimes:jpeg,png,jpg,gif',
+            // 'image_back' => 'required|image|mimes:jpeg,png,jpg,gif',
 
 
         ]);
 
            // Get the uploaded file from the request
            $image = $request->file('image');
-           $image_back = $request->file('image_back');
+        //    $image_back = $request->file('image_back');
 
         
            // Generate a unique filename for the uploaded image
            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-           $filename_back = uniqid() . '.' . $image_back->getClientOriginalExtension();
+        //    $filename_back = uniqid() . '.' . $image_back->getClientOriginalExtension();
 
        
            // Move the uploaded file to a public directory
            $image->move(public_path('images'), $filename);
-           $image_back->move(public_path('images'), $filename_back);
+        //    $image_back->move(public_path('images'), $filename_back);
 
            $license = License::firstOrNew(['users_id' => $attrs['id']]);
            $license->license_number = $attrs['license_number'];
            $license->expiration =  $attrs['expiration'];
-           $license->back_image = $filename_back;
+        //    $license->back_image = $filename_back;
            $license->front_image = $filename;
            $license->save();
 
