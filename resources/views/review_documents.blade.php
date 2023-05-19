@@ -122,7 +122,7 @@
                         <div class="card  shadow round">      
                              <div class="container-fluid bg-white ">
                                <div class="text-center p-3">
-                                <img  class="myImg rounded-circle"  src="{{asset('images')}}/{{$users[0]->image}}" width="200" height="200" alt="">
+                                <img  class="myImg rounded-circle"  src="{{ storage_path().'/images/'.$users[0]->image }}" width="200" height="200" alt="">
                                </div>
                                <ol>
                                 <li class="fs-5 ">Nationality:  {{$users[0]->nationality}}</li>
