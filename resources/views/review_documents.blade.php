@@ -146,7 +146,7 @@
                                 <div class="d-flex text-center p-3"> 
                                     <div class="col">
                                         <p class="fs-3">Front</p>                         
-                                        <img class="myImg img-fluid img-thumbnail" src="https://th.bing.com/th/id/OIP.RvFf4kISDpVvCzuotmYOzQHaEr?w=285&h=180&c=7&r=0&o=5&pid=1.7" width="400" height="600" alt="">
+                                        <img class="myImg img-fluid img-thumbnail" src="http://31.187.75.224/traykpila-api/storage/app/images/{{$license[0]->front_image}}" width="400" height="600" alt="">
                                         
                                             <div id="myModal" class="modal">
 
@@ -163,7 +163,7 @@
                                     
                                     <div class="col">
                                         <p class="fs-3">Back</p>
-                                        <img class="myImg img-fluid img-thumbnail" src="https://th.bing.com/th/id/OIP.OFfqlVWrOrWqBrLSUtRJmAHaEm?w=279&h=180&c=7&r=0&o=5&pid=1.7" width="400" height="600" alt="">
+                                        <img class="myImg img-fluid img-thumbnail" src="http://31.187.75.224/traykpila-api/storage/app/images/{{$license[0]->back_image}}" width="400" height="600" alt="">
                                     </div>
                                 </div>
                             </div>

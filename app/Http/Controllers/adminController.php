@@ -327,8 +327,9 @@ class adminController extends Controller
     public function review_documents($id){
 
         $users=User::where('id',$id)->get();
+        $license = License::where('users_id',$id)->get();
         
-        return view('review_documents',compact('users'));
+        return view('review_documents',compact('users','license'));
 
     }
     
