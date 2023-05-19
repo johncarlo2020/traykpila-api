@@ -9,7 +9,7 @@ use App\Models\reports;
 use App\Models\payment;
 use App\Models\tpclogs;
 use App\Models\License;
-
+use DB;
 use Auth;
 
 class AuthController extends Controller
@@ -66,45 +66,51 @@ class AuthController extends Controller
         ],200);
     }
     
-    public function upload_license(Request $request){
-
-        $attrs= $request->validate([
-            'id'=>'required',
-            'license_number'=>'required|String',
-            'expiration'=>'String',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-            // 'image_back' => 'required|image|mimes:jpeg,png,jpg,gif',
-
-
-        ]);
-
-           // Get the uploaded file from the request
-           $image = $request->file('image');
-        //    $image_back = $request->file('image_back');
-
-        
-           // Generate a unique filename for the uploaded image
-           $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-        //    $filename_back = uniqid() . '.' . $image_back->getClientOriginalExtension();
-
-       
-           // Move the uploaded file to a public directory
-           $image->move(public_path('images'), $filename);
-        //    $image_back->move(public_path('images'), $filename_back);
-
-           $license = License::firstOrNew(['users_id' => $attrs['id']]);
-           $license->license_number = $attrs['license_number'];
-           $license->expiration =  $attrs['expiration'];
-        //    $license->back_image = $filename_back;
-           $license->front_image = $filename;
-           $license->save();
-
-
-        return response([
-            'success' => true, 
-            'data' => $license, 
-        ],200);
+    public function upload_license(Request $request)
+    {
+        try {
+            $attrs = $request->validate([
+                'id' => 'required',
+                'license_number' => 'required|string',
+                'expiration' => 'string',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+                'image_back' => 'required|image|mimes:jpeg,png,jpg,gif',
+            ]);
+    
+            $image = $request->file('image');
+            $image_back = $request->file('image_back');
+    
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $filename_back = uniqid() . '.' . $image_back->getClientOriginalExtension();
+    
+            $image->storeAs('images', $filename);
+            $image_back->storeAs('images', $filename_back);
+    
+                $license = License::firstOrNew(['users_id' => $attrs['id']]);
+                $license->license_number = $attrs['license_number'];
+                $license->expiration = $attrs['expiration'];
+                $license->back_image = $filename_back;
+                $license->front_image = $filename;
+                $license->save();
+           
+    
+            return response([
+                'success' => true,
+                'data' => $license,
+            ], 200);
+        } catch (ValidationException $e) {
+            return response([
+                'success' => false,
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (Exception $e) {
+            return response([
+                'success' => false,
+                'message' => 'An error occurred.',
+            ], 500);
+        }
     }
+    
 
 
 
