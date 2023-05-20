@@ -9,6 +9,8 @@ use App\Models\reports;
 use App\Models\payment;
 use App\Models\tpclogs;
 use App\Models\License;
+use App\Models\tricycle;
+
 use DB;
 use Auth;
 
@@ -172,6 +174,30 @@ class AuthController extends Controller
 
         return response([
             'user'  => $license[0],
+        ],200);
+    }
+
+    public function verify_documents(Request $request){
+
+        $attrs= $request->validate([
+            'id'=>'required',
+        ]);
+
+        $user = User::find($attrs['id']);
+        $hasRequiredData = !empty($user->nationality) && !empty($user->image) && !empty($user->emergency_contact) && !empty($user->emergency_relationship) && !empty($user->emergency_number) && !empty($user->emergency_address);
+
+
+        $license = License::where('users_id', $attrs['id'])->exists();
+        $licenseDocuments = $license ? true : false;
+
+        $tricycle = tricycle::where('user_id',$attrs['id'])->exists();
+        $tricycleDocuments = $tricycle ? true : false;
+
+
+        return response([
+            'personal_information' => $hasRequiredData,
+            'license'  => $licenseDocuments,
+            'tricycle'  => $tricycleDocuments,
         ],200);
     }
 
