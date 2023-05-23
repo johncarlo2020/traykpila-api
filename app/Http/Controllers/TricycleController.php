@@ -63,13 +63,32 @@ class TricycleController extends Controller
         $attrs= $request->validate([
             'id'=>'required',
             'plate_number' => 'required',
+            'or' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'cr' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
+
+        $or = $request->file('or');
+        $cr = $request->file('cr');
+
+        
+        // Generate a unique filename for the uploaded or
+        $filename_or = uniqid() . '.' . $or->getClientOriginalExtension();
+        $filename_cr = uniqid() . '.' . $cr->getClientOriginalExtension();
+
+    
+        // Move the uploaded file to a public directory
+        $or->storeAs('images', $filename_or);
+        $cr->storeAs('images', $filename_cr);
+      
 
         $tricycle = tricycle::firstOrNew(['user_id' => $attrs['id']]);
         $tricycle->plate_number = $attrs['plate_number'];
+        $tricycle->cr = $filename_cr;
+        $tricycle->or = $filename_or;
         $tricycle->save();
 
         return response([
+            'success' => true, 
             'tricycle'  => $tricycle,
         ],200);
     }
