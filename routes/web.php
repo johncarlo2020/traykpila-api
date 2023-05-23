@@ -17,7 +17,12 @@ use App\Http\Controllers\ChartjsController;
 
 
 
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
+    Route::post('/login', [App\Http\Controllers\Auth\LoginController::class,'login']);
+});
 
 
 Route::get('/admin',[ChartjsController::class,'generaldetails'])->middleware('auth')->name('admin_dashboard');
@@ -58,16 +63,18 @@ Route::get('/admin/passenger_list/details', function () {
 });
 
 
-Route::get('login', function () {
-    return view('admin_dashboard');
-});
+// Route::get('/login', function () {
+//     return view('admin_dashboard');
+// });
 
 
 
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
+
+
 
 Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
