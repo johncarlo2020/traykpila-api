@@ -50,7 +50,7 @@ class AuthController extends Controller
         $item->tpcstatus = 0;
         $item->wallet = 0;
         $item->save();
-       
+
         $tpclogs = new tpclogs;
         $tpclogs->cashin = 0;
         $tpclogs->cashout=0;
@@ -67,7 +67,7 @@ class AuthController extends Controller
             'path' => $path
         ],200);
     }
-    
+
     public function upload_license(Request $request)
     {
         try {
@@ -78,24 +78,24 @@ class AuthController extends Controller
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif',
                 'image_back' => 'required|image|mimes:jpeg,png,jpg,gif',
             ]);
-    
+
             $image = $request->file('image');
             $image_back = $request->file('image_back');
-    
+
             $filename = uniqid() . '.' . $image->getClientOriginalExtension();
             $filename_back = uniqid() . '.' . $image_back->getClientOriginalExtension();
-    
+
             $image->storeAs('images', $filename);
             $image_back->storeAs('images', $filename_back);
-    
+
                 $license = License::firstOrNew(['users_id' => $attrs['id']]);
                 $license->license_number = $attrs['license_number'];
                 $license->expiration = $attrs['expiration'];
                 $license->back_image = $filename_back;
                 $license->front_image = $filename;
                 $license->save();
-           
-    
+
+
             return response([
                 'success' => true,
                 'data' => $license,
@@ -112,7 +112,24 @@ class AuthController extends Controller
             ], 500);
         }
     }
-    
+
+    public function get_license(Request $request){
+
+       $attrs = $request->validate([
+            'id' => 'required',
+        ]);
+
+        $license = License::where('users_id', $attrs['id'])->first();
+
+        if (!$license) {
+            return $license = null;
+        }
+
+        return response([
+            'user' => $license,
+        ], 200);
+    }
+
 
 
 
@@ -131,13 +148,13 @@ class AuthController extends Controller
 
            // Get the uploaded file from the request
            $image = $request->file('image');
-        
+
            // Generate a unique filename for the uploaded image
            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-       
+
            // Move the uploaded file to a public directory
            $image->storeAs('images', $filename);
-         
+
 
         $user = User::find($attrs['id']);
         $user->nationality = $attrs['nationality'];
@@ -165,17 +182,7 @@ class AuthController extends Controller
         ], 500);
     }
     }
-    public function get_license(Request $request){
 
-        $attrs= $request->validate([
-            'id'=>'required',
-        ]);
-        $license = License::where('users_id',$attrs['id'])->get();
-
-        return response([
-            'user'  => $license[0],
-        ],200);
-    }
 
     public function verify_documents(Request $request){
 
@@ -239,7 +246,7 @@ class AuthController extends Controller
             'user'  => $image,
             'token' => $image->createToken('secret')->plainTextToken,
         ],200);
-        
+
     }
 
     public function login(Request $request){
