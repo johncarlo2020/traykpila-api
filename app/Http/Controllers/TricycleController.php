@@ -98,10 +98,13 @@ class TricycleController extends Controller
         $attrs= $request->validate([
             'id'=>'required',
         ]);
-        $tricycle = tricycle::where('user_id',$attrs['id'])->get();
+        $tricycle = tricycle::where('user_id',$attrs['id'])->first();
+        if(!$tricycle){
+            return $tricycle = null;
+        }
 
         return response([
-            'user'  => $tricycle->first()
+            'user'  => $tricycle ,
         ],200);
     }
 }
