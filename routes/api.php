@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TerminalController;
 use App\Http\Controllers\TricycleController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PusherController;
+
 
 
 
@@ -32,6 +34,8 @@ Route::post('/get_personal_information',[AuthController::class,'get_personal_inf
 Route::post('/get_license',[AuthController::class,'get_license']);
 Route::post('/upload_license',[AuthController::class,'upload_license']);
 Route::post('/verify_documents',[AuthController::class,'verify_documents']);
+Route::post('/pusher',[PusherController::class,'triggerEvent']);
+
 
 
 
@@ -88,7 +92,7 @@ Route::post('/booking/details',[BookingController::class,'details']);
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/logout',[AuthController::class,'logout']);
     Route::post('/user',[AuthController::class,'user']);
-   
+
 
 });
 
