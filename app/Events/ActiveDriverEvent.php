@@ -35,6 +35,6 @@ class ActiveDriverEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('active-driver');
+        return new Channel('active-driver');
     }
 }
