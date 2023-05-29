@@ -34,7 +34,11 @@ Route::post('/get_personal_information',[AuthController::class,'get_personal_inf
 Route::post('/get_license',[AuthController::class,'get_license']);
 Route::post('/upload_license',[AuthController::class,'upload_license']);
 Route::post('/verify_documents',[AuthController::class,'verify_documents']);
+
+//events
 Route::post('/pusher',[PusherController::class,'triggerEvent']);
+Route::post('/activeDriver',[PusherController::class,'activeDriver']);
+
 
 
 
