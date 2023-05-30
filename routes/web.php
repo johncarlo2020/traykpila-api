@@ -22,6 +22,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::middleware('guest')->group(function () {
     Route::get('/login', [App\Http\Controllers\Auth\LoginController::class,'showLoginForm'])->name('login');
     Route::post('/login', [App\Http\Controllers\Auth\LoginController::class,'login']);
+
 });
 
 
@@ -70,7 +71,7 @@ Route::get('/admin/passenger_list/details', function () {
 
 
 
-// Auth::routes();
+Auth::routes();
 
 
 // Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
