@@ -19,14 +19,17 @@ class CreateBookingsTable extends Migration
             $table->foreign('driver_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('passenger_id')->unsigned()->index()->nullable();
             $table->foreign('passenger_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('tricycle_id')->unsigned()->index()->nullable();
-            $table->foreign('tricycle_id')->references('id')->on('tricycles')->onDelete('cascade');
             $table->string('passenger_lat');
             $table->string('passenger_lng');
+            $table->string('destination_lat');
+            $table->string('destination_lng');
             $table->string('driver_lat')->nullable();
             $table->string('driver_lng')->nullable();
+            $table->string('fare')->nullable();
+            $table->string('notes')->nullable();
             $table->string('passenger_count')->nullable();
-            $table->string('status')->comment('0=waiting,1=accepted,2=done');;
+            $table->string('payment_type')->comment('0=cash,1=tpl');
+            $table->string('status')->comment('0=waiting,1=accepted,2=done');
             $table->timestamps();
         });
     }

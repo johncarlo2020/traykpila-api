@@ -13,17 +13,17 @@ class booking extends Model
       protected $fillable = [
         'driver_id',
         'passenger_id',
-        'terminal_id',
-        'tricycle_id',
         'passenger_lat',
         'passenger_lng',
-        'passenger_location',
+        'destination_lat',
+        'destination_lng',
         'driver_lat',
         'driver_lng',
         'passenger_count',
+        'payment_type',
+        'notes',
         'status',
         'created_at',
-        'Destination'
-        
+
     ];
 }

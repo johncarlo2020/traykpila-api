@@ -37,6 +37,7 @@ Route::post('/verify_documents',[AuthController::class,'verify_documents']);
 
 //events
 Route::post('/pusher',[PusherController::class,'triggerEvent']);
+Route::post('/booking',[PusherController::class,'create']);
 Route::post('/activeDriver',[PusherController::class,'activeDriver']);
 
 
@@ -75,11 +76,11 @@ Route::post('/get_tricycle',[TricycleController::class,'get_tricycle']);
 Route::post('/user/count',[TerminalController::class,'UserCount']);
 Route::post('/driver/count',[TerminalController::class,'DriverCount']);
 
-Route::post('/booking',[BookingController::class,'index']);
-Route::post('/booking/passenger',[BookingController::class,'create']);
-Route::post('/booking/show',[BookingController::class,'show']);
-Route::post('/booking/approve',[BookingController::class,'approved']);
-Route::post('/booking/details',[BookingController::class,'details']);
+// Route::post('/booking',[BookingController::class,'index']);
+// Route::post('/booking/passenger',[BookingController::class,'create']);
+// Route::post('/booking/show',[BookingController::class,'show']);
+// Route::post('/booking/approve',[BookingController::class,'approved']);
+// Route::post('/booking/details',[BookingController::class,'details']);
 
 
 
