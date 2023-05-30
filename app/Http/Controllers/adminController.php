@@ -143,7 +143,6 @@ class adminController extends Controller
         $bookings = booking::select('bookings.*','u2.name AS passenger','payment.amount')
         ->join('users As u1', 'u1.id', '=', 'bookings.driver_id')
         ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
-        ->join('tricycles As t2', 't2.id', '=', 'bookings.tricycle_id')
         ->join('payment', 'bookings.id', '=', 'payment.bookings_id')
         ->where('bookings.driver_id',$id)
         ->get();
@@ -199,7 +198,6 @@ class adminController extends Controller
         ->join('users As u1', 'u1.id', '=', 'bookings.passenger_id')
         ->join('users As u2', 'u2.id', '=', 'bookings.driver_id')
         // ->join('users As u3', 'u3.id', '=', 't2.user_id')
-        ->join('tricycles As t2', 't2.id', '=', 'bookings.tricycle_id')
         ->join('payment', 'bookings.id', '=', 'payment.bookings_id')
         ->where('bookings.passenger_id',$id)
         ->get();
