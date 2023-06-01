@@ -44,16 +44,9 @@ class AuthController extends Controller
             'image'=>$path
         ]);
 
-        $item = new tpc;
-        $item->users_id = $user->id;
-        $item->tpcstatus = 0;
-        $item->wallet = 0;
-        $item->save();
-
 
         return response([
             'user'  => $user,
-            'item' => $item,
             'token' => $user->createToken('secret')->plainTextToken,
             'path' => $path
         ],200);

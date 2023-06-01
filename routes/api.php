@@ -38,6 +38,7 @@ Route::post('/verify_documents',[AuthController::class,'verify_documents']);
 //events
 Route::post('/pusher',[PusherController::class,'triggerEvent']);
 Route::post('/booking',[PusherController::class,'create']);
+Route::post('/deposit',[PusherController::class,'Deposit']);
 Route::post('/activeDriver',[PusherController::class,'activeDriver']);
 
 

@@ -10,6 +10,8 @@ use App\Models\reports;
 use App\Models\payment;
 use App\Models\reviews;
 use App\Models\License;
+use App\Models\tricycle;
+
 
 
 use Carbon\Carbon;
@@ -64,11 +66,11 @@ class adminController extends Controller
     }
 
     public function accounts(){
+        
         $users=User::where('role',1)
         ->join('tpc', 'tpc.users_id', '=', 'users.id')
         ->where('Verified',1)
         ->get();
-
         $count = $users->count();
 
         return view('driver_accounts',compact('users','count'));
@@ -88,10 +90,11 @@ class adminController extends Controller
     public function driver_details($id){
         $users=User::where('id',$id)->get();
 
-        $cashtpc = tpc::select('tpc.users_id as driver','tpc.wallet')
+        $cashtpc = tpc::select('tpc.users_id as driver')
         ->join('users','users.id','=','tpc.users_id')
         ->where('tpc.users_id',$id)
         ->get();
+       
 
         $driver = $cashtpc->pluck('driver');
 
@@ -102,16 +105,6 @@ class adminController extends Controller
 
 
 
-
-
-        $dates = $revenuedate;
-
-        $parsed_revenuedate = [];
-
-        foreach ($dates as $date) {
-        $parsed_revenuedate[] = Carbon::parse($date)->format('F d');
-
-        }
 
 
 
@@ -151,7 +144,7 @@ class adminController extends Controller
 
 
 
-        return view('driver_details',compact('users','bookings','parsedDates','count','total','cashtpc','driver','reviews','parsed_revenuedate','total_revenue'));
+        return view('driver_details',compact('users','bookings','parsedDates','count','total','cashtpc','driver','reviews'));
      }
 
 
@@ -161,7 +154,7 @@ class adminController extends Controller
     public function passengerdetails($id){
         $users=User::where('id',$id)->get();
         // $cashtpc=tpc::select('tpc.*','u1.name AS driver','SUM(tpc.farein)','SUM(tpc.cashin)','SUM(tpc.cashin) + SUM(tpc.farein) as total')
-        $cashtpc = tpc::select('tpc.users_id as passenger','tpc.wallet')
+        $cashtpc = tpc::select('tpc.users_id as passenger')
         ->join('users','users.id','=','tpc.users_id')
         ->where('tpc.users_id',$id)
         ->get();
@@ -256,8 +249,9 @@ class adminController extends Controller
 
         $users=User::where('id',$id)->get();
         $license = License::where('users_id',$id)->get();
+        $tricycle = tricycle::where('user_id',$id)->get();
 
-        return view('review_documents',compact('users','license'));
+        return view('review_documents',compact('users','license','tricycle'));
 
     }
 
@@ -268,6 +262,36 @@ class adminController extends Controller
         $item->save();
 
         return redirect('admin/drivers_accounts_notverified');
+    }
+
+    public function deposit_request(Request $request){
+        
+        $tpcs= Tpc::with('user')->where('status', 0)->get();
+       
+
+        return view('deposit_request',compact('tpcs'));
+
+    }
+
+    public function deposit_accept(Request $request){
+        
+        $id = $request->input('id');
+
+        $tpc = TPC::find($id);
+
+            if ($tpc) {
+                // Update the status
+                $tpc->status = 1;
+                $tpc->save();
+
+                // Return a success response
+                return response()->json(['message' => 'TPC status updated successfully']);
+            }
+
+            // Return an error response if the TPC was not found
+            return response()->json(['error' => 'TPC not found'], 404);  
+   
+
     }
 
 

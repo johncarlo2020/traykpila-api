@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use App\Events\PusherEvent;
 use App\Events\ActiveDriverEvent;
+use App\Events\DepositEvent;
 use App\Events\BookingEvent;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\tpc;
 use App\Models\booking;
 
 
@@ -33,6 +35,30 @@ class PusherController extends Controller
         return response()->json(['message' => $user]);
     }
 
+    public function Deposit(Request $request)
+    {
+
+        $image = $request->file('image');
+        $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->storeAs('images', $filename);
+
+
+        $tpc = tpc::create([
+            'users_id'              =>    $request->input('users_id'),
+            'amount'                =>    $request->input('amount'),
+            'account_number'        =>    $request->input('account_number'),
+            'account_name'          =>    $request->input('account_name'),
+            'reference_number'      =>    $request->input('reference_number'),
+            'image'                 =>    $filename,
+            'type'                  =>    0,
+            'status'                =>    0,
+        ]);
+
+        event(new DepositEvent($tpc));
+
+        return response()->json(['message' => $tpc]);
+    }
+
     public function create(Request $request)
     {
           $attrs= $request->validate([
@@ -46,7 +72,6 @@ class PusherController extends Controller
             'notes'=>'required',
             'status' => 'required',
         ]);
-
 
         $passenger = booking::create([
             'passenger_id'=>$attrs['passenger_id'],

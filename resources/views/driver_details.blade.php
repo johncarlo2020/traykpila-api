@@ -44,11 +44,9 @@ use Carbon\Carbon;
                             <li class="breadcrumb-item active">Phone Number: {{$users[0]->PhoneNumber}}  </li>
                             <li class="breadcrumb-item active">Address: {{$users[0]->address}}  </li>
                         </ol>
-                                @if ($tpcstatus = 0)
-                                    <h5 class="breadcrumb-item ">Account Status: Insufficient TPC</h5> 
-                                @else 
+                                
                                     <h5 class="">Account Status: Sufficient TPC</h5> 
-                                @endif
+                               
                                 <div class="row">
                                     
                                 <h5 class="col-md-6">TraykPila Coins: @if(!empty($cashtpc[0]) && isset($cashtpc[0]->wallet))
@@ -78,26 +76,7 @@ use Carbon\Carbon;
                             </div>
                             <div class="modal-body">
                                 
-                            <form action="{{ 'cash_out' }}/{{$driver[0]}}" method="POST">
-                            @csrf
-                                <div class="mb-3">
-                                    <p>Current TraykPila Coins: <h3 id="wallet">{{$cashtpc[0]->wallet}}</h3></p>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">Cash out Amount:</label>
-                                    <input type="number" name="cashout"class="form-control" min="0" max="300" id="amount" onkeyup=imposeMinMax(this)>
-                                    <div id="prompt" class="alert alert-danger mt-3" role="alert">
-                                        *Invalid Cash-out, please check your amount
-                                    </div>
-                                </div>
-                           
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                                <button id="submit_cashout"type="submit" class="btn btn-primary">Send Amount</button>
-                            </div>
-                            </div>
-                            </form>
+                        
                         </div>
                     </div>
 
@@ -111,24 +90,7 @@ use Carbon\Carbon;
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            
-                        <form action="{{ 'update_tpc' }}/{{$driver[0]}}" method="POST">
-                        @csrf
-                            <div class="mb-3">
-                                <p>Current TraykPila Coins: <h3>{{$cashtpc[0]->wallet}}</h3></p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">Load amount:</label>
-                                <input type="number" name="tpc"class="form-control" min="0" max="300" id="recipient-name" onkeyup=imposeMinMax(this)>
-                            </div>
-                            
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                            <button id="submit_topup"type="submit" class="btn btn-primary">Send Amount</button>
-                        </div>
-                        </div>
-                        </form>
+                    
                     </div>
                     </div>
                     <!-- Modal Report -->
@@ -392,54 +354,7 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart1");
-var myLineChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels:  {!! json_encode($parsed_revenuedate) !!},
-        datasets: [{
-            label: "Revenue",
-            lineTension: 0.3,
-            backgroundColor: "rgba(2,117,216,0.2)",
-            borderColor: "rgba(2,117,216,1)",
-            pointRadius: 5,
-            pointBackgroundColor: "rgba(2,117,216,1)",
-            pointBorderColor: "rgba(255,255,255,0.8)",
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(2,117,216,1)",
-            pointHitRadius: 50,
-            pointBorderWidth: 2,
-            data:  [ {!! json_encode($total_revenue) !!}],
-        }],
-    },
-    options: {
-        scales: {
-            xAxes: [{
-                time: {
-                    unit: 'date'
-                },
-                gridLines: {
-                    display: false
-                },
-                ticks: {
-                    maxTicksLimit: 7
-                }
-            }],
-            yAxes: [{
-                ticks: {
-                    min: 0,
-                    max: 100,
-                    maxTicksLimit: 10
-                },
-                gridLines: {
-                    color: "rgba(0, 0, 0, .125)",
-                }
-            }],
-        },
-        legend: {
-            display: false
-        }
-    }
-});
+
 </script>
 
 <script>
