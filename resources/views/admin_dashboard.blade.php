@@ -34,7 +34,7 @@ use Carbon\Carbon;
                 <div class="container-fluid px-4">
 
 
-                    <div class="chart-container">   
+                    <div class="chart-container">
                         <h3 class="mt-4">Bookings</h3>
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #15b4ac;">
@@ -45,7 +45,7 @@ use Carbon\Carbon;
                                         <canvas id="myBarChart1" width="100%" height="40"></canvas>
                                     </div>
                                 </div>
-                            </div>                      
+                            </div>
                     </div>
 
 
@@ -84,18 +84,18 @@ use Carbon\Carbon;
                                     </div>
                                     <div class="card-body ">
                                    <div class="d-flex justify-content-around ">
-                                    <h4 class="text-primary"> TOTAL CURRENT CIRCULLATING TPC: <span class="text-success">{{$circullating_tpc->SUM('cashin')-$circullating_tpc_cashout->SUM('cashout')}}</h4>
-                                    <!-- <h4 class="text-primary"> TOTAL TOP-UP TPC: <span class="text-success">{{$circullating_tpc->SUM('cashin')}}</h4> -->
-                                
-                                    <h4 class="text-primary"> TOTAL CASH OUT TPC: <span class="text-danger">-{{$circullating_tpc_cashout->SUM('cashout')}}</h4>
-                                  
+                                    <h4 class="text-primary"> TOTAL CURRENT CIRCULLATING TPC: <span class="text-success"></h4>
+                                    <!-- <h4 class="text-primary"> TOTAL TOP-UP TPC: <span class="text-success"></h4> -->
+
+                                    <h4 class="text-primary"> TOTAL CASH OUT TPC: <span class="text-danger">-</h4>
+
                                    </div>
                                          <canvas id="myChart"></canvas>
 
                                     </div>
                                 </div>
-                            
-                            </div>   
+
+                            </div>
                             <div class="chart-container">
                             <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: green;">
@@ -106,15 +106,15 @@ use Carbon\Carbon;
                                       <canvas id="myPieChart"></canvas>
                                     </div>
                                 </div>
-                            
-                            </div>   
-                               
+
+                            </div>
+
                         </div>
                     </div>
 
-                        
-                          
-                   
+
+
+
 
             <!-- GENERAL BOOKING LISTS -->
                     <div class="container-fluid px-4">
@@ -140,7 +140,7 @@ use Carbon\Carbon;
                                         </tr>
                                     </thead>
 
-                   
+
                                     <tbody>
                                     @foreach ($bookings as $booking)
                                         <tr>
@@ -156,9 +156,9 @@ use Carbon\Carbon;
                                             @else
                                             <td>Success</td>
                                             @endif
-                                   
+
                                             <td>{{$booking->amount}}</td>
-                                     
+
                                             <td>5.00</td>
                                         </tr>
                                      @endforeach
@@ -188,7 +188,7 @@ use Carbon\Carbon;
 </html>
         <script src="https://code.jscharting.com/latest/jscharting.js"></script>
 
-    
+
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.min.js"></script>
@@ -213,7 +213,7 @@ var myDoughnutChart = new Chart(ctx, {
   data: {
     labels: {!! json_encode($minutes) !!},
     datasets: [{
-   
+
       data:{!! json_encode($user_counter) !!} ,
       backgroundColor: ['#dc3545','#ffc107','#007bff','#28a745'],
     }],
@@ -270,7 +270,7 @@ var myLineChart = new Chart(ctx, {
                     min: 0,
                     max: 100,
                     maxTicksLimit: 10
-                    
+
                 },
                 gridLines: {
                     color: "rgba(0, 0, 0, .125)",
@@ -409,37 +409,7 @@ var myLineChart = new Chart(ctx, {
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');
 
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: {!! json_encode($top_up_day_parsedDates) !!},
-        datasets: [{
-            label: 'Top-Ups',
-            data: {!! json_encode($total_tpc) !!},
-            backgroundColor: '#7eff84',
-            borderColor: '#002709',
-            borderWidth: 1
-        }, {
-            label: 'Cash Out',
-            data:{!! json_encode($totalcashout) !!},
-            backgroundColor: '#Ff3a3a',
-            borderColor: '#F30202',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                min: -100,
-                max: 100,
-                title: {
-                    display: true,
-                    text: 'Y-Axis Label'
-                }
-            }
-        }
-    }
-});
+
 
 </script>
 

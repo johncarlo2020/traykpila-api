@@ -13,12 +13,15 @@ class AddTpcLogs extends Migration
      */
     public function up()
     {
-        Schema::create('tpclogs', function (Blueprint $table) {
+        Schema::create('tpc', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('cashin');
-            $table->bigInteger('cashout');
-            $table->bigInteger('farein');
-            $table->bigInteger('fareout');
+            $table->string('amount');
+            $table->string('account_number');
+            $table->string('account_name');
+            $table->string('reference_number');
+            $table->string('image');
+            $table->string('type')->comment('0=deposit,1=withdraw');
+            $table->string('status')->comment('0=pending,1=approved,2=rejected');
             $table->timestamps();
         });
     }

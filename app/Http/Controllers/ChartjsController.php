@@ -7,7 +7,6 @@ use App\Models\tpc;
 use App\Models\User;
 use App\Models\reports;
 use App\Models\payment;
-use App\Models\tpclogs;
 use App\Models\reviews;
 
 
@@ -17,8 +16,6 @@ use Carbon\Carbon;
 class ChartjsController extends Controller
 {
 
-
-    // ADMIN DASHBOARD
 public function generaldetails(){
 
     $bookings = booking::select('bookings.*','u1.name AS driver','u2.name AS passenger','payment.amount')
@@ -86,38 +83,13 @@ public function generaldetails(){
 
 
 
-    $total_tpc = tpclogs::select(tpclogs::raw('DATE(created_at) as top_up_day'), tpclogs::raw('SUM(cashin) as total_tpc'))
-    ->groupBy('top_up_day')
-    ->get();
 
 
-    $top_up_day = $total_tpc->pluck('top_up_day');
-    $total_tpc = $total_tpc->pluck('total_tpc');
-
-
-    $cashout = tpclogs::select(tpclogs::raw('DATE(created_at) as cashout_day'), tpclogs::raw('SUM(cashout) as cashout'))
-    ->groupBy('cashout_day')
-    ->get();
-
-    $daysofcashout = $cashout->pluck('cashout_day');
-    $totalcashout = $cashout->pluck('cashout');
-
-
-
-
-    $dates = $top_up_day;
     $top_up_day_parsedDates = [];
 
     foreach ($dates as $date) {
     $top_up_day_parsedDates[] = Carbon::parse($date)->format('F d');
     }
-
-    //TOTAL LABELS
-    $circullating_tpc = tpclogs::select(tpclogs::raw('cashin'))
-    ->get();
-
-    $circullating_tpc_cashout = tpclogs::select(tpclogs::raw('cashout'))
-    ->get();
 
 
 
@@ -163,16 +135,10 @@ public function generaldetails(){
     'total_bookings_day_parsedDates'=> $total_bookings_day_parsedDates,
     'total_bookings_count'=>$total_bookings_count,
     'top_up_day_parsedDates'=>$top_up_day_parsedDates,
-    'total_tpc'=>$total_tpc,
-    'cashout'=>$cashout,
-    'circullating_tpc'=>$circullating_tpc,
     'total_passenger_registered'=>$total_passenger_registered,
     'total_driver_registered'=>$total_driver_registered,
     'minutes'=>$minutes,
     'user_counter'=>$user_counter,
-    'daysofcashout'=>$daysofcashout,
-    'totalcashout'=>$totalcashout,
-    'circullating_tpc_cashout'=>$circullating_tpc_cashout
 
     ]);
 
