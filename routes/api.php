@@ -95,6 +95,7 @@ Route::post('/driver/count',[TerminalController::class,'DriverCount']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function(){
+
     Route::post('/logout',[AuthController::class,'logout']);
     Route::post('/user',[AuthController::class,'user']);
 
