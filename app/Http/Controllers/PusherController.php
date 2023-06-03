@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\tpc;
 use App\Models\booking;
+use App\Models\tricycle;
 
 
 class PusherController extends Controller
@@ -74,7 +75,7 @@ class PusherController extends Controller
             'notes'=>'required',
             'status' => 'required',
         ]);
-        $passenger = booking::create([
+        $booking = booking::create([
             'passenger_id'=>$attrs['passenger_id'],
             'passenger_lat'=>$attrs['passenger_lat'],
             'passenger_lng'=>$attrs['passenger_lng'],
@@ -85,17 +86,27 @@ class PusherController extends Controller
             'notes'=> $attrs['notes'],
             'status' =>$attrs['status'],
         ]);
-        event(new BookingEvent($passenger));
-        return response()->json(['booking' => $passenger]);
+
+       
+
+        return response()->json(['booking' => $booking]);
     }
 
     public function bookingList(){
         $booking = booking::where('status',1)->get();
 
+        foreach ($booking as $key => $value) {
+            $passenger = User::find($value->passenger_id);
+            $value->passenger = $passenger;
+            if($value->driver_id != null){
+                $driver = User::find($value->driver_id);
+                $tricyle = tricycle::where('user_id',$value->driver_id)->get();
+                $value->driver = $driver;
+                $value->driver->tricycle=$tricyle;
+            }
+        }
         event(new BookingListEvent($booking));
-
         return response()->json(['booking' => $booking]);
-
     }
 
     
