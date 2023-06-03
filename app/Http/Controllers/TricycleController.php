@@ -84,7 +84,7 @@ class TricycleController extends Controller
         // Move the uploaded file to a public directory
         $or->storeAs('images', $filename_or);
         $cr->storeAs('images', $filename_cr);
-        $image->storeAs('images', $image);
+        $image->storeAs('images', $filename_image);
 
       
 
