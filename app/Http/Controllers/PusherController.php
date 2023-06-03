@@ -5,6 +5,8 @@ use App\Events\PusherEvent;
 use App\Events\ActiveDriverEvent;
 use App\Events\DepositEvent;
 use App\Events\BookingEvent;
+use App\Events\BookingListEvent;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\tpc;
@@ -72,7 +74,6 @@ class PusherController extends Controller
             'notes'=>'required',
             'status' => 'required',
         ]);
-
         $passenger = booking::create([
             'passenger_id'=>$attrs['passenger_id'],
             'passenger_lat'=>$attrs['passenger_lat'],
@@ -84,11 +85,18 @@ class PusherController extends Controller
             'notes'=> $attrs['notes'],
             'status' =>$attrs['status'],
         ]);
-
         event(new BookingEvent($passenger));
-
-
         return response()->json(['booking' => $passenger]);
+    }
+
+    public function bookingList(){
+        $booking = booking::where('status',1)->get();
+
+        event(new BookingListEvent($booking));
+
+        return response()->json(['booking' => $booking]);
 
     }
+
+    
 }

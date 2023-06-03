@@ -40,6 +40,7 @@ Route::post('/pusher',[PusherController::class,'triggerEvent']);
 Route::post('/booking',[PusherController::class,'create']);
 Route::post('/deposit',[PusherController::class,'Deposit']);
 Route::post('/activeDriver',[PusherController::class,'activeDriver']);
+Route::post('/bookingList',[PusherController::class,'bookingList']);
 
 
 
@@ -98,7 +99,5 @@ Route::post('/driver/count',[TerminalController::class,'DriverCount']);
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/logout',[AuthController::class,'logout']);
     Route::post('/user',[AuthController::class,'user']);
-
-
 });
 
