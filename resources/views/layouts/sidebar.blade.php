@@ -54,6 +54,12 @@
                                 Driver Accounts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapsed {{ (request()->routeIs('tryk_drivers_accounts') ? 'show' : '') }} || {{ (request()->routeIs('tryk_drivers_accounts') ? 'show' : '') }}" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts') ? 'active' : '') }}" href="{{route('tryk_drivers_accounts')}}">Verified Drivers</a>
+                                    <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts_notverified') ? 'active' : '') }}" href="{{route('tryk_drivers_accounts_notverified')}}">Not Verified Drivers</a>
+                                </nav>
+                            </div>
                         
 
                             <!-- Passenger -->
