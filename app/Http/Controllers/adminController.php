@@ -11,6 +11,7 @@ use App\Models\payment;
 use App\Models\reviews;
 use App\Models\License;
 use App\Models\tricycle;
+use App\Events\DepositEvent;
 
 
 
@@ -287,6 +288,7 @@ class adminController extends Controller
                 $user->save();
                 $tpc->save();
                 $user->tpc=$tpc;
+                event(new DepositAcceptEvent($user));
                 
 
                 // Return a success response
