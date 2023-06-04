@@ -32,8 +32,20 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link {{ (request()->routeIs('tryk_drivers') || request()->routeIs('driver_details') ? 'active' : '') }}" href="{{route('tryk_drivers')}}">Tricycle Drivers </a>
                                     <a class="nav-link {{ (request()->routeIs('passenger_details') ? 'active' : '') }}" href="{{route('passenger_details')}}">Passengers</a>
-                                    
                                 </nav>
+
+                            <div class="sb-sidenav-menu-heading">Transactions</div>
+                                <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Deposit
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapsed1" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link {{ (request()->routeIs('deposit_request') ? 'active' : '') }}" href="{{route('deposit_request')}}">Request</a>
+                                </nav>
+                            </div>
+                                
 
                             <div class="sb-sidenav-menu-heading">Accounts</div>
                             <!-- Drivers -->
@@ -48,6 +60,7 @@
                                     <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts_notverified') ? 'active' : '') }}" href="{{route('tryk_drivers_accounts_notverified')}}">Not Verified Drivers</a>
                                 </nav>
                             </div>
+                        
 
                             <!-- Passenger -->
                             <a class="nav-link {{ (request()->routeIs('tryk_drivers_accounts') ? '' : 'collapsed') }}" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">

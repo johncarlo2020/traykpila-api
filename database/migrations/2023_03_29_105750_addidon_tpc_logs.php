@@ -14,8 +14,8 @@ class AddidonTpcLogs extends Migration
     public function up()
     {
         Schema::table('tpc', function (Blueprint $table) {
-            $table->bigInteger('tpc_id')->unsigned()->index()->nullable();
-            $table->foreign('tpc_id')->references('id')->on('tpc');
+            $table->bigInteger('users_id')->unsigned()->index()->nullable();
+            $table->foreign('users_id')->references('id')->on('users');
 
         });
     }

@@ -11,9 +11,20 @@ class tpc extends Model
 
       protected $fillable = [
         'id',
-        'tpcstatus',
-        'wallet'
-        
-  
+        'amount',
+        'account_number',
+        'account_name',
+        'reference_number',
+        'image',
+        'type',
+        'status',
+        'users_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'users_id');
+    }
+
+
 }

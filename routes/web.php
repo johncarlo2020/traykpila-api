@@ -32,10 +32,15 @@ Route::get('/admin/reported_drivers',[adminController::class,'reported_drivers']
 Route::get('/admin/reported_passengers',[adminController::class,'reported_passengers'])->middleware('auth')->name('reported_passengers');
 Route::get('/admin/tricycle_drivers',[adminController::class,'drivers'])->middleware('auth')->name('tryk_drivers');
 Route::get('/admin/drivers_accounts',[adminController::class,'accounts'])->middleware('auth')->name('tryk_drivers_accounts');
+
 Route::get('/admin/drivers_accounts_notverified',[adminController::class,'notverified'])->middleware('auth')->name('tryk_drivers_accounts_notverified');
 // Route::get('/admin',[adminController::class,'generaldetails'])->name('general');
 Route::get('/admin/tricycle_drivers/details/{id}',[adminController::class,'driver_details'])->middleware('auth')->name('driver_details');
 Route::post('/admin/tricycle_drivers/details/update_tpc/{id}',[adminController::class,'update_tpc'])->name('update_tpc');
+
+Route::get('/admin/deposit_request',[adminController::class,'deposit_request'])->middleware('auth')->name('deposit_request');
+Route::post('/change-tpc-status', [adminController::class,'deposit_accept'])->name('tpc.change-status');
+
 
 
 Route::post('verify_driver/{id}', [adminController::class,'verify_driver'])->name('verify_driver');

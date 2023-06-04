@@ -17,7 +17,9 @@ class CreateTricyclesTable extends Migration
             $table->id();
             $table->string('or');
             $table->string('cr');
+            $table->string('image');
             $table->string('plate_number');
+            $table->string('body_number');
             $table->bigInteger('user_id')->unsigned()->index()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
