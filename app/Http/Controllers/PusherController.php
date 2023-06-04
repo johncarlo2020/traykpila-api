@@ -7,6 +7,8 @@ use App\Events\DepositEvent;
 use App\Events\BookingEvent;
 use App\Events\BookingListEvent;
 use App\Events\BookingDriverAccepted;
+use App\Events\BookingDriverOngoing;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\tpc;
@@ -131,8 +133,8 @@ class PusherController extends Controller
 
         $details = [
             'booking' => $booking,
-            'driver' => User::findOrFail($attrs['driver_id']),
-            'tricycle' => Tricycle::where('user_id', $attrs['driver_id'])->firstOrFail()
+            'driver' => User::findOrFail($booking->driver_id ),
+            'tricycle' => Tricycle::where('user_id', $booking->driver_id )->firstOrFail()
         ];
 
         event(new BookingDriverOngoing($details));
