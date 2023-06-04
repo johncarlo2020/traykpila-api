@@ -15,6 +15,7 @@ class DepositEvent implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $data;
+    public $user;
 
 
     /**
@@ -22,9 +23,11 @@ class DepositEvent implements ShouldBroadcast
      *
      * @return void
      */
-     public function __construct($data)
+     public function __construct($data,$user)
     {
         $this->data = $data;
+        $this->user = $user;
+
     }
 
     /**

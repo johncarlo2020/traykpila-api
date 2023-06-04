@@ -289,7 +289,7 @@ class adminController extends Controller
                 $tpc->save();
                 $user->tpc=$tpc;
                 
-                event(new DepositEvent($tpc));
+                event(new DepositEvent($tpc,$user));
 
                 
 
