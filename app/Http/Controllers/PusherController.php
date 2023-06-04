@@ -96,7 +96,7 @@ class PusherController extends Controller
         $attrs = $request->validate([
             'driver_id' => 'required|integer',
             'booking_id' => 'required|integer',
-            'fare' => 'required|numeric',
+            'fare' => 'required',
             'driver_lat' => 'required',
             'driver_lng' => 'required'
         ]);
