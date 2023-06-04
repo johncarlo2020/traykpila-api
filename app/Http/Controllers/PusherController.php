@@ -40,7 +40,6 @@ class PusherController extends Controller
 
     public function Deposit(Request $request)
     {
-
         $image = $request->file('image');
         $filename = uniqid() . '.' . $image->getClientOriginalExtension();
         $image->storeAs('images', $filename);
@@ -86,7 +85,7 @@ class PusherController extends Controller
         ]);
 
         event(new BookingEvent($booking));
-       
+
 
         return response()->json(['booking' => $booking]);
     }
@@ -100,7 +99,7 @@ class PusherController extends Controller
             'driver_lat' => 'required',
             'driver_lng' => 'required'
         ]);
-        
+
         $booking = Booking::find($attrs['booking_id']);
         $booking->driver_id         = $attrs['driver_id'];
         $booking->fare              = $attrs['fare'];
@@ -109,25 +108,36 @@ class PusherController extends Controller
         $booking->status            = 1;
         $booking->save();
 
-        // $booking->fill([
-        //     'driver_id' => $attrs['driver_id'],
-        //     'fare' => $attrs['fare'],
-        //     'driver_lat' => $attrs['driver_lat'],
-        //     'driver_lng' => $attrs['driver_lng'],
-        //     'status' => 1
-        // ])->save();
-        
         $details = [
             'booking' => $booking,
             'driver' => User::findOrFail($attrs['driver_id']),
             'tricycle' => Tricycle::where('user_id', $attrs['driver_id'])->firstOrFail()
         ];
-        
+
         event(new BookingDriverAccepted($details));
 
         return response()->json(['booking' => $booking]);
+    }
 
-        
+    public function BookingDriverOngoing(Request $request)
+    {
+        $attrs = $request->validate([
+            'booking_id' => 'required|integer',
+        ]);
+
+        $booking = Booking::find($attrs['booking_id']);
+        $booking->status            = 2;
+        $booking->save();
+
+        $details = [
+            'booking' => $booking,
+            'driver' => User::findOrFail($attrs['driver_id']),
+            'tricycle' => Tricycle::where('user_id', $attrs['driver_id'])->firstOrFail()
+        ];
+
+        event(new BookingDriverOngoing($details));
+
+        return response()->json(['booking' => $booking]);
     }
 
     public function bookingList(){
@@ -147,5 +157,5 @@ class PusherController extends Controller
         return response()->json(['booking' => $booking]);
     }
 
-    
+
 }
