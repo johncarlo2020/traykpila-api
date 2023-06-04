@@ -93,19 +93,30 @@ class PusherController extends Controller
 
     public function BookingDriverAccept(Request $request)
     {
-        $attrs= $request->validate([
-            'driver_id'=>'required',
-            'booking_id' => 'required',
-            'fare' => 'required'
+        $attrs = $request->validate([
+            'driver_id' => 'required|integer',
+            'booking_id' => 'required|integer',
+            'fare' => 'required|numeric',
+            'driver_lat' => 'required',
+            'driver_lng' => 'required'
         ]);
-
-        $booking = booking::find($attrs['booking_id']);
-        $booking->driver_id=$attrs['driver_id'];
-        $booking->fare=$attrs['fare'];
-        $booking->status = 1;
-        $booking->save();
-
-        event(new BookingDriverAccepted($booking));
+        
+        $booking = Booking::findOrFail($attrs['booking_id']);
+        $booking->fill([
+            'driver_id' => $attrs['driver_id'],
+            'fare' => $attrs['fare'],
+            'driver_lat' => $attrs['driver_lat'],
+            'driver_lng' => $attrs['driver_lng'],
+            'status' => 1
+        ])->save();
+        
+        $details = [
+            'booking' => $booking,
+            'driver' => User::findOrFail($attrs['driver_id']),
+            'tricycle' => Tricycle::where('user_id', $attrs['driver_id'])->firstOrFail()
+        ];
+        
+        event(new BookingDriverAccepted($details));
 
         return response()->json(['booking' => $booking]);
 
