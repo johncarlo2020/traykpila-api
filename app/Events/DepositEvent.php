@@ -34,6 +34,6 @@ class DepositEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('deposit');
+        return new Channel('deposit');
     }
 }

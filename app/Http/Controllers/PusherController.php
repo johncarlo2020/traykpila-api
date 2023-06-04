@@ -87,6 +87,7 @@ class PusherController extends Controller
             'status' =>$attrs['status'],
         ]);
 
+        event(new BookingEvent($booking));
        
 
         return response()->json(['booking' => $booking]);

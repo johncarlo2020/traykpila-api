@@ -13,6 +13,7 @@ use Illuminate\Queue\SerializesModels;
 class DepositAcceptEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    
     public $data;
 
     /**
