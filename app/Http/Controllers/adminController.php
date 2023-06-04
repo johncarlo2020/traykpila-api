@@ -282,10 +282,15 @@ class adminController extends Controller
             if ($tpc) {
                 // Update the status
                 $tpc->status = 1;
+                $user=User::find($request->input('user_id'));
+                $user->balance+=$tpc->amount;
+                $user->save();
                 $tpc->save();
+                $user->tpc=$tpc;
+                
 
                 // Return a success response
-                return response()->json(['message' => 'TPC status updated successfully']);
+                return response()->json(['message' => 'TPC status updated successfully','data'=>$user]);
             }
 
             // Return an error response if the TPC was not found

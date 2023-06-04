@@ -62,6 +62,7 @@
                                                  <button class="btn btn-success accept-btn" 
                                                  data-id="{{$tpc->id}}" 
                                                  data-name="{{$tpc->user->email}}" 
+                                                 data-user-id="{{$tpc->user->id}}" 
                                                  data-amount="{{$tpc->amount}}" 
                                                  data-account-name="{{$tpc->account_name}}" 
                                                  data-account-number="{{$tpc->account_number}}" 
@@ -129,6 +130,8 @@
             var accountNumber = $(this).data('account-number');
             var referenceNumber = $(this).data('reference-number');
             var id = $(this).data('id');
+            var user_id = $(this).data('user-id');
+
 
             
 
@@ -139,6 +142,8 @@
             $('#modal-account-number').text(accountNumber);
             $('#modal-reference-number').text(referenceNumber);
             $('#confirmBtn').attr('data-id',id);
+            $('#confirmBtn').attr('data-user-id',user_id);
+
 
             
 
@@ -149,13 +154,16 @@
         // Handle confirm button click
         $('#confirmBtn').click(function() {
             var id = $(this).data('id');
+            var user_id = $(this).data('user-id');
+
             var token = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     url: '{{ route("tpc.change-status") }}', // Replace with the actual URL to your server-side route or endpoint
                     method: 'POST', // Use the appropriate HTTP method (e.g., POST, GET, etc.)
                     data: {
                         id: id,
-                        status: 1 // Update the status value as per your requirements
+                        status: 1,
+                        user_id:user_id // Update the status value as per your requirements
                     },
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include the CSRF token in the request headers
