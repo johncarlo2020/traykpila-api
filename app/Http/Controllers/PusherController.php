@@ -101,14 +101,21 @@ class PusherController extends Controller
             'driver_lng' => 'required'
         ]);
         
-        $booking = Booking::findOrFail($attrs['booking_id']);
-        $booking->fill([
-            'driver_id' => $attrs['driver_id'],
-            'fare' => $attrs['fare'],
-            'driver_lat' => $attrs['driver_lat'],
-            'driver_lng' => $attrs['driver_lng'],
-            'status' => 1
-        ])->save();
+        $booking = Booking::find($attrs['booking_id']);
+        $booking->driver_id         = $attrs['driver_id'];
+        $booking->fare              = $attrs['fare'];
+        $booking->driver_lat        = $attrs['driver_lat'];
+        $booking->driver_lng        = $attrs['driver_lng'];
+        $booking->status            = 1;
+        $booking->save();
+
+        // $booking->fill([
+        //     'driver_id' => $attrs['driver_id'],
+        //     'fare' => $attrs['fare'],
+        //     'driver_lat' => $attrs['driver_lat'],
+        //     'driver_lng' => $attrs['driver_lng'],
+        //     'status' => 1
+        // ])->save();
         
         $details = [
             'booking' => $booking,
