@@ -57,7 +57,6 @@ class PusherController extends Controller
             'status'                =>    0,
         ]);
 
-        event(new DepositEvent($tpc));
 
         return response()->json(['message' => $tpc]);
     }

@@ -288,7 +288,9 @@ class adminController extends Controller
                 $user->save();
                 $tpc->save();
                 $user->tpc=$tpc;
-                event(new DepositAcceptEvent($user));
+                
+                event(new DepositEvent($tpc));
+
                 
 
                 // Return a success response
