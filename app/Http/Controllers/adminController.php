@@ -67,9 +67,8 @@ class adminController extends Controller
     }
 
     public function accounts(){
-        
+
         $users=User::where('role',1)
-        ->join('tpc', 'tpc.users_id', '=', 'users.id')
         ->where('Verified',1)
         ->get();
         $count = $users->count();
@@ -95,7 +94,7 @@ class adminController extends Controller
         ->join('users','users.id','=','tpc.users_id')
         ->where('tpc.users_id',$id)
         ->get();
-       
+
 
         $driver = $cashtpc->pluck('driver');
 
@@ -266,16 +265,16 @@ class adminController extends Controller
     }
 
     public function deposit_request(Request $request){
-        
+
         $tpcs= Tpc::with('user')->where('status', 0)->get();
-       
+
 
         return view('deposit_request',compact('tpcs'));
 
     }
 
     public function deposit_accept(Request $request){
-        
+
         $id = $request->input('id');
 
         $tpc = TPC::find($id);
@@ -288,18 +287,18 @@ class adminController extends Controller
                 $user->save();
                 $tpc->save();
                 $user->tpc=$tpc;
-                
+
                 event(new DepositEvent($tpc,$user));
 
-                
+
 
                 // Return a success response
                 return response()->json(['message' => 'TPC status updated successfully','data'=>$user]);
             }
 
             // Return an error response if the TPC was not found
-            return response()->json(['error' => 'TPC not found'], 404);  
-   
+            return response()->json(['error' => 'TPC not found'], 404);
+
 
     }
 
