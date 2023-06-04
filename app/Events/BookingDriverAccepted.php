@@ -10,23 +10,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class DepositAcceptEvent implements ShouldBroadcast
+class BookingDriverAccepted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $data;
-    public $user;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($data,$user)
+    public function __construct($data)
     {
         $this->data = $data;
-        $this->user = $user;
-
     }
 
     /**
@@ -36,6 +33,6 @@ class DepositAcceptEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('deposit-accept');
+        return new Channel('booking-accepted');
     }
 }

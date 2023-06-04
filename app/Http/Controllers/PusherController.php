@@ -6,7 +6,7 @@ use App\Events\ActiveDriverEvent;
 use App\Events\DepositEvent;
 use App\Events\BookingEvent;
 use App\Events\BookingListEvent;
-
+use App\Events\BookingDriverAccepted;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\tpc;
@@ -71,8 +71,7 @@ class PusherController extends Controller
             'destination_lng'=>'required',
             'passenger_count'=>'required',
             'payment_type'=>'required',
-            'notes'=>'required',
-            'status' => 'required',
+            'notes'=>'',
         ]);
         $booking = booking::create([
             'passenger_id'=>$attrs['passenger_id'],
@@ -83,7 +82,7 @@ class PusherController extends Controller
             'payment_type'=>$attrs['payment_type'],
             'passenger_count'=> $attrs['passenger_count'],
             'notes'=> $attrs['notes'],
-            'status' =>$attrs['status'],
+            'status' =>0,
         ]);
 
         event(new BookingEvent($booking));
@@ -92,8 +91,27 @@ class PusherController extends Controller
         return response()->json(['booking' => $booking]);
     }
 
+    public function BookingDriverAccept(Request $request)
+    {
+        $attrs= $request->validate([
+            'driver_id'=>'required',
+            'booking_id' => 'required'
+        ]);
+
+        $booking = booking::find($attrs['booking_id']);
+        $booking->driver_id=$attrs['driver_id'];
+        $booking->status = 1;
+        $booking->save();
+
+        event(new BookingDriverAccepted($booking));
+
+        return response()->json(['booking' => $booking]);
+
+        
+    }
+
     public function bookingList(){
-        $booking = booking::where('status',1)->get();
+        $booking = booking::where('status',0)->get();
 
         foreach ($booking as $key => $value) {
             $passenger = User::find($value->passenger_id);
