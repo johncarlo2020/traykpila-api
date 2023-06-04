@@ -95,11 +95,13 @@ class PusherController extends Controller
     {
         $attrs= $request->validate([
             'driver_id'=>'required',
-            'booking_id' => 'required'
+            'booking_id' => 'required',
+            'fare' => 'required'
         ]);
 
         $booking = booking::find($attrs['booking_id']);
         $booking->driver_id=$attrs['driver_id'];
+        $booking->fare=$attrs['fare'];
         $booking->status = 1;
         $booking->save();
 
