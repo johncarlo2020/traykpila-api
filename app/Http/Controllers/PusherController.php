@@ -113,12 +113,12 @@ class PusherController extends Controller
         $details = [
             'booking' => $booking,
             'driver' => User::find($attrs['driver_id']),
-            'tricycle' => Tricycle::where('user_id', $attrs['driver_id'])->get()
+            'tricycle' => tricycle::where('user_id', $attrs['driver_id'])->get()
         ];
 
         event(new BookingDriverAccepted($details));
 
-        return response()->json(['booking' => $booking]);
+        return response()->json(['booking' => $details]);
     }
 
     public function BookingDriverOngoing(Request $request)
@@ -138,7 +138,7 @@ class PusherController extends Controller
         ];
 
         event(new BookingDriverOngoing($details));
-        return response()->json(['booking' => $booking]);
+        return response()->json(['booking' => $details]);
     }
 
     public function bookingList(){
