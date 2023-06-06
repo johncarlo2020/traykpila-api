@@ -128,7 +128,6 @@ class AuthController extends Controller
             'emergency_number'=>'String',
             'emergency_address'=>'String',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-
         ]);
 
            // Get the uploaded file from the request
@@ -138,7 +137,7 @@ class AuthController extends Controller
            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
 
            // Move the uploaded file to a public directory
-           $image->storeAs('images', $filename);
+           $image->move(public_path('images'), $filename);
 
 
         $user = User::find($attrs['id']);
