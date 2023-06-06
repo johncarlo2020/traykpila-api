@@ -119,7 +119,7 @@ class AuthController extends Controller
 
 
     public function personal_information(Request $request){
-        try {
+       
         $attrs= $request->validate([
             'id'=>'required',
             'nationality' => 'required',
@@ -137,10 +137,10 @@ class AuthController extends Controller
            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
 
            // Move the uploaded file to a public directory
-           $image->move(public_path('images'), $filename);
+           $image->storeAs('images', $filename);
 
 
-        $user = User::find($attrs['id']);
+        $user = User::firstOrNew($attrs['id']);
         $user->nationality = $attrs['nationality'];
         $user->emergency_contact = $attrs['emergency_name'];
         $user->emergency_relationship = $attrs['emergency_relationship'];
@@ -154,17 +154,7 @@ class AuthController extends Controller
             'success' => true,
             'data' => $user,
         ], 200);
-    } catch (ValidationException $e) {
-        return response([
-            'success' => false,
-            'errors' => $e->errors(),
-        ], 422);
-    } catch (Exception $e) {
-        return response([
-            'success' => false,
-            'message' => 'An error occurred.',
-        ], 500);
-    }
+    
     }
 
 
