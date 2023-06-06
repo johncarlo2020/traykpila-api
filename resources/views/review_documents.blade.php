@@ -147,7 +147,7 @@
                                     <div class="col">
                                         <p class="fs-3">Front</p>               
                                         <img class="myImg img-fluid img-thumbnail" 
-                                            src="{{ $license[0]->front_image ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
+                                            src="http://31.187.75.224/traykpila-api/storage/app/images/{{ $license[0]->front_image ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
                                             width="400" 
                                             height="600" 
                                             alt="">
@@ -167,7 +167,7 @@
                                     <div class="col">
                                         <p class="fs-3">Back</p>
                                     <img class="myImg img-fluid img-thumbnail" 
-                                        src="{{ $license[0]->back_image ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
+                                        src="http://31.187.75.224/traykpila-api/storage/app/images/{{ $license[0]->back_image ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
                                         width="400" 
                                         height="600" 
                                         alt=""> </div>
@@ -184,7 +184,7 @@
                                     <div class="col">
                                         <p class="fs-3">Tricycle Official Receipt</p>                         
                                         <img class="myImg img-fluid img-thumbnail" 
-                                        src="{{ $tricycle[0]->or ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
+                                        src="http://31.187.75.224/traykpila-api/storage/app/images/{{ $tricycle[0]->or ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
                                         width="400" 
                                         height="600" 
                                         alt="">
@@ -204,7 +204,7 @@
                                     <div class="col">
                                         <p class="fs-3">Tricycle Certificate OF Registration</p>
                                     <img class="myImg img-fluid img-thumbnail" 
-                                        src="{{ $tricycle[0]->cr ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
+                                        src="'http://31.187.75.224/traykpila-api/storage/app/images/'{{ $tricycle[0]->cr ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
                                         width="400" 
                                         height="600" 
                                         alt=""></div>
