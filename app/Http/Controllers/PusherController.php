@@ -134,11 +134,10 @@ class PusherController extends Controller
         $details = [
             'booking' => $booking,
             'driver' => User::findOrFail($booking->driver_id ),
-            'tricycle' => Tricycle::where('user_id', $booking->driver_id )->firstOrFail()
+            'tricycle' =>$tricyle = tricycle::where('user_id',$value->driver_id)->get()
         ];
 
         event(new BookingDriverOngoing($details));
-
         return response()->json(['booking' => $booking]);
     }
 
