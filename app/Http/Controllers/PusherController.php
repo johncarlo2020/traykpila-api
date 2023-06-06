@@ -113,7 +113,7 @@ class PusherController extends Controller
         $details = [
             'booking' => $booking,
             'driver' => User::find($attrs['driver_id']),
-            'tricycle' => Tricycle::where('user_id', $attrs['driver_id'])->find()
+            'tricycle' => Tricycle::where('user_id', $attrs['driver_id'])->get()
         ];
 
         event(new BookingDriverAccepted($details));
