@@ -118,44 +118,50 @@ class AuthController extends Controller
 
 
 
-    public function personal_information(Request $request){
-       
-        $attrs= $request->validate([
-            'id'=>'required',
+    public function personal_information(Request $request)
+{
+    try {
+        $attrs = $request->validate([
+            'id' => 'required',
             'nationality' => 'required',
-            'emergency_name'=>'String',
-            'emergency_relationship'=>'String',
-            'emergency_number'=>'String',
-            'emergency_address'=>'String',
+            'emergency_name' => 'nullable|string',
+            'emergency_relationship' => 'nullable|string',
+            'emergency_number' => 'nullable|string',
+            'emergency_address' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
-           // Get the uploaded file from the request
-           $image = $request->file('image');
-
-           // Generate a unique filename for the uploaded image
-           $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-
-           // Move the uploaded file to a public directory
-           $image->move(public_path('images'), $filename);
-
-
-        $user = User::firstOrNew(['id' => $attrs['id']]);
+        $user = User::findOrFail($attrs['id']);
         $user->nationality = $attrs['nationality'];
         $user->emergency_contact = $attrs['emergency_name'];
         $user->emergency_relationship = $attrs['emergency_relationship'];
         $user->emergency_number = $attrs['emergency_number'];
         $user->emergency_address = $attrs['emergency_address'];
-        $user->image = $filename;
-        $user->save();
 
+        $image = $request->file('image');
+        $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->storeAs('images', $filename);
+        $user->image = $filename;
+
+        $user->save();
 
         return response([
             'success' => true,
             'data' => $user,
         ], 200);
-    
+    } catch (ValidationException $e) {
+        return response([
+            'success' => false,
+            'errors' => $e->errors(),
+        ], 422);
+    } catch (Exception $e) {
+        return response([
+            'success' => false,
+            'message' => 'An error occurred.',
+        ], 500);
     }
+}
+
 
 
     public function verify_documents(Request $request){
