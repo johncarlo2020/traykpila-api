@@ -137,10 +137,10 @@ class AuthController extends Controller
            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
 
            // Move the uploaded file to a public directory
-           $image->storeAs('images', $filename);
+           $image->move(public_path('images'), $filename);
 
 
-        $user = User::firstOrNew($attrs['id']);
+        $user = User::firstOrNew(['id' => $attrs['id']]);
         $user->nationality = $attrs['nationality'];
         $user->emergency_contact = $attrs['emergency_name'];
         $user->emergency_relationship = $attrs['emergency_relationship'];
