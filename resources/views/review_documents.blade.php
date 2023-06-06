@@ -184,7 +184,7 @@
                                     <div class="col">
                                         <p class="fs-3">Tricycle Official Receipt</p>                         
                                         <img class="myImg img-fluid img-thumbnail" 
-                                        src="http://31.187.75.224/traykpila-api/storage/app/images/{{ $tricycle[0]->or ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
+                                        src="http://31.187.75.224/traykpila-api/storage/app/images/{{ $tricycle[0]->or}} ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
                                         width="400" 
                                         height="600" 
                                         alt="">
@@ -204,7 +204,7 @@
                                     <div class="col">
                                         <p class="fs-3">Tricycle Certificate OF Registration</p>
                                     <img class="myImg img-fluid img-thumbnail" 
-                                        src="'http://31.187.75.224/traykpila-api/storage/app/images/'{{ $tricycle[0]->cr ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
+                                        src="'http://31.187.75.224/traykpila-api/storage/app/images/'{{ $tricycle[0]->cr}} ?? 'http://31.187.75.224/traykpila-api/storage/app/images/default_image.jpg' }}" 
                                         width="400" 
                                         height="600" 
                                         alt=""></div>
