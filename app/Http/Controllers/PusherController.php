@@ -8,6 +8,8 @@ use App\Events\BookingEvent;
 use App\Events\BookingListEvent;
 use App\Events\BookingDriverAccepted;
 use App\Events\BookingDriverOngoing;
+use App\Events\BookingDriverPickedup;
+
 
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -129,7 +131,18 @@ class PusherController extends Controller
 
         $booking = Booking::find($attrs['booking_id']);
         $booking->status            = 2;
+        $fare = $booking->fare;
         $booking->save();
+
+        $halfFare=$fare/2;
+
+        $driver = User::find($booking->driver_id);
+        $driver->balance = $driver->balance+=$halfFare;
+        $driver->save();
+
+        $passenger = User::find($booking->passenger_id);
+        $passenger->balance = $passenger->balance-=$halfFare;
+        $passenger->save();
 
         $details = [
             'booking' => $booking,
@@ -138,6 +151,26 @@ class PusherController extends Controller
         ];
 
         event(new BookingDriverOngoing($details));
+        return response()->json(['booking' => $details]);
+    }
+
+    public function BookingDriverPickedup(Request $request)
+    {
+        $attrs = $request->validate([
+            'booking_id' => 'required|integer',
+        ]);
+
+        $booking = Booking::find($attrs['booking_id']);
+        $booking->status            = 3;
+        $booking->save();
+
+        $details = [
+            'booking' => $booking,
+            'driver' => User::findOrFail($booking->driver_id ),
+            'tricycle' =>tricycle::where('user_id',$booking->driver_id)->get()
+        ];
+
+        event(new BookingDriverPickedup($details));
         return response()->json(['booking' => $details]);
     }
 
@@ -154,7 +187,6 @@ class PusherController extends Controller
                 $value->driver->tricycle=$tricyle;
             }
         }
-        event(new BookingListEvent($booking));
         return response()->json(['booking' => $booking]);
     }
 
