@@ -9,6 +9,8 @@ use App\Events\BookingListEvent;
 use App\Events\BookingDriverAccepted;
 use App\Events\BookingDriverOngoing;
 use App\Events\BookingDriverPickedup;
+use App\Events\BookingDriverArrive;
+
 
 
 use Illuminate\Http\Request;
@@ -171,6 +173,37 @@ class PusherController extends Controller
         ];
 
         event(new BookingDriverPickedup($details));
+        return response()->json(['booking' => $details]);
+    }
+
+    public function BookingDriverArrive(Request $request)
+    {
+        $attrs = $request->validate([
+            'booking_id' => 'required|integer',
+        ]);
+
+        $booking = Booking::find($attrs['booking_id']);
+        $booking->status            = 4;
+        $fare = $booking->fare;
+        $booking->save();
+
+        $halfFare=$fare/2;
+
+        $driver = User::find($booking->driver_id);
+        $driver->balance = $driver->balance+=$halfFare;
+        $driver->save();
+
+        $passenger = User::find($booking->passenger_id);
+        $passenger->balance = $passenger->balance-=$halfFare;
+        $passenger->save();
+
+        $details = [
+            'booking' => $booking,
+            'driver' => User::findOrFail($booking->driver_id ),
+            'tricycle' =>tricycle::where('user_id',$booking->driver_id)->get()
+        ];
+
+        event(new BookingDriverArrive($details));
         return response()->json(['booking' => $details]);
     }
 
