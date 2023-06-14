@@ -43,6 +43,8 @@ Route::post('/activeDriver',[PusherController::class,'activeDriver']);
 Route::post('/bookingList',[PusherController::class,'bookingList']);
 Route::post('/bookingAccept',[PusherController::class,'BookingDriverAccept']);
 Route::post('/bookingOngoing',[PusherController::class,'BookingDriverOngoing']);
+Route::post('/bookingPickedup',[PusherController::class,'BookingDriverPickedup']);
+
 
 
 

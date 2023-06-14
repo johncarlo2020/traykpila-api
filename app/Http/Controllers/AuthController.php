@@ -55,7 +55,7 @@ class AuthController extends Controller
 
     public function upload_license(Request $request)
     {
-        try {
+      
             $attrs = $request->validate([
                 'id' => 'required',
                 'license_number' => 'required|string',
@@ -85,17 +85,6 @@ class AuthController extends Controller
                 'success' => true,
                 'data' => $license,
             ], 200);
-        } catch (ValidationException $e) {
-            return response([
-                'success' => false,
-                'errors' => $e->errors(),
-            ], 422);
-        } catch (Exception $e) {
-            return response([
-                'success' => false,
-                'message' => 'An error occurred.',
-            ], 500);
-        }
     }
 
     public function get_license(Request $request){
@@ -119,48 +108,37 @@ class AuthController extends Controller
 
 
     public function personal_information(Request $request)
-{
-    try {
-        $attrs = $request->validate([
-            'id' => 'required',
-            'nationality' => 'required',
-            'emergency_name' => 'nullable|string',
-            'emergency_relationship' => 'nullable|string',
-            'emergency_number' => 'nullable|string',
-            'emergency_address' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-        ]);
+    {
+            $attrs = $request->validate([
+                'id' => 'required',
+                'nationality' => 'required',
+                'emergency_name' => 'nullable|string',
+                'emergency_relationship' => 'nullable|string',
+                'emergency_number' => 'nullable|string',
+                'emergency_address' => 'nullable|string',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            ]);
 
-        $user = User::findOrFail($attrs['id']);
-        $user->nationality = $attrs['nationality'];
-        $user->emergency_contact = $attrs['emergency_name'];
-        $user->emergency_relationship = $attrs['emergency_relationship'];
-        $user->emergency_number = $attrs['emergency_number'];
-        $user->emergency_address = $attrs['emergency_address'];
+            $user = User::find($attrs['id']);
+            $user->nationality = $attrs['nationality'];
+            $user->emergency_contact = $attrs['emergency_name'];
+            $user->emergency_relationship = $attrs['emergency_relationship'];
+            $user->emergency_number = $attrs['emergency_number'];
+            $user->emergency_address = $attrs['emergency_address'];
 
-        $image = $request->file('image');
-        $filename = uniqid() . '.' . $image->getClientOriginalExtension();
-        $image->storeAs('images', $filename);
-        $user->image = $filename;
+            $image = $request->file('image');
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('images', $filename);
+            $user->image = $filename;
 
-        $user->save();
+            $user->save();
 
-        return response([
-            'success' => true,
-            'data' => $user,
-        ], 200);
-    } catch (ValidationException $e) {
-        return response([
-            'success' => false,
-            'errors' => $e->errors(),
-        ], 422);
-    } catch (Exception $e) {
-        return response([
-            'success' => false,
-            'message' => 'An error occurred.',
-        ], 500);
+            return response([
+                'success' => true,
+                'data' => $user,
+            ], 200);
+        
     }
-}
 
 
 
