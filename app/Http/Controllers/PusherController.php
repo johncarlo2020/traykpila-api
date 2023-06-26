@@ -112,11 +112,13 @@ class PusherController extends Controller
         $booking->driver_lat        = $attrs['driver_lat'];
         $booking->driver_lng        = $attrs['driver_lng'];
         $booking->status            = 1;
+        $passenger= User::find($booking->passenger_id);
         $booking->save();
 
         $details = [
             'booking' => $booking,
             'driver' => User::find($attrs['driver_id']),
+            'passenger' => $passenger,
             'tricycle' => tricycle::where('user_id', $attrs['driver_id'])->get()
         ];
 
@@ -149,6 +151,7 @@ class PusherController extends Controller
         $details = [
             'booking' => $booking,
             'driver' => User::findOrFail($booking->driver_id ),
+            'passenger'=>User::findOrFail($booking->passenger_id ),
             'tricycle' =>tricycle::where('user_id',$booking->driver_id)->get()
         ];
 
