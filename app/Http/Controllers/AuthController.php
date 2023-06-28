@@ -34,16 +34,17 @@ class AuthController extends Controller
             $path='';
            }
 
-        $user = User::create([
+        $userCreate = User::create([
             'name'=>$attrs['name'],
             'email'=>$attrs['email'],
             'password'=>bcrypt($attrs['password']),
             'role'=> $attrs['role'],
             'Verified' => '0',
-            'balance' => 0,
             'address' =>$attrs['address'],
             'image'=>$path
         ]);
+
+        $user= User::find($userCreate->id);
 
 
         return response([
