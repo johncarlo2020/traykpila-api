@@ -111,8 +111,6 @@ class adminController extends Controller
         ->where('bookings.driver_id',$id)
         ->get();
 
-        dd($bookings);
-
         $total_bookings = booking::select(booking::raw('DATE(created_at) as total_booking'), booking::raw('COUNT(id) as total_booking_count'))
         ->where('driver_id',$id)
         ->groupBy('total_booking')
