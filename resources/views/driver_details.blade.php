@@ -42,7 +42,16 @@ use Carbon\Carbon;
                                     <h5 class="">Account Status: Sufficient TPC</h5> 
                                  
                         <div class="row">
-                            <div class="col-xl-12">
+                            <div class="col-xl-6">
+                                <div class="card mb-4 shadow round">
+                                    <div class="card-header font-weight-bold" style="background-color: #2591c3;">
+                                        <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-chart-bar me-1 my-0"></i>Total Fare in the month of  {{date('F, Y');}} </p>
+                                    </div>
+                          
+                                    <div class="card-body"><canvas id="myBarChart2" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
                                 <div class="card mb-4 shadow round">
                                     <div class="card-header font-weight-bold" style="background-color: #2591c3;">
                                         <p class="font-weight-bold text-white mb-0" style="font-weight:bold;"><i class="fas fa-chart-bar me-1 my-0"></i>Total Passenger in the month of  {{date('F, Y');}} </p>
@@ -78,9 +87,8 @@ use Carbon\Carbon;
                                         <tr>
                                         
                                             <td>{{$booking->passenger}}</td>
-                                            <td>{{Carbon::parse($booking->created_at)->format('F d Y H:i');}}</td>
-
-                                            <td>{{Carbon::parse($booking->updated_at)->format('F d Y H:i');}}</td>
+                                            <td>{{Carbon::parse($booking->created_at)->format('F d Y g:i A');}}</td>
+                                            <td>{{Carbon::parse($booking->updated_at)->format('F d Y g:i A');}}</td>
                                             <th>{{$booking->created_at->diffInMinutes($booking->updated_at)}} min</th>
                                             @if($booking->status==0)
                                             <td>Failed</td>
@@ -189,7 +197,57 @@ var myLineChart = new Chart(ctx, {
             yAxes: [{
                 ticks: {
                     min: 0,
-                    max: 50,
+                    max: 10,
+                    maxTicksLimit: 10
+                },
+                gridLines: {
+                    display: true
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
+    }
+});
+
+</script>
+
+<script>
+// Set new default font family and font color to mimic Bootstrap's default styling
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+// Bar Chart Example
+var ctx = document.getElementById("myBarChart2");
+var myLineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {!! json_encode($parsedDates) !!},
+        datasets: [{
+            label: "Passenger",
+            backgroundColor: "rgba(0, 125, 2)",
+            borderColor: "rgba(0, 125, 2)",
+            data:{!! json_encode($fare) !!},
+        }],
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'month'
+                },
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    maxTicksLimit: 6
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 200,
                     maxTicksLimit: 10
                 },
                 gridLines: {
