@@ -103,23 +103,15 @@ class adminController extends Controller
         $reviews = reviews::where('users_id',$id)
         ->get();
 
+       
 
-
-
-
-
-
-
-
-        $bookings = booking::select('bookings.*','u2.name AS passenger','payment.amount')
+        $bookings = booking::select('bookings.*','u2.name AS passenger')
         ->join('users As u1', 'u1.id', '=', 'bookings.driver_id')
         ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
-        ->join('payment', 'bookings.id', '=', 'payment.bookings_id')
         ->where('bookings.driver_id',$id)
         ->get();
 
-
-
+        dd($bookings);
 
         $total_bookings = booking::select(booking::raw('DATE(created_at) as total_booking'), booking::raw('COUNT(id) as total_booking_count'))
         ->where('driver_id',$id)
@@ -138,8 +130,7 @@ class adminController extends Controller
         $parsedDates = [];
 
         foreach ($dates as $date) {
-        $parsedDates[] = Carbon::parse($date)->format('F d');
-
+            $parsedDates[] = Carbon::parse($date)->format('F d');
         }
 
 
