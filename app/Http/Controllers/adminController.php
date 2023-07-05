@@ -111,7 +111,7 @@ class adminController extends Controller
         ->where('bookings.driver_id',$id)
         ->get();
 
-        $total_bookings = booking::select(booking::raw('DATE(created_at) as total_booking'), booking::raw('COUNT(id) as total_booking_count'))
+        $total_bookings = booking::select(booking::raw('DATE(created_at) as total_booking'), booking::raw('sum(passenger_count) as total_booking_count'))
         ->where('driver_id',$id)
         ->groupBy('total_booking')
         ->get();
@@ -121,10 +121,17 @@ class adminController extends Controller
         ->groupBy('total_booking')
         ->get();
 
+        $total_bookings_passenger = booking::select(booking::raw('DATE(created_at) as total_booking'), booking::raw('sum(passenger_count) as total_booking_passenger'))
+        ->where('driver_id',$id)
+        ->groupBy('total_booking')
+        ->get();
+
 
         $total = $total_bookings->pluck('total_booking');
         $count = $total_bookings->pluck('total_booking_count');
         $fare = $total_bookings_fare->pluck('total_booking_fare');
+        $passenger = $total_bookings_passenger->pluck('total_booking_passenger');
+
 
         // $date = Carbon::parse('2023-02-19','2023-02-14');
 
@@ -140,7 +147,7 @@ class adminController extends Controller
 
 
 
-        return view('driver_details',compact('users','bookings','parsedDates','count','total','cashtpc','driver','reviews','fare'));
+        return view('driver_details',compact('users','bookings','parsedDates','count','total','cashtpc','driver','reviews','fare','passenger'));
      }
 
 
