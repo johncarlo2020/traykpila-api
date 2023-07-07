@@ -109,6 +109,7 @@ class adminController extends Controller
         ->join('users As u1', 'u1.id', '=', 'bookings.driver_id')
         ->join('users As u2', 'u2.id', '=', 'bookings.passenger_id')
         ->where('bookings.driver_id',$id)
+        ->orderBy('created_at','asc')
         ->get();
 
         $total_bookings = booking::select(booking::raw('DATE(created_at) as total_booking'), booking::raw('sum(passenger_count) as total_booking_count'))

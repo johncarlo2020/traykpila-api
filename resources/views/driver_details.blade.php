@@ -39,7 +39,6 @@ use Carbon\Carbon;
                             <li class="breadcrumb-item active">Address: {{$users[0]->address}}  </li>
                         </ol>
                                 
-                                    <h5 class="">Account Status: Sufficient TPC</h5> 
                                  
                         <div class="row">
                             <div class="col-xl-6">
